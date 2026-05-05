@@ -3,5 +3,5 @@ compatibility_date = "2025-01-01"
 account_id = "35039e71505abf0847264de498ad5957"
 
 [assets]
-directory = "./"
+directory = "./public"
 not_found_handling = "single-page-application"
