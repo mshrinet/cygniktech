@@ -59,6 +59,10 @@
   }
   .stack-row .lbl { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase; }
   .stack-row .val { font-size: 16px; line-height: 1.5; color: var(--fg-2); }
+  @media (max-width: 720px) {
+    .stack-row { grid-template-columns: 1fr; gap: 8px; }
+    .stack-row .lbl { padding-bottom: 0; }
+  }
 </style>
 </head>
 <body>

@@ -550,6 +550,11 @@
   .products__row .name { font-family: var(--serif); font-size: 22px; line-height: 1.1; }
   .products__row .stat { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; text-align: right; }
   @media (max-width: 900px) { .products { padding: 32px; } .products__grid { grid-template-columns: 1fr; gap: 32px; } }
+  @media (max-width: 600px) {
+    .products { padding: 24px; }
+    .products__row { grid-template-columns: 40px 1fr; gap: 12px; }
+    .products__row .stat { display: none; }
+  }
 
   /* === Manifesto pull === */
   .manifesto-pull {
@@ -963,7 +968,7 @@ Sarah
 <!-- ===== MANIFESTO PULL ===== -->
 <section class="section section--tight" style="background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
   <div class="shell">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
+    <div class="manifesto-grid">
       <div class="manifesto-pull">
         <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>Our approach</div>
         <p class="quote">We're not here to <span class="it">sell you AI.</span> We're here to tell you where it pays — <span class="it">and where it doesn't.</span></p>
