@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MSP / IT — Cygnik Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="assets/site.css" />
+<style>
+  .msp-hero { padding-top: 168px; padding-bottom: 80px; position: relative; overflow: hidden; }
+  .msp-hero .mesh { opacity: 0.4; }
+  .msp-hero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+  .msp-hero h1 { font-family: var(--serif); font-size: clamp(48px, 6.4vw, 96px); line-height: 0.96; letter-spacing: -0.025em; }
+  .msp-hero h1 .it { font-style: italic; color: var(--accent); }
+  .msp-body p { font-size: 17px; line-height: 1.6; color: var(--fg-2); margin-bottom: 16px; max-width: 56ch; }
+  .msp-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 64px;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .msp-pillar {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 32px;
+    min-height: 220px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .msp-pillar .num { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; }
+  .msp-pillar .nm { font-family: var(--serif); font-size: 26px; letter-spacing: -0.015em; }
+  .msp-pillar p { font-size: 14px; line-height: 1.55; color: var(--fg-2); margin: 0; }
+  @media (max-width: 900px) {
+    .msp-hero__inner { grid-template-columns: 1fr; }
+    .msp-pillars { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-mount"></div>
+
+<header class="msp-hero">
+  <div class="mesh"></div>
+  <div class="gridbg"></div>
+  <div class="shell msp-hero__inner">
+    <div>
+      <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>/ MSP</div>
+      <h1>The IT foundation<br/>your AI <span class="it">runs on.</span></h1>
+    </div>
+    <div class="msp-body">
+      <p>We came up running managed services. We still do, for clients who want a single firm covering the whole stack — infrastructure, security, identity, backup, helpdesk — alongside their AI practice.</p>
+      <p>This isn't our identity anymore. But the foundation has to be sound for the AI to run on top of it. So we kept the muscle, sized to clients who want it.</p>
+      <p style="font-family: var(--mono); font-size: 12px; color: var(--fg-3); letter-spacing: 0.06em; margin-top: 24px;">// One section, not eight service lines.</p>
+    </div>
+  </div>
+</header>
+
+<section class="section section--tight">
+  <div class="shell">
+    <div class="msp-pillars">
+      <div class="msp-pillar">
+        <div class="num">M-01</div>
+        <div class="nm">Infrastructure</div>
+        <p>Servers, networks, cloud workloads, identity. Provisioning, patching, monitoring, capacity. The plumbing.</p>
+      </div>
+      <div class="msp-pillar">
+        <div class="num">M-02</div>
+        <div class="nm">Security</div>
+        <p>Endpoint protection, MDR, vulnerability management, policy. Compliance support for regulated verticals.</p>
+      </div>
+      <div class="msp-pillar">
+        <div class="num">M-03</div>
+        <div class="nm">Cloud</div>
+        <p>M365, Google Workspace, Azure, AWS. Tenant administration, cost management, governance, migration.</p>
+      </div>
+      <div class="msp-pillar">
+        <div class="num">M-04</div>
+        <div class="nm">Backup &amp; recovery</div>
+        <p>Tested backups, disaster recovery runbooks, ransomware-aware retention. Tested means actually restored, not just scheduled.</p>
+      </div>
+      <div class="msp-pillar">
+        <div class="num">M-05</div>
+        <div class="nm">Helpdesk</div>
+        <p>L1/L2 support for end users. SLA-backed. Same engineers who know your stack — not a stranger every ticket.</p>
+      </div>
+      <div class="msp-pillar">
+        <div class="num">M-06</div>
+        <div class="nm">Strategic IT</div>
+        <p>Roadmapping, vendor selection, budget planning. Quarterly reviews tied to business outcomes — not just uptime.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 80px; text-align: center;">
+      <p class="lede" style="margin: 0 auto 24px;">For most clients, MSP and AI run side-by-side. The same team. One number to call.</p>
+      <a href="contact.html" class="btn btn--ghost">Talk to us about IT <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-mount"></div>
+
+<script src="assets/shared.js"></script>
+<script src="assets/chrome.js"></script>
+<script>
+document.getElementById("nav-mount").outerHTML = window.cygnikNav("msp");
+document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
+</script>
+</body>
+</html>

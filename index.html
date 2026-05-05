@@ -1,0 +1,1220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cygnik Tech — AI Consulting for Small & Mid-Sized Business</title>
+<meta name="description" content="Practical AI for SMBs. Strategy, automation, integration, and ongoing operations — built around measurable ROI and human accountability." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="assets/site.css" />
+<style>
+  /* ==== Home-only ==== */
+
+  /* Hero */
+  .hero {
+    position: relative;
+    padding-top: 168px;
+    padding-bottom: 120px;
+    overflow: hidden;
+    min-height: 92vh;
+    display: block;
+  }
+  .hero__inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero__head { display: flex; flex-direction: column; gap: 32px; }
+  .hero__bar {
+    display: flex; align-items: center; gap: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .hero__bar .sep { width: 24px; height: 1px; background: var(--line-strong); }
+  .hero__title {
+    font-family: var(--serif);
+    font-size: clamp(54px, 8vw, 124px);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  .hero__title .it { font-style: italic; color: var(--accent); }
+  .hero__title .stack { display: block; }
+  .hero__sub {
+    font-size: clamp(17px, 1.4vw, 21px);
+    line-height: 1.45;
+    color: var(--fg-2);
+    max-width: 52ch;
+  }
+  .hero__cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    align-items: center;
+  }
+  .hero__meta {
+    display: flex; gap: 32px;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .hero__meta strong { color: var(--fg); font-weight: 500; }
+
+  /* Globe */
+  .hero__globe {
+    position: relative;
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: 540px;
+    margin-left: auto;
+  }
+  .globe-wrap {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+  }
+  .globe-svg {
+    width: 100%; height: 100%;
+    animation: globeRotate 80s linear infinite;
+    transform-origin: center;
+  }
+  @keyframes globeRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .globe-overlay {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  .globe-overlay .ping {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent-mid);
+    animation: ping 2.6s ease-out infinite;
+  }
+  @keyframes ping {
+    0% { box-shadow: 0 0 0 0 var(--accent-mid); transform: scale(1); }
+    70% { box-shadow: 0 0 0 18px rgba(0,0,0,0); transform: scale(1.2); }
+    100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); transform: scale(1); }
+  }
+  .globe-overlay .ping.t { top: 30%; left: 22%; }
+  .globe-overlay .ping.w { top: 56%; left: 28%; animation-delay: -1.3s; }
+  .globe-overlay .label {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    border-left: 1px solid var(--line-strong);
+    padding-left: 10px;
+  }
+  .globe-overlay .label.t { top: 28%; left: 26%; }
+  .globe-overlay .label.w { top: 54%; left: 32%; }
+
+  /* Hero bottom strip */
+  .hero__strip {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    margin-top: 80px;
+  }
+  .hero__strip > div {
+    padding: 28px 0;
+    border-right: 1px solid var(--line);
+  }
+  .hero__strip > div:first-child { padding-right: 32px; }
+  .hero__strip > div:not(:first-child) { padding-left: 32px; padding-right: 32px; }
+  .hero__strip > div:last-child { border-right: 0; }
+  .hero__strip .num {
+    font-family: var(--serif);
+    font-size: 40px;
+    color: var(--fg);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .hero__strip .lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--fg-3);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .hero__inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero__strip { grid-template-columns: 1fr; }
+    .hero__strip > div { border-right: 0; border-bottom: 1px solid var(--line); padding: 20px 0 !important; }
+  }
+
+  /* === Marquee === */
+  .marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 18px 0;
+    background: var(--bg-2);
+  }
+  .marquee__track {
+    display: flex; gap: 48px;
+    width: max-content;
+    animation: scroll 50s linear infinite;
+  }
+  .marquee__item {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    display: flex; align-items: center; gap: 48px;
+    white-space: nowrap;
+  }
+  .marquee__item .pip {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* === ROI Calculator === */
+  .roi-section { background: var(--bg); }
+  .roi {
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+  }
+  .roi__head {
+    padding: 32px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: 1 / -1;
+    background: linear-gradient(180deg, rgba(91,200,214,0.04), transparent);
+  }
+  .roi__head .ttl {
+    font-family: var(--serif);
+    font-size: 32px;
+    line-height: 1;
+  }
+  .roi__head .stat {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .roi__head .stat span { color: var(--accent); }
+  .roi__inputs {
+    padding: 40px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .roi__output {
+    padding: 40px;
+    background: var(--bg-3);
+    display: flex; flex-direction: column; justify-content: space-between;
+    gap: 24px;
+    position: relative;
+  }
+  .roi__output::before {
+    content: "";
+    position: absolute; top: 0; right: 0; width: 100%; height: 200%;
+    background:
+      radial-gradient(circle at 80% 20%, var(--accent-soft) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .roi-field { display: flex; flex-direction: column; gap: 10px; }
+  .roi-field__top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--fg-3);
+    text-transform: uppercase;
+  }
+  .roi-field__top .val { color: var(--fg); font-size: 18px; font-family: var(--mono); letter-spacing: 0; }
+  .roi-field input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%; height: 2px;
+    background: var(--line-strong);
+    outline: none;
+    border-radius: 999px;
+  }
+  .roi-field input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: grab;
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .roi-field input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: grab;
+    border: 0;
+  }
+  .roi__big {
+    font-family: var(--serif);
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+  }
+  .roi__big .currency { color: var(--fg-3); font-size: 0.45em; vertical-align: super; margin-right: 4px; font-family: var(--mono); }
+  .roi__big small { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3); margin-top: 8px; font-weight: 400; }
+  .roi__breakdown {
+    display: flex; flex-direction: column; gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    position: relative; z-index: 1;
+  }
+  .roi__breakdown .row {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--fg-2);
+  }
+  .roi__breakdown .row .lbl { color: var(--fg-3); }
+  .roi__assume {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-4);
+    letter-spacing: 0.06em;
+  }
+  @media (max-width: 900px) {
+    .roi { grid-template-columns: 1fr; }
+    .roi__inputs { border-right: 0; border-bottom: 1px solid var(--line); padding: 28px; }
+    .roi__output { padding: 28px; }
+  }
+
+  /* === Services overview === */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .service-card {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 40px;
+    display: flex; flex-direction: column; gap: 24px;
+    min-height: 320px;
+    transition: background .25s;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card:hover { background: var(--bg-2); }
+  .service-card:hover .arr { transform: translate(4px, -4px); color: var(--accent); }
+  .service-card .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    letter-spacing: 0.12em;
+  }
+  .service-card .name {
+    font-family: var(--serif);
+    font-size: clamp(28px, 2.6vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin-top: 8px;
+  }
+  .service-card p { color: var(--fg-2); font-size: 15px; line-height: 1.55; max-width: 36ch; }
+  .service-card .tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: auto;
+  }
+  .service-card .arr {
+    position: absolute;
+    top: 36px; right: 36px;
+    color: var(--fg-3);
+    transition: transform .2s, color .2s;
+    font-family: var(--mono);
+    font-size: 16px;
+  }
+  @media (max-width: 720px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+
+  /* === Email streaming demo === */
+  .stream {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--bg-2);
+  }
+  .stream__col {
+    padding: 32px;
+    min-height: 480px;
+    position: relative;
+  }
+  .stream__col + .stream__col { border-left: 1px solid var(--line); background: var(--bg-3); }
+  .stream__head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .stream__head .led {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  .email {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--fg-2);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .email .lbl { color: var(--fg-4); }
+  .email .typed { color: var(--fg); }
+  .email .cursor {
+    display: inline-block;
+    width: 7px; height: 14px;
+    background: var(--accent);
+    vertical-align: middle;
+    animation: blink 0.8s steps(2, start) infinite;
+    margin-left: 2px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .stream__sub {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .stream__sub strong { color: var(--accent); display: block; font-family: var(--mono); font-size: 16px; letter-spacing: 0; margin-bottom: 4px; font-weight: 400; }
+  @media (max-width: 720px) {
+    .stream { grid-template-columns: 1fr; }
+    .stream__col + .stream__col { border-left: 0; border-top: 1px solid var(--line); }
+  }
+
+  /* === Verticals === */
+  .verticals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .vert {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 220px;
+    transition: background .2s;
+  }
+  .vert:hover { background: var(--bg-2); }
+  .vert .name {
+    font-family: var(--serif);
+    font-size: 28px;
+    letter-spacing: -0.015em;
+  }
+  .vert .num { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; }
+  .vert ul {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 6px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--fg-2);
+    letter-spacing: 0.04em;
+  }
+  .vert li { padding-left: 14px; position: relative; }
+  .vert li::before {
+    content: ""; position: absolute; left: 0; top: 8px;
+    width: 6px; height: 1px; background: var(--accent);
+  }
+  @media (max-width: 900px) { .verticals { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .verticals { grid-template-columns: 1fr; } }
+
+  /* === Process === */
+  .process {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  .process::before {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    background-size: 33% 100%;
+    background-repeat: no-repeat;
+    background-position: -33% 0;
+    animation: scan 4s linear infinite;
+  }
+  @keyframes scan {
+    from { background-position: -33% 0; }
+    to { background-position: 133% 0; }
+  }
+  .process__step {
+    padding: 40px 32px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 20px;
+    min-height: 280px;
+  }
+  .process__step:last-child { border-right: 0; }
+  .process__step .num {
+    font-family: var(--serif);
+    font-size: 64px;
+    line-height: 1;
+    color: var(--accent);
+    font-style: italic;
+  }
+  .process__step h3 {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+  }
+  .process__step p { font-size: 14px; color: var(--fg-2); line-height: 1.55; }
+  @media (max-width: 900px) { .process { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .process { grid-template-columns: 1fr; } }
+
+  /* === Products teaser === */
+  .products {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 64px;
+    background:
+      radial-gradient(ellipse 60% 80% at 100% 0%, var(--accent-soft), transparent 60%),
+      var(--bg-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .products__grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 48px;
+    align-items: end;
+  }
+  .products__list {
+    display: grid; gap: 0;
+    border-top: 1px solid var(--line-strong);
+  }
+  .products__row {
+    display: grid;
+    grid-template-columns: 60px 1fr 120px;
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+  }
+  .products__row .num { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; }
+  .products__row .name { font-family: var(--serif); font-size: 22px; line-height: 1.1; }
+  .products__row .stat { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; text-align: right; }
+  @media (max-width: 900px) { .products { padding: 32px; } .products__grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* === Manifesto pull === */
+  .manifesto-pull {
+    padding: 0 0 0 0;
+    text-align: left;
+    max-width: 24ch;
+  }
+  .manifesto-pull .quote {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5.6vw, 84px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+  }
+  .manifesto-pull .quote .it { font-style: italic; color: var(--accent); }
+
+  /* === Closing CTA === */
+  .closer {
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border-radius: 4px;
+    padding: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closer .mesh { opacity: 0.7; }
+  .closer .inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  @media (max-width: 720px) { .closer { padding: 48px 24px; } }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="index.html">
+      <span class="nav__mark">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <path d="M21 8 L21 18 Q21 22 17 22 L9 22 Q5 22 5 18 L5 8 Q5 4 9 4 L17 4 Q21 4 21 8 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M16 9 L11 13 L16 17" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Cygnik <span style="opacity:.5">/</span> <span style="color:var(--accent)">AI</span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html" class="is-active">Home</a>
+      <a href="services.html">Services</a>
+      <a href="verticals.html">Verticals</a>
+      <a href="approach.html">Approach</a>
+      <a href="msp.html">MSP</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a class="nav__cta" href="contact.html">Book intro <span class="arr">→</span></a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="mesh"></div>
+  <div class="gridbg"></div>
+  <div class="shell hero__inner">
+    <div class="hero__head">
+      <div class="hero__bar">
+        <span class="dot" style="display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;"></span>
+        <span>2026 / AI Consulting Practice</span>
+        <span class="sep"></span>
+        <span>Toronto · Washington</span>
+      </div>
+      <h1 class="hero__title">
+        <span class="stack">Stop paying</span>
+        <span class="stack">people to <span class="it">read</span></span>
+        <span class="stack">your inbox.</span>
+      </h1>
+      <p class="hero__sub">Business intelligence used to be enterprise-only. AI changed that. We help small and mid-sized businesses turn unstructured work — emails, PDFs, calls, forms — into measurable output. Practical. Safe. Accountable.</p>
+      <div class="hero__cta">
+        <a href="#roi" class="btn btn--primary">Run the numbers <span class="arr">→</span></a>
+        <a href="services.html" class="btn btn--ghost">See services</a>
+      </div>
+      <div class="hero__meta">
+        <span><strong>4</strong> &nbsp; service lines</span>
+        <span><strong>7</strong> &nbsp; verticals</span>
+        <span><strong>∞</strong> &nbsp; honest takes</span>
+      </div>
+    </div>
+    <div class="hero__globe">
+      <div class="globe-wrap">
+        <svg class="globe-svg" viewBox="-110 -110 220 220" fill="none">
+          <!-- outer ring -->
+          <circle cx="0" cy="0" r="100" stroke="var(--line-strong)" stroke-width="0.4"/>
+          <circle cx="0" cy="0" r="100" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="3 6"/>
+          <circle cx="0" cy="0" r="80" stroke="var(--line)" stroke-width="0.4"/>
+          <circle cx="0" cy="0" r="60" stroke="var(--line)" stroke-width="0.4"/>
+          <circle cx="0" cy="0" r="40" stroke="var(--line)" stroke-width="0.4"/>
+          <circle cx="0" cy="0" r="20" stroke="var(--line)" stroke-width="0.4"/>
+          <!-- meridians -->
+          <ellipse cx="0" cy="0" rx="100" ry="30" stroke="var(--line)" stroke-width="0.4"/>
+          <ellipse cx="0" cy="0" rx="100" ry="60" stroke="var(--line)" stroke-width="0.4"/>
+          <ellipse cx="0" cy="0" rx="100" ry="90" stroke="var(--line)" stroke-width="0.4"/>
+          <ellipse cx="0" cy="0" rx="30" ry="100" stroke="var(--line)" stroke-width="0.4"/>
+          <ellipse cx="0" cy="0" rx="60" ry="100" stroke="var(--line)" stroke-width="0.4"/>
+          <ellipse cx="0" cy="0" rx="90" ry="100" stroke="var(--line)" stroke-width="0.4"/>
+          <!-- continents (low-res blobs, illustrative) -->
+          <g fill="var(--accent)" opacity="0.18">
+            <path d="M-60,-40 Q-40,-50 -20,-44 L-10,-30 L-25,-15 L-50,-12 L-66,-25 Z"/>
+            <path d="M5,-35 Q30,-46 55,-30 L65,-10 L40,5 L10,-5 Z"/>
+            <path d="M-30,15 Q-10,8 15,18 L20,40 L0,52 L-25,42 Z"/>
+            <path d="M40,20 Q60,12 78,30 L70,52 L48,46 Z"/>
+            <path d="M-78,5 Q-65,-2 -55,12 L-60,28 L-78,22 Z"/>
+          </g>
+          <!-- routes -->
+          <g stroke="var(--accent)" stroke-width="0.6" fill="none" opacity="0.7">
+            <path d="M-60,-25 Q-30,-60 30,-15" stroke-dasharray="2 3"/>
+            <path d="M-55,-20 Q0,-90 60,5" stroke-dasharray="2 3"/>
+          </g>
+          <!-- nodes -->
+          <circle cx="-55" cy="-22" r="2.5" fill="var(--accent)"/>
+          <circle cx="-55" cy="-22" r="6" fill="none" stroke="var(--accent)" stroke-width="0.5"/>
+          <circle cx="35" cy="-12" r="2.5" fill="var(--accent)"/>
+          <circle cx="35" cy="-12" r="6" fill="none" stroke="var(--accent)" stroke-width="0.5"/>
+        </svg>
+        <div class="globe-overlay">
+          <div class="ping t"></div>
+          <div class="label t">Toronto / 43.65°N</div>
+          <div class="ping w"></div>
+          <div class="label w">Washington / 38.91°N</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell">
+    <div class="hero__strip">
+      <div>
+        <div class="num">$2,660<span style="opacity:.5;font-size:24px">–</span>$3,400</div>
+        <div class="lbl">Monthly cost of one staffer reading inbound email — before a quote is ever built</div>
+      </div>
+      <div>
+        <div class="num">14 days</div>
+        <div class="lbl">From discovery to a working agent in your first pilot workflow</div>
+      </div>
+      <div>
+        <div class="num">100%</div>
+        <div class="lbl">Of our deployments ship with named human owners and an off-switch</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MARQUEE ===== -->
+<section class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span class="marquee__item">Email triage <span class="pip"></span> Quote intake <span class="pip"></span> Document extraction <span class="pip"></span> Approval routing <span class="pip"></span> Invoice processing <span class="pip"></span> Claims triage <span class="pip"></span> Carrier comms <span class="pip"></span> Matter intake <span class="pip"></span> Patient referrals <span class="pip"></span></span>
+    <span class="marquee__item">Email triage <span class="pip"></span> Quote intake <span class="pip"></span> Document extraction <span class="pip"></span> Approval routing <span class="pip"></span> Invoice processing <span class="pip"></span> Claims triage <span class="pip"></span> Carrier comms <span class="pip"></span> Matter intake <span class="pip"></span> Patient referrals <span class="pip"></span></span>
+  </div>
+</section>
+
+<!-- ===== ROI CALCULATOR ===== -->
+<section class="section roi-section" id="roi">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ 01 — Calculator</div>
+        <div class="eyebrow"><span class="dot"></span>Lead with math</div>
+      </div>
+      <h2 class="h2">How much is your inbox <em style="font-style: italic; color: var(--accent);">actually</em> costing you?</h2>
+    </div>
+
+    <div class="roi" id="roi-app">
+      <div class="roi__head">
+        <div class="ttl">Inbox cost calculator</div>
+        <div class="stat"><span>Live</span> · adjust any input</div>
+      </div>
+      <div class="roi__inputs">
+        <div class="roi-field">
+          <div class="roi-field__top"><span>Inbound emails per day</span><span class="val" id="v-emails">120</span></div>
+          <input type="range" id="i-emails" min="20" max="500" value="120" step="5"/>
+        </div>
+        <div class="roi-field">
+          <div class="roi-field__top"><span>Minutes per email (read + respond)</span><span class="val" id="v-mins">4.5</span></div>
+          <input type="range" id="i-mins" min="1" max="15" value="4.5" step="0.5"/>
+        </div>
+        <div class="roi-field">
+          <div class="roi-field__top"><span>% needing follow-up</span><span class="val" id="v-followup">35%</span></div>
+          <input type="range" id="i-followup" min="0" max="80" value="35" step="5"/>
+        </div>
+        <div class="roi-field">
+          <div class="roi-field__top"><span>Loaded hourly cost (CAD)</span><span class="val" id="v-rate">$42</span></div>
+          <input type="range" id="i-rate" min="20" max="120" value="42" step="1"/>
+        </div>
+        <div class="roi-field">
+          <div class="roi-field__top"><span>Working days / month</span><span class="val" id="v-days">22</span></div>
+          <input type="range" id="i-days" min="15" max="25" value="22" step="1"/>
+        </div>
+      </div>
+      <div class="roi__output">
+        <div>
+          <div class="eyebrow" style="margin-bottom: 16px;"><span class="dot"></span>Monthly waste</div>
+          <div class="roi__big"><span class="currency">CAD</span><span id="o-monthly">3,234</span><small>per month — recoverable with workflow automation</small></div>
+        </div>
+        <div class="roi__breakdown">
+          <div class="row"><span class="lbl">Hours / month spent reading email</span><span id="o-hours">77.0 h</span></div>
+          <div class="row"><span class="lbl">Annual cost at this volume</span><span id="o-annual">$38,808</span></div>
+          <div class="row"><span class="lbl">Estimated automatable share</span><span id="o-auto">68%</span></div>
+          <div class="row"><span class="lbl">Estimated annual recovery</span><span id="o-recovery" style="color:var(--accent)">$26,389</span></div>
+        </div>
+        <div class="roi__assume">// Estimate. Actual recovery depends on email shape, source systems, and approval rules. We model this properly during the readiness assessment.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STREAMING EMAIL DEMO ===== -->
+<section class="section section--tight">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ 02 — In motion</div>
+        <div class="eyebrow"><span class="dot"></span>One inbound · One outbound</div>
+      </div>
+      <h2 class="h2">An agent reading a quote request, in real time.</h2>
+    </div>
+
+    <div class="stream">
+      <div class="stream__col">
+        <div class="stream__head">
+          <span>Inbound · 09:14:02</span>
+          <span class="led"></span>
+        </div>
+        <div class="email" id="email-in">
+          <span class="lbl">From:</span> sarah.lin@northvalley-mfg.com
+<span class="lbl">Subject:</span> Need pricing on 240 units, urgent
+<span class="lbl">Body:</span>
+Hi — we'd need 240 of the 6mm steel brackets, the ones with the powder-coat finish. Same spec as last March's order. Need delivered to our Brampton site by the 22nd. Can you also confirm if MOQ pricing still applies?
+
+Thanks,
+Sarah
+        </div>
+      </div>
+      <div class="stream__col">
+        <div class="stream__head">
+          <span>Agent draft · 09:14:09</span>
+          <span class="mono" style="color:var(--accent)">7s</span>
+        </div>
+        <div class="email">
+<span class="lbl">To:</span> Sarah Lin
+<span class="lbl">Subject:</span> Re: Pricing on 240 units — confirmed
+<span class="lbl">Draft:</span>
+<span id="email-out" class="typed"></span><span class="cursor" id="email-cursor"></span>
+        </div>
+        <div class="stream__sub">
+          <div><strong>240</strong>units extracted</div>
+          <div><strong>Mar '25</strong>order matched</div>
+          <div><strong>Human</strong>review required</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ 03 — Services</div>
+        <div class="eyebrow"><span class="dot"></span>Four ways to engage</div>
+      </div>
+      <h2 class="h2">From a single readiness assessment to fully managed agents — sized for SMB.</h2>
+    </div>
+
+    <div class="services-grid">
+      <a class="service-card" href="services-strategy.html">
+        <span class="num">01 / S-01</span>
+        <span class="arr">↗</span>
+        <div class="name">AI Strategy<br/>& Readiness</div>
+        <p>Assessment, use-case prioritization, ROI modeling, and a 90-day roadmap. The deliverable that tells you exactly where AI pays — and where it doesn't.</p>
+        <div class="tags">
+          <span class="chip">Assessment</span>
+          <span class="chip">Roadmap</span>
+          <span class="chip">ROI model</span>
+        </div>
+      </a>
+      <a class="service-card" href="services-automation.html">
+        <span class="num">02 / S-02</span>
+        <span class="arr">↗</span>
+        <div class="name">Workflow Automation<br/>& Agent Deployment</div>
+        <p>Email, document, and approval workflows. Human-in-loop where it matters, fully autonomous where it's safe. Shipped, monitored, owned.</p>
+        <div class="tags">
+          <span class="chip">Agents</span>
+          <span class="chip">WaaS</span>
+          <span class="chip">Human-in-loop</span>
+        </div>
+      </a>
+      <a class="service-card" href="services-integration.html">
+        <span class="num">03 / S-03</span>
+        <span class="arr">↗</span>
+        <div class="name">AI Integration</div>
+        <p>Connecting LLMs to the tools you already run — CRM, ERP, accounting, email, custom apps. We don't replace systems; we make them think.</p>
+        <div class="tags">
+          <span class="chip">CRM / ERP</span>
+          <span class="chip">APIs</span>
+          <span class="chip">Custom</span>
+        </div>
+      </a>
+      <a class="service-card" href="services-retainer.html">
+        <span class="num">04 / S-04</span>
+        <span class="arr">↗</span>
+        <div class="name">Ongoing AI Retainer</div>
+        <p>Agent monitoring, prompt optimization, governance reviews, incident response. AI needs maintenance like any system. We run it so you don't have to.</p>
+        <div class="tags">
+          <span class="chip chip--accent">Monthly</span>
+          <span class="chip">Governance</span>
+          <span class="chip">Optimization</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="section" style="background: var(--bg-2);">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ 04 — Process</div>
+        <div class="eyebrow"><span class="dot"></span>How an engagement runs</div>
+      </div>
+      <h2 class="h2">Discover, model, ship, run. We don't theorize — we deploy.</h2>
+    </div>
+
+    <div class="process">
+      <div class="process__step">
+        <div class="num">01</div>
+        <h3>Discover</h3>
+        <p>Two weeks. We map every workflow that touches unstructured input — emails, forms, PDFs, calls — and score each on cost, frequency, and risk.</p>
+        <div class="mono" style="color:var(--fg-3); margin-top: auto;">→ Heatmap</div>
+      </div>
+      <div class="process__step">
+        <div class="num">02</div>
+        <h3>Model</h3>
+        <p>We pick one or two workflows, model the ROI, design the agent's behaviour, and write the governance rules: who owns it, when humans intervene, how it fails safely.</p>
+        <div class="mono" style="color:var(--fg-3); margin-top: auto;">→ Roadmap + RACI</div>
+      </div>
+      <div class="process__step">
+        <div class="num">03</div>
+        <h3>Ship</h3>
+        <p>4–8 weeks per workflow. Connect to existing systems, train the agent on your real data, run shadow mode, then go live with named human reviewers.</p>
+        <div class="mono" style="color:var(--fg-3); margin-top: auto;">→ Working agent</div>
+      </div>
+      <div class="process__step">
+        <div class="num">04</div>
+        <h3>Run</h3>
+        <p>Monthly retainer. We monitor accuracy, retrain when models update, audit governance, and write you a one-page report on what the agent did and what it cost.</p>
+        <div class="mono" style="color:var(--fg-3); margin-top: auto;">→ Ongoing ops</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VERTICALS ===== -->
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ 05 — Verticals</div>
+        <div class="eyebrow"><span class="dot"></span>Where we've seen it work</div>
+      </div>
+      <h2 class="h2">Different industries. Same observation: the cost is in the unstructured work.</h2>
+    </div>
+
+    <div class="verticals">
+      <div class="vert">
+        <div class="num">V-01</div>
+        <div class="name">Legal</div>
+        <ul><li>Contract review &amp; redline</li><li>Matter intake</li><li>Document summarization</li><li>Billing narrative drafting</li></ul>
+      </div>
+      <div class="vert">
+        <div class="num">V-02</div>
+        <div class="name">Accounting & Finance</div>
+        <ul><li>Invoice processing</li><li>Reconciliation</li><li>Client comms</li><li>Tax prep triage</li></ul>
+      </div>
+      <div class="vert">
+        <div class="num">V-03</div>
+        <div class="name">Healthcare</div>
+        <ul><li>Patient intake</li><li>Referral processing</li><li>Clinical note drafting</li><li>Scheduling automation</li></ul>
+      </div>
+      <div class="vert">
+        <div class="num">V-04</div>
+        <div class="name">Insurance</div>
+        <ul><li>Claims triage</li><li>Policy Q&amp;A</li><li>Underwriting extraction</li><li>Renewal workflows</li></ul>
+      </div>
+      <div class="vert">
+        <div class="num">V-05</div>
+        <div class="name">Logistics & Trucking</div>
+        <ul><li>Load tender processing</li><li>Customs documentation</li><li>Carrier communication</li><li>POD reconciliation</li></ul>
+      </div>
+      <div class="vert">
+        <div class="num">V-06</div>
+        <div class="name">Professional Services</div>
+        <ul><li>Research synthesis</li><li>Proposal drafting</li><li>Client reporting</li><li>RFP response automation</li></ul>
+      </div>
+    </div>
+
+    <div style="margin-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <p class="mono" style="color: var(--fg-3); margin: 0;">+ Retail / E-commerce, Operations, Marketing, HR, Customer Service horizontals.</p>
+      <a href="verticals.html" class="btn btn--ghost">Explore all verticals <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MANIFESTO PULL ===== -->
+<section class="section section--tight" style="background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <div class="shell">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
+      <div class="manifesto-pull">
+        <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>Our approach</div>
+        <p class="quote">We're not here to <span class="it">sell you AI.</span> We're here to tell you where it pays — <span class="it">and where it doesn't.</span></p>
+      </div>
+      <div>
+        <p style="font-size: 17px; line-height: 1.55; margin-bottom: 24px;">Most AI consultants oversell. We came up through MSP — running the IT, the policies, and the people behind the technology. That gives us a different lens.</p>
+        <p style="font-size: 17px; line-height: 1.55; margin-bottom: 32px;">AI is not magic. It's a productivity tool, like email or Excel. The hard part is adoption, accountability, and governance. That's where we lead.</p>
+        <a href="approach.html" class="btn btn--ghost">Read the full approach <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section class="section">
+  <div class="shell">
+    <div class="products">
+      <div class="products__grid">
+        <div>
+          <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>What we're building</div>
+          <h2 class="h2" style="margin-bottom: 24px;">Beyond consulting — <em style="font-style: italic; color: var(--accent);">products</em>.</h2>
+          <p style="font-size: 16px; max-width: 36ch;">SMB-grade software built on the same principles as our practice: measurable outcomes, human oversight, practical adoption. Available 2026.</p>
+        </div>
+        <div class="products__list">
+          <div class="products__row"><span class="num">P-01</span><span class="name">Transportation management</span><span class="stat">In dev</span></div>
+          <div class="products__row"><span class="num">P-02</span><span class="name">Business process automation</span><span class="stat">In dev</span></div>
+          <div class="products__row"><span class="num">P-03</span><span class="name">Infrastructure monitoring</span><span class="stat">In dev</span></div>
+          <div class="products__row" style="border-bottom:0;"><span class="num">P-04</span><span class="name muted" style="color: var(--fg-4);">Early access program</span><span class="stat">Q2 2026</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSER ===== -->
+<section class="section">
+  <div class="shell">
+    <div class="closer">
+      <div class="mesh"></div>
+      <div class="inner">
+        <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>Start here</div>
+        <h2 class="display" style="font-size: clamp(40px, 6vw, 88px); margin-bottom: 24px;">Tell us where the work <em style="font-style: italic; color: var(--accent);">piles up.</em></h2>
+        <p class="lede" style="margin: 0 auto 32px;">A 30-minute intro call. We'll either give you a clear next step or tell you AI isn't the answer for that workflow. Both are useful.</p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="contact.html" class="btn btn--primary">Book intro <span class="arr">→</span></a>
+          <a href="approach.html" class="btn btn--ghost">Read our approach</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <p class="footer__manifesto">AI is a <span class="it">productivity tool</span>, not magic. We help you treat it that way.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services-strategy.html">AI Strategy &amp; Readiness</a></li>
+          <li><a href="services-automation.html">Workflow Automation</a></li>
+          <li><a href="services-integration.html">AI Integration</a></li>
+          <li><a href="services-retainer.html">Ongoing Retainer</a></li>
+          <li><a href="msp.html">MSP / IT</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Practice</h4>
+        <ul>
+          <li><a href="approach.html">Approach</a></li>
+          <li><a href="verticals.html">Verticals</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Cygnik</h4>
+        <ul>
+          <li><a href="#">Toronto, ON</a></li>
+          <li><a href="#">Washington, DC</a></li>
+          <li><a href="mailto:hello@cygnik.com">hello@cygnik.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Cygnik Tech Inc. — Built for SMB.</span>
+      <span class="city"><span class="pulse"></span>Online · TO ↔ DC</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="assets/shared.js"></script>
+<script>
+// ROI calculator
+(function () {
+  const ids = ["emails","mins","followup","rate","days"];
+  const inputs = {};
+  ids.forEach(id => inputs[id] = document.getElementById("i-" + id));
+  function fmt(n) { return n.toLocaleString("en-US", { maximumFractionDigits: 0 }); }
+  function fmt1(n) { return n.toLocaleString("en-US", { maximumFractionDigits: 1 }); }
+  function compute() {
+    const emails = +inputs.emails.value;
+    const mins = +inputs.mins.value;
+    const followupPct = +inputs.followup.value / 100;
+    const rate = +inputs.rate.value;
+    const days = +inputs.days.value;
+    // total minutes per day = emails*mins + emails*followupPct*mins (follow-ups roughly same effort)
+    const totalMinPerDay = emails * mins * (1 + followupPct);
+    const hoursPerMonth = totalMinPerDay / 60 * days;
+    const monthlyCost = hoursPerMonth * rate;
+    const annualCost = monthlyCost * 12;
+    // automatable share — softly correlated to email volume + follow-up complexity
+    const autoShare = Math.max(0.45, Math.min(0.78, 0.62 + (emails / 1500) - (followupPct * 0.18)));
+    const annualRecovery = annualCost * autoShare;
+
+    document.getElementById("v-emails").textContent = emails;
+    document.getElementById("v-mins").textContent = mins;
+    document.getElementById("v-followup").textContent = (followupPct*100).toFixed(0) + "%";
+    document.getElementById("v-rate").textContent = "$" + rate;
+    document.getElementById("v-days").textContent = days;
+
+    document.getElementById("o-monthly").textContent = fmt(monthlyCost);
+    document.getElementById("o-hours").textContent = fmt1(hoursPerMonth) + " h";
+    document.getElementById("o-annual").textContent = "$" + fmt(annualCost);
+    document.getElementById("o-auto").textContent = (autoShare * 100).toFixed(0) + "%";
+    document.getElementById("o-recovery").textContent = "$" + fmt(annualRecovery);
+  }
+  Object.values(inputs).forEach(el => el.addEventListener("input", compute));
+  compute();
+  // expose for tweaks
+  window.cygnikROI = { inputs, compute };
+})();
+
+// Email streaming animation
+(function () {
+  const text =
+"Hi Sarah —\n\n" +
+"Confirmed on the 240 × 6mm powder-coat brackets. Specs match your March 18, 2025 order (PO-4471), and MOQ pricing still applies at this volume — $14.20/unit, $3,408 subtotal.\n\n" +
+"We can deliver to the Brampton site by Friday Sept 19, three days ahead of your need-by. I've pre-cleared inventory and held the slot pending your confirmation.\n\n" +
+"Reply YES to release, or let me know if you'd like to adjust quantity or finish.\n\n" +
+"— Outbound Quote Agent (reviewed by D. Chen)";
+  const out = document.getElementById("email-out");
+  const cursor = document.getElementById("email-cursor");
+  let i = 0;
+  let started = false;
+  function type() {
+    if (i < text.length) {
+      out.textContent = text.slice(0, i+1);
+      i++;
+      const ch = text[i-1];
+      const delay = ch === "\n" ? 90 : (ch === " " ? 18 : 22 + Math.random() * 28);
+      setTimeout(type, delay);
+    } else {
+      // pause then loop
+      setTimeout(() => { i = 0; out.textContent = ""; type(); }, 6000);
+    }
+  }
+  // Start when section is visible
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !started) {
+        started = true;
+        setTimeout(type, 400);
+      }
+    });
+  }, { threshold: 0.3 });
+  obs.observe(out);
+})();
+</script>
+
+<!-- Tweaks panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="assets/tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#5BC8D6",
+  "emails": 120,
+  "mins": 4.5,
+  "followup": 35,
+  "rate": 35
+}/*EDITMODE-END*/;
+
+function CygnikTweaks() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  React.useEffect(() => {
+    if (window.cygnikSetAccent) window.cygnikSetAccent(tweaks.accent);
+  }, [tweaks.accent]);
+  React.useEffect(() => {
+    if (!window.cygnikROI) return;
+    const m = { emails: "i-emails", mins: "i-mins", followup: "i-followup", rate: "i-rate" };
+    Object.entries(m).forEach(([k, id]) => {
+      const el = document.getElementById(id);
+      if (el && +el.value !== +tweaks[k]) {
+        el.value = tweaks[k];
+      }
+    });
+    window.cygnikROI.compute();
+  }, [tweaks.emails, tweaks.mins, tweaks.followup, tweaks.rate]);
+
+  const accents = [
+    { v: "#5BC8D6", n: "Cyan" },
+    { v: "#7DD3C0", n: "Mint" },
+    { v: "#1B3A8B", n: "Navy" },
+    { v: "#D97757", n: "Ember" },
+    { v: "#E8E6DF", n: "Bone" },
+    { v: "#A78BFA", n: "Violet" }
+  ];
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection title="Accent">
+        <div style={{display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gap: 8}}>
+          {accents.map(a => (
+            <button key={a.v}
+              onClick={() => setTweak("accent", a.v)}
+              style={{
+                display:"flex", alignItems:"center", gap:8,
+                padding:"8px 10px",
+                borderRadius: 6,
+                border: "1px solid " + (tweaks.accent === a.v ? a.v : "rgba(255,255,255,0.12)"),
+                background: tweaks.accent === a.v ? a.v + "22" : "transparent",
+                color: "inherit",
+                fontFamily: "var(--mono)",
+                fontSize: 11,
+                cursor: "pointer",
+                letterSpacing: "0.04em"
+              }}>
+              <span style={{width:12, height:12, borderRadius:"50%", background:a.v, boxShadow: "0 0 0 2px rgba(255,255,255,0.06)"}}/>
+              {a.n}
+            </button>
+          ))}
+        </div>
+      </TweakSection>
+      <TweakSection title="ROI Calculator">
+        <TweakSlider label="Emails / day" value={tweaks.emails} min={20} max={500} step={5} onChange={v => setTweak("emails", v)}/>
+        <TweakSlider label="Minutes / email" value={tweaks.mins} min={1} max={15} step={0.5} onChange={v => setTweak("mins", v)}/>
+        <TweakSlider label="Follow-up %" value={tweaks.followup} min={0} max={80} step={5} onChange={v => setTweak("followup", v)}/>
+        <TweakSlider label="Hourly rate (CAD)" value={tweaks.rate} min={20} max={120} step={1} onChange={v => setTweak("rate", v)}/>
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+const tweaksRoot = document.createElement("div");
+document.body.appendChild(tweaksRoot);
+ReactDOM.createRoot(tweaksRoot).render(<CygnikTweaks/>);
+</script>
+</body>
+</html>

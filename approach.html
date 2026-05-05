@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Approach — Cygnik Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="assets/site.css" />
+<style>
+  .approach-hero { padding-top: 168px; padding-bottom: 120px; position: relative; overflow: hidden; }
+  .approach-hero .mesh { opacity: 0.55; }
+  .approach-hero__inner { position: relative; z-index: 2; }
+  .approach-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 156px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    max-width: 14ch;
+  }
+  .approach-hero h1 .it { font-style: italic; color: var(--accent); }
+
+  /* Orbital marker — strategic, subtle */
+  .orbit-marker {
+    position: absolute;
+    top: 200px; right: var(--gutter);
+    width: 280px; height: 280px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.65;
+  }
+  .orbit-marker svg { width: 100%; height: 100%; }
+  .orbit-marker .o1, .orbit-marker .o2, .orbit-marker .o3 {
+    transform-origin: center;
+  }
+  .orbit-marker .o1 { animation: o-rot 30s linear infinite; }
+  .orbit-marker .o2 { animation: o-rot 50s linear infinite reverse; }
+  .orbit-marker .o3 { animation: o-rot 80s linear infinite; }
+  @keyframes o-rot { to { transform: rotate(360deg); } }
+
+  /* Principle blocks */
+  .principle {
+    display: grid;
+    grid-template-columns: 120px 1fr 2fr;
+    gap: 48px;
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+  .principle:last-child { border-bottom: 1px solid var(--line); }
+  .principle .num {
+    font-family: var(--serif);
+    font-size: 80px;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .principle h2 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    max-width: 14ch;
+  }
+  .principle h2 .it { font-style: italic; color: var(--accent); }
+  .principle .body {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--fg-2);
+  }
+  .principle .body p { margin-bottom: 16px; }
+  .principle .body p:first-child { color: var(--fg); font-size: 19px; }
+  .principle .pull {
+    margin-top: 24px;
+    padding: 24px;
+    border-left: 2px solid var(--accent);
+    background: var(--bg-2);
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--fg);
+  }
+  @media (max-width: 900px) {
+    .principle { grid-template-columns: 1fr; gap: 24px; padding: 48px 0; }
+    .principle .num { font-size: 56px; }
+    .orbit-marker { display: none; }
+  }
+
+  .accountability-card {
+    margin-top: 32px;
+    border: 1px solid var(--accent-mid);
+    background: rgba(91, 200, 214, 0.04);
+    padding: 32px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--fg-2);
+    position: relative;
+  }
+  .accountability-card::before {
+    content: "// EXAMPLE";
+    position: absolute;
+    top: 16px; right: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+  }
+  .accountability-card .em { color: var(--accent); }
+
+  /* Origin / MSP heritage */
+  .origin {
+    background: var(--bg-2);
+    padding: clamp(64px, 10vw, 120px) 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .origin__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .origin h2 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5.6vw, 84px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+  }
+  .origin h2 .it { font-style: italic; color: var(--accent); }
+  .origin p { font-size: 17px; line-height: 1.6; color: var(--fg-2); margin-bottom: 16px; }
+  .origin .lineage {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  .origin .lineage .lbl { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .origin .lineage .val { font-family: var(--serif); font-size: 22px; }
+  @media (max-width: 900px) { .origin__grid { grid-template-columns: 1fr; } }
+
+  /* Big closing manifesto */
+  .closer-quote {
+    text-align: center;
+    padding: clamp(64px, 12vw, 160px) 0;
+  }
+  .closer-quote q {
+    font-family: var(--serif);
+    font-size: clamp(40px, 6vw, 96px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    quotes: none;
+    display: block;
+    max-width: 18ch;
+    margin: 0 auto;
+  }
+  .closer-quote q .it { font-style: italic; color: var(--accent); }
+  .closer-quote .attr {
+    margin-top: 32px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div id="nav-mount"></div>
+
+<header class="approach-hero">
+  <div class="mesh"></div>
+  <div class="gridbg"></div>
+  <div class="orbit-marker">
+    <svg viewBox="-100 -100 200 200">
+      <g class="o1"><circle r="90" fill="none" stroke="var(--line-strong)" stroke-width="0.4" stroke-dasharray="2 4"/><circle cx="90" cy="0" r="3" fill="var(--accent)"/></g>
+      <g class="o2"><circle r="65" fill="none" stroke="var(--line-strong)" stroke-width="0.4"/><circle cx="-65" cy="0" r="2" fill="var(--accent)"/></g>
+      <g class="o3"><circle r="40" fill="none" stroke="var(--line-strong)" stroke-width="0.4" stroke-dasharray="1 3"/><circle cx="40" cy="0" r="2" fill="var(--fg)"/></g>
+      <circle r="6" fill="var(--accent)" opacity="0.8"/>
+      <circle r="12" fill="none" stroke="var(--accent)" stroke-width="0.5" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="shell approach-hero__inner">
+    <div class="eyebrow" style="margin-bottom: 32px;"><span class="dot"></span>/ Approach</div>
+    <h1>How we<br/>think about <span class="it">AI.</span></h1>
+    <p class="lede" style="margin-top: 32px; max-width: 50ch;">Six positions that shape how we engage. Read it before you hire us — if you disagree with most of them, we're the wrong fit. That's a useful answer too.</p>
+  </div>
+</header>
+
+<section class="section section--tight">
+  <div class="shell">
+
+    <!-- Principle 01 -->
+    <div class="principle">
+      <div class="num">01</div>
+      <h2>AI is a productivity tool. <span class="it">Not magic.</span></h2>
+      <div class="body">
+        <p>Treat it like email or Excel. Email transformed how we communicate; Excel transformed how we calculate. Both took years to integrate properly. Neither one is mystical.</p>
+        <p>The companies that got the most out of email weren't the ones with the most enthusiastic adoption. They were the ones that built protocols around it — what gets sent, who sends it, what counts as a response. AI is the same.</p>
+        <p>If a vendor pitches you AI as a force multiplier without telling you what you have to do differently, walk away. The technology multiplies whatever process you give it — including the bad ones.</p>
+      </div>
+    </div>
+
+    <!-- Principle 02 -->
+    <div class="principle">
+      <div class="num">02</div>
+      <h2>Business intelligence has been <span class="it">democratized.</span></h2>
+      <div class="body">
+        <p>For thirty years, only the enterprise could afford to extract insight from unstructured data. Email parsing, document analysis, sentiment, forecasting from messy inputs — all of it required teams of analysts and seven-figure systems.</p>
+        <p>That bar collapsed. The same capability is now available to a 30-person business at a price that pays back in weeks. This is the most important thing happening for SMB right now, and most owners haven't internalized it.</p>
+        <p>Our job is to help SMBs see what they can now do — and act on it before larger competitors do.</p>
+      </div>
+    </div>
+
+    <!-- Principle 03 -->
+    <div class="principle">
+      <div class="num">03</div>
+      <h2>Adoption is the hard part. <span class="it">Not the technology.</span></h2>
+      <div class="body">
+        <p>The model works. It almost always works. The deployment that fails six months in fails for the same reason every other tech project fails: nobody owned it, nobody changed how they worked around it, the runbook was never written, the edge case wasn't documented, the new hire wasn't trained.</p>
+        <p>People + process + governance comes first. Models come second.</p>
+        <div class="pull">"We came up through MSP. We've watched a hundred businesses succeed and fail at adopting tech. The technology is rarely the variable."</div>
+      </div>
+    </div>
+
+    <!-- Principle 04 -->
+    <div class="principle">
+      <div class="num">04</div>
+      <h2>Accountability doesn't transfer to <span class="it">the AI.</span></h2>
+      <div class="body">
+        <p>If an email goes out under your signature, you're responsible for what it says — full stop. Whether you typed it, your assistant typed it, or an agent drafted it. The accountability sits with the human whose name is on the line.</p>
+        <p>This means before any agent ships, we answer four questions: who owns the output, who reviews it, what the policy says when it's wrong, and how we know when it's drifting. Not after. Before.</p>
+        <div class="accountability-card">
+<span style="color:var(--fg-3);">// agent: outbound-quote-v2</span>
+<span class="em">owner</span>     : d.chen@cygnik-client.com
+<span class="em">reviews</span>   : auto if confidence ≥ 0.92, else queue
+<span class="em">on_error</span>  : block + slack #ops-alerts
+<span class="em">audit</span>     : full · 90d retention · exportable
+<span class="em">off_switch</span>: cygnik.run/agents/oqv2 — kills inbound queue immediately
+        </div>
+      </div>
+    </div>
+
+    <!-- Principle 05 -->
+    <div class="principle">
+      <div class="num">05</div>
+      <h2>We came from <span class="it">MSP.</span></h2>
+      <div class="body">
+        <p>Most AI consultants understand the technology. We do too — but we also understand the rest of it. How a 40-person business actually adopts a new tool. How an SOC change request gets approved. Where a backup tape sits. Why the bookkeeper still uses a 2009 spreadsheet that runs the whole company.</p>
+        <p>That texture matters. AI doesn't replace the business — it sits inside it. Knowing how the business runs is the prerequisite, not the bonus.</p>
+        <p>We still maintain IT for clients who want it. Not because it's our identity, but because the foundation has to be sound for the AI to run on top of it.</p>
+      </div>
+    </div>
+
+    <!-- Principle 06 -->
+    <div class="principle">
+      <div class="num">06</div>
+      <h2>We'll tell you when AI <span class="it">doesn't pay.</span></h2>
+      <div class="body">
+        <p>Most AI consultants oversell. The incentives are obvious — every hour billed is an hour of pipeline. We've structured our practice the opposite way: fixed-fee engagements, vendor-neutral recommendations, and a willingness to walk a client out the door with a "don't do this" and a refund of the unused retainer.</p>
+        <p>Not as a marketing position. As an actual operating principle. We've turned down four engagements this quarter where the math didn't work, and recommended one client move their work in-house once the agent stabilized.</p>
+        <p>If you're looking for a consultant who'll tell you AI solves everything you wave at it — we're not it. If you're looking for someone who'll tell you exactly where it pays and where it doesn't, you're in the right place.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Origin -->
+<section class="origin">
+  <div class="shell">
+    <div class="origin__grid">
+      <div>
+        <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>/ Origin</div>
+        <h2>From <span class="it">MSP</span> to AI consulting — the same DNA, a different lens.</h2>
+      </div>
+      <div>
+        <p>Cygnik started life as a managed service provider. We ran the IT, secured the perimeter, kept the backups clean, trained the staff. Years of watching real businesses adopt — and not adopt — technology.</p>
+        <p>Then unstructured data became tractable. The same problems we'd been working around for a decade — inboxes, paperwork, repetitive comms — suddenly had real solutions. We rebuilt the practice around them.</p>
+        <p>What carried over: deep client relationships, ROI-first thinking, the muscle memory of running technology in a real business. What's new: a category of capability that didn't exist five years ago.</p>
+        <div class="lineage">
+          <div>
+            <div class="lbl">Founded</div>
+            <div class="val">As MSP</div>
+          </div>
+          <div>
+            <div class="lbl">Practice today</div>
+            <div class="val">AI consulting</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Closing manifesto -->
+<section class="closer-quote">
+  <div class="shell">
+    <q>We're not here to <span class="it">sell you AI.</span> We're here to tell you where it pays — <span class="it">and where it doesn't.</span></q>
+    <div class="attr">— The Cygnik position · 2026</div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="shell" style="text-align: center;">
+    <a href="contact.html" class="btn btn--primary">Bring us a workflow <span class="arr">→</span></a>
+  </div>
+</section>
+
+<div id="footer-mount"></div>
+
+<script src="assets/shared.js"></script>
+<script src="assets/chrome.js"></script>
+<script>
+document.getElementById("nav-mount").outerHTML = window.cygnikNav("approach");
+document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
+</script>
+</body>
+</html>

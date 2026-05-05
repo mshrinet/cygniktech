@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Workflow Automation & Agent Deployment — Cygnik Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/service.css" />
+</head>
+<body>
+<div id="nav-mount"></div>
+
+<header class="page-hero">
+  <div class="mesh"></div>
+  <div class="gridbg"></div>
+  <div class="shell page-hero__inner">
+    <div class="breadcrumb">
+      <a href="services.html">Services</a> <span class="sep">/</span> <span style="color:var(--accent)">S-02 — Workflow Automation</span>
+    </div>
+    <div class="svc-hero">
+      <div>
+        <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>Service / S-02</div>
+        <h1>Agents that <span class="it">do</span> the work — not just talk about it.</h1>
+      </div>
+      <div class="right">
+        <p class="lede">We design, build, and deploy the agent. Email triage, document extraction, approval routing, reporting. Human-in-loop where it matters; fully autonomous where it's safe. Each ships with a named owner, observability, and an off-switch.</p>
+        <div style="display:flex; gap:12px;">
+          <a href="contact.html" class="btn btn--primary">Scope a workflow <span class="arr">→</span></a>
+          <a href="#process" class="btn btn--ghost">See the build</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-meta-strip">
+      <div><div class="lbl">Per workflow</div><div class="val">4–8 weeks</div></div>
+      <div><div class="lbl">Format</div><div class="val">Fixed fee</div></div>
+      <div><div class="lbl">Output</div><div class="val">Live agent</div></div>
+      <div><div class="lbl">Mode</div><div class="val">HITL by default</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- What we automate -->
+<section class="section section--tight">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ Categories</div>
+        <div class="eyebrow"><span class="dot"></span>Where agents pay back fastest</div>
+      </div>
+      <h2 class="h2">Anywhere people read, classify, draft, or route information.</h2>
+    </div>
+
+    <div class="deliv">
+      <div class="deliv__item">
+        <div class="num">A-01</div>
+        <div class="ttl">Email processing</div>
+        <p>Inbound triage, classification, draft response, escalation. The category that almost always pencils out first.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">A-02</div>
+        <div class="ttl">Document handling</div>
+        <p>PDF extraction, structured field capture, summarization, redline. Quote requests, contracts, claims, invoices.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">A-03</div>
+        <div class="ttl">Approval routing</div>
+        <p>Multi-step approval flows with policy-aware decisioning. The agent prepares the case; humans sign off where required.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">A-04</div>
+        <div class="ttl">Data extraction</div>
+        <p>Pulling structured data out of unstructured sources — calls, forms, scanned docs, messy spreadsheets.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">A-05</div>
+        <div class="ttl">Reporting</div>
+        <p>Auto-generated weekly briefs, exception reports, client updates. Drafted by agent, reviewed by owner.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">A-06</div>
+        <div class="ttl">Custom</div>
+        <p>If the workflow has a clear input, a clear output, and a measurable cost — we can probably automate it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Diagram: HITL flow -->
+<section class="section section--tight" style="background: var(--bg-2);">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ Architecture</div>
+        <div class="eyebrow"><span class="dot"></span>Human-in-loop by default</div>
+      </div>
+      <h2 class="h2">Confidence-gated. Auditable. Off-switch first.</h2>
+    </div>
+    <div class="sys-map">
+      <div class="legend">SYS // 02 — HITL FLOW</div>
+      <svg viewBox="0 0 1100 320" fill="none">
+        <defs>
+          <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
+          </marker>
+        </defs>
+        <!-- Input -->
+        <rect x="20" y="130" width="140" height="60" rx="2" stroke="var(--line-strong)"/>
+        <text x="90" y="120" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="rgba(242,239,232,0.5)">INPUT</text>
+        <text x="90" y="167" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#F2EFE8">Email / Doc</text>
+
+        <line x1="160" y1="160" x2="220" y2="160" stroke="var(--accent)" marker-end="url(#arr2)" stroke-dasharray="3 4"/>
+
+        <!-- Agent -->
+        <rect x="220" y="100" width="180" height="120" rx="2" stroke="var(--accent)" stroke-width="1.5" fill="rgba(91,200,214,0.06)"/>
+        <text x="310" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="var(--accent)">AGENT</text>
+        <text x="310" y="135" text-anchor="middle" font-family="Instrument Serif" font-size="22" fill="#F2EFE8">Classify</text>
+        <text x="310" y="160" text-anchor="middle" font-family="Instrument Serif" font-size="22" fill="#F2EFE8">+ Draft</text>
+        <text x="310" y="195" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(242,239,232,0.5)">w/ confidence score</text>
+
+        <line x1="400" y1="160" x2="470" y2="160" stroke="var(--accent)" marker-end="url(#arr2)" stroke-dasharray="3 4"/>
+
+        <!-- Confidence diamond -->
+        <polygon points="540,100 620,160 540,220 460,160" stroke="var(--line-strong)" fill="rgba(91,200,214,0.04)"/>
+        <text x="540" y="155" text-anchor="middle" font-family="Instrument Serif" font-size="16" fill="#F2EFE8">Confidence</text>
+        <text x="540" y="175" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="var(--accent)">≥ 0.92?</text>
+
+        <!-- High confidence path -->
+        <line x1="620" y1="140" x2="720" y2="80" stroke="var(--accent)" marker-end="url(#arr2)"/>
+        <text x="660" y="105" font-family="JetBrains Mono" font-size="10" fill="var(--accent)">YES</text>
+        <rect x="720" y="50" width="180" height="60" rx="2" stroke="var(--accent)" fill="rgba(91,200,214,0.04)"/>
+        <text x="810" y="78" text-anchor="middle" font-family="Instrument Serif" font-size="16" fill="#F2EFE8">Auto-execute</text>
+        <text x="810" y="98" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(242,239,232,0.5)">→ logged · auditable</text>
+
+        <!-- Low confidence path -->
+        <line x1="620" y1="180" x2="720" y2="240" stroke="var(--line-strong)" marker-end="url(#arr2)"/>
+        <text x="660" y="225" font-family="JetBrains Mono" font-size="10" fill="rgba(242,239,232,0.6)">NO</text>
+        <rect x="720" y="210" width="180" height="60" rx="2" stroke="var(--line-strong)"/>
+        <text x="810" y="238" text-anchor="middle" font-family="Instrument Serif" font-size="16" fill="#F2EFE8">Human review</text>
+        <text x="810" y="258" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(242,239,232,0.5)">→ named owner queue</text>
+
+        <!-- Both feed monitor -->
+        <line x1="900" y1="80" x2="1020" y2="150" stroke="rgba(242,239,232,0.12)" stroke-width="0.5"/>
+        <line x1="900" y1="240" x2="1020" y2="170" stroke="rgba(242,239,232,0.12)" stroke-width="0.5"/>
+        <rect x="990" y="130" width="80" height="60" rx="2" stroke="var(--line)"/>
+        <text x="1030" y="158" text-anchor="middle" font-family="Instrument Serif" font-size="13" fill="#F2EFE8">Monitor</text>
+        <text x="1030" y="175" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(242,239,232,0.5)">S-04</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="section section--tight" id="process">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ Process</div>
+        <div class="eyebrow"><span class="dot"></span>4–8 weeks per workflow</div>
+      </div>
+      <h2 class="h2">Design → build → shadow → cutover.</h2>
+    </div>
+
+    <div class="phases">
+      <div class="phase-row">
+        <div class="step">01</div>
+        <div class="week">Week 1–2</div>
+        <div class="body">
+          <h4>Design</h4>
+          <p>Behavior spec, edge cases, escalation paths, governance rules. Who owns the output, when humans intervene, how it fails safely. Signed off before a line of integration code is written.</p>
+          <div class="out">→ Behavior spec + RACI</div>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="step">02</div>
+        <div class="week">Week 2–5</div>
+        <div class="body">
+          <h4>Build</h4>
+          <p>Connect to source systems, train on your real data, wire the orchestration. We use proven model + framework combinations — not bleeding edge for its own sake.</p>
+          <div class="out">→ Working agent in staging</div>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="step">03</div>
+        <div class="week">Week 4–7</div>
+        <div class="body">
+          <h4>Shadow</h4>
+          <p>The agent runs in parallel with humans. Every output is reviewed; every disagreement is logged and used to tune. We don't move to live until accuracy clears the threshold you set.</p>
+          <div class="out">→ Calibrated confidence model</div>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="step">04</div>
+        <div class="week">Week 6–8</div>
+        <div class="body">
+          <h4>Cutover</h4>
+          <p>Phased rollout — confidence-gated auto-execute, human queue for the rest. Owner trained, dashboards live, runbook handed over. Optional handoff to S-04 retainer.</p>
+          <div class="out">→ Live agent + handover doc</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="section section--tight">
+  <div class="shell">
+    <div class="pricing-card">
+      <div>
+        <div class="eyebrow" style="margin-bottom: 16px;"><span class="dot"></span>Investment</div>
+        <div class="price">From $35k<small>CAD · per workflow · 4–8 weeks</small></div>
+      </div>
+      <div>
+        <p style="font-size: 16px; line-height: 1.55; margin-bottom: 24px; color: var(--fg-2);">Fee scales with integration complexity, volume, and governance depth. Quoted as fixed fee after S-01 — no T&amp;M surprises.</p>
+        <a href="contact.html" class="btn btn--primary">Scope a workflow <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="shell">
+    <div class="svc-next">
+      <a href="services-strategy.html">
+        <span class="lbl">← Previous / S-01</span>
+        <span class="name">Strategy &amp; Readiness</span>
+      </a>
+      <a href="services-integration.html" class="next">
+        <span class="lbl">Next / S-03 →</span>
+        <span class="name">AI Integration</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-mount"></div>
+
+<script src="assets/shared.js"></script>
+<script src="assets/chrome.js"></script>
+<script>
+document.getElementById("nav-mount").outerHTML = window.cygnikNav("services");
+document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
+</script>
+</body>
+</html>

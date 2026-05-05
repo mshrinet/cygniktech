@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ongoing AI Retainer — Cygnik Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/service.css" />
+<style>
+  .tier-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    margin-top: 48px;
+  }
+  .tier {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 40px;
+    display: flex; flex-direction: column; gap: 24px;
+    min-height: 480px;
+  }
+  .tier.is-feat { background: rgba(91,200,214,0.04); }
+  .tier .lbl { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase; }
+  .tier .name { font-family: var(--serif); font-size: 32px; line-height: 1; letter-spacing: -0.015em; }
+  .tier .price { font-family: var(--serif); font-size: 48px; line-height: 1; letter-spacing: -0.02em; }
+  .tier .price small { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-top: 8px; }
+  .tier ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: 14px; color: var(--fg-2); }
+  .tier li { display: flex; gap: 10px; align-items: flex-start; }
+  .tier li::before { content: "→"; color: var(--accent); font-family: var(--mono); flex-shrink: 0; }
+  @media (max-width: 900px) { .tier-grid { grid-template-columns: 1fr; } }
+
+  .pulse-card {
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border-radius: 4px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .pulse-card .num {
+    font-family: var(--serif);
+    font-size: clamp(48px, 5vw, 72px);
+    line-height: 1;
+    color: var(--accent);
+  }
+  .pulse-card .num small { font-family: var(--mono); font-size: 11px; color: var(--fg-3); display: block; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px; font-weight: 400; }
+  @media (max-width: 720px) { .pulse-card { grid-template-columns: 1fr; padding: 24px; } }
+</style>
+</head>
+<body>
+<div id="nav-mount"></div>
+
+<header class="page-hero">
+  <div class="mesh"></div>
+  <div class="gridbg"></div>
+  <div class="shell page-hero__inner">
+    <div class="breadcrumb">
+      <a href="services.html">Services</a> <span class="sep">/</span> <span style="color:var(--accent)">S-04 — Ongoing Retainer</span>
+    </div>
+    <div class="svc-hero">
+      <div>
+        <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>Service / S-04</div>
+        <h1>AI needs <span class="it">maintenance</span> like any system.</h1>
+      </div>
+      <div class="right">
+        <p class="lede">Models drift. Prompts decay. Edge cases surface. Vendors release new tooling weekly. The retainer covers monitoring, prompt optimization, governance audits, model updates, and incident response — so your agents keep performing without adding overhead to your team.</p>
+        <div style="display:flex; gap:12px;">
+          <a href="contact.html" class="btn btn--primary">Start a retainer <span class="arr">→</span></a>
+          <a href="#tiers" class="btn btn--ghost">See tiers</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-meta-strip">
+      <div><div class="lbl">Cadence</div><div class="val">Monthly</div></div>
+      <div><div class="lbl">Min term</div><div class="val">3 months</div></div>
+      <div><div class="lbl">Reporting</div><div class="val">1-page brief</div></div>
+      <div><div class="lbl">SLA</div><div class="val">Tiered</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- What's included -->
+<section class="section section--tight">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ Coverage</div>
+        <div class="eyebrow"><span class="dot"></span>What we run</div>
+      </div>
+      <h2 class="h2">The work that keeps agents accurate, safe, and improving.</h2>
+    </div>
+
+    <div class="deliv">
+      <div class="deliv__item">
+        <div class="num">R-01</div>
+        <div class="ttl">Performance monitoring</div>
+        <p>Live accuracy, latency, cost, and confidence-distribution dashboards. Drift alerts. Sample audits on every workflow.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">R-02</div>
+        <div class="ttl">Prompt optimization</div>
+        <p>Continuous prompt tuning against real outputs. Versioned, A/B tested, rolled back when regressions appear.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">R-03</div>
+        <div class="ttl">Model updates</div>
+        <p>When a vendor ships a better model, we test, compare, and migrate. You don't manage the AI vendor relationship — we do.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">R-04</div>
+        <div class="ttl">Governance audits</div>
+        <p>Quarterly review: who owns what, who's reviewing outputs, where policy gaps exist, where adoption has slipped.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">R-05</div>
+        <div class="ttl">Incident response</div>
+        <p>When an agent does something wrong — and at some point it will — we have the runbook, the logs, and the on-call.</p>
+      </div>
+      <div class="deliv__item">
+        <div class="num">R-06</div>
+        <div class="ttl">Monthly readout</div>
+        <p>One page. What the agent did, what it cost, where it failed, what we changed, what we recommend next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tiers -->
+<section class="section section--tight" id="tiers" style="background: var(--bg-2);">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ Tiers</div>
+        <div class="eyebrow"><span class="dot"></span>Sized to your stack</div>
+      </div>
+      <h2 class="h2">Three tiers. Pick the one that fits the surface area.</h2>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier">
+        <div>
+          <div class="lbl">T-01</div>
+          <div class="name">Watch</div>
+        </div>
+        <div class="price">$2.5k<small>/ month CAD</small></div>
+        <ul>
+          <li>1–2 active agents</li>
+          <li>Monitoring + drift alerts</li>
+          <li>Quarterly governance audit</li>
+          <li>Monthly 1-page readout</li>
+          <li>Email support · 1 BD response</li>
+        </ul>
+      </div>
+      <div class="tier is-feat">
+        <div>
+          <div class="lbl" style="color:var(--accent);">T-02 / Recommended</div>
+          <div class="name">Run</div>
+        </div>
+        <div class="price">$5.5k<small>/ month CAD</small></div>
+        <ul>
+          <li>Up to 5 active agents</li>
+          <li>Everything in Watch</li>
+          <li>Continuous prompt optimization</li>
+          <li>Model migration when warranted</li>
+          <li>Monthly working session</li>
+          <li>Same-day response · 4h SLA on incidents</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div>
+          <div class="lbl">T-03</div>
+          <div class="name">Operate</div>
+        </div>
+        <div class="price">$12k+<small>/ month CAD</small></div>
+        <ul>
+          <li>Unlimited agents · multi-workflow</li>
+          <li>Everything in Run</li>
+          <li>Dedicated lead engineer</li>
+          <li>Weekly check-ins</li>
+          <li>Roadmap planning included</li>
+          <li>2h incident SLA · on-call</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why retainer -->
+<section class="section section--tight">
+  <div class="shell">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px;"><span class="dot"></span>The honest pitch</div>
+        <h3>Most AI projects fail in month four — not month one.</h3>
+        <p>The deployment goes well. Accuracy looks good. Then a model gets deprecated, a vendor changes their API, an edge case slips through, or a team member leaves and the runbook isn't kept up. Six months later the agent is half-working and nobody owns it.</p>
+        <p>The retainer exists because that's the actual failure mode. Not the build — the run.</p>
+      </div>
+      <div>
+        <div class="pulse-card" style="margin-bottom: 16px;">
+          <div class="num">~14%<small>monthly drift</small></div>
+          <div>
+            <p style="margin:0; font-size: 14px; color: var(--fg-2);">Typical accuracy degradation we observe across SMB workflows when agents are deployed and left alone for 90+ days. Not always linear — often a cliff at a model update.</p>
+          </div>
+        </div>
+        <div class="pulse-card">
+          <div class="num">3 weeks<small>to recover</small></div>
+          <div>
+            <p style="margin:0; font-size: 14px; color: var(--fg-2);">Average time-to-fix for a drifted agent without a retainer in place. With T-02 / Run, we typically catch and correct within 48 hours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="shell">
+    <div class="svc-next">
+      <a href="services-integration.html">
+        <span class="lbl">← Previous / S-03</span>
+        <span class="name">AI Integration</span>
+      </a>
+      <a href="services.html" class="next">
+        <span class="lbl">All services →</span>
+        <span class="name">Overview</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-mount"></div>
+
+<script src="assets/shared.js"></script>
+<script src="assets/chrome.js"></script>
+<script>
+document.getElementById("nav-mount").outerHTML = window.cygnikNav("services");
+document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
+</script>
+</body>
+</html>

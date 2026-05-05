@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact — Cygnik Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="assets/site.css" />
+<style>
+  .contact { padding-top: 168px; padding-bottom: 120px; position: relative; overflow: hidden; min-height: 100vh; }
+  .contact .mesh { opacity: 0.45; }
+  .contact__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact h1 { font-family: var(--serif); font-size: clamp(48px, 7vw, 112px); line-height: 0.94; letter-spacing: -0.025em; }
+  .contact h1 .it { font-style: italic; color: var(--accent); }
+
+  .contact__meta {
+    margin-top: 48px;
+    display: grid;
+    gap: 24px;
+  }
+  .contact__meta .row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .contact__meta .lbl { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase; }
+  .contact__meta .val { font-family: var(--serif); font-size: 22px; color: var(--fg); }
+  .contact__meta .val a:hover { color: var(--accent); }
+
+  /* Form */
+  .form {
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    padding: 40px;
+    border-radius: 4px;
+    display: grid;
+    gap: 24px;
+  }
+  .form .field { display: grid; gap: 8px; }
+  .form label { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase; }
+  .form input, .form select, .form textarea {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line-strong);
+    padding: 10px 0;
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 16px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .form input:focus, .form select:focus, .form textarea:focus { border-bottom-color: var(--accent); }
+  .form select { -webkit-appearance: none; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--fg-3) 50%), linear-gradient(135deg, var(--fg-3) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; padding-right: 32px; }
+  .form textarea { min-height: 100px; resize: vertical; }
+
+  .form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .form .submit { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .form .note { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.06em; max-width: 30ch; }
+  .form__success {
+    display: none;
+    text-align: center;
+    padding: 32px;
+  }
+  .form__success.is-on { display: block; }
+  .form__success h3 { font-family: var(--serif); font-size: 32px; margin-bottom: 12px; }
+  .form__success p { color: var(--fg-2); }
+
+  @media (max-width: 900px) {
+    .contact__inner { grid-template-columns: 1fr; gap: 48px; }
+    .form { padding: 24px; }
+    .form .row2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-mount"></div>
+
+<section class="contact">
+  <div class="mesh"></div>
+  <div class="gridbg"></div>
+  <div class="shell contact__inner">
+    <div>
+      <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>/ Contact</div>
+      <h1>Tell us where the work <span class="it">piles up.</span></h1>
+      <p class="lede" style="margin-top: 32px; max-width: 50ch;">A 30-minute intro call, no obligation. We'll either give you a clear next step or tell you AI isn't the answer for that workflow. Both are useful.</p>
+
+      <div class="contact__meta">
+        <div class="row"><span class="lbl">Email</span><span class="val"><a href="mailto:hello@cygnik.com">hello@cygnik.com</a></span></div>
+        <div class="row"><span class="lbl">Studio · TO</span><span class="val">Toronto, ON</span></div>
+        <div class="row"><span class="lbl">Studio · DC</span><span class="val">Washington, DC</span></div>
+        <div class="row"><span class="lbl">Response</span><span class="val">Within 1 business day</span></div>
+      </div>
+    </div>
+
+    <form class="form" id="contact-form" onsubmit="return false;">
+      <div class="field">
+        <label for="f-name">Name</label>
+        <input id="f-name" type="text" placeholder="Your name" required/>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" type="email" placeholder="you@company.com" required/>
+        </div>
+        <div class="field">
+          <label for="f-co">Company</label>
+          <input id="f-co" type="text" placeholder="Company name"/>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="f-size">Company size</label>
+          <select id="f-size">
+            <option>1–10</option>
+            <option selected>11–50</option>
+            <option>51–200</option>
+            <option>200+</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-svc">What you're after</label>
+          <select id="f-svc">
+            <option>S-01 — Strategy &amp; Readiness</option>
+            <option>S-02 — Workflow Automation</option>
+            <option>S-03 — AI Integration</option>
+            <option>S-04 — Ongoing Retainer</option>
+            <option>MSP / IT</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-msg">Where does the work pile up?</label>
+        <textarea id="f-msg" placeholder="A workflow, a pain point, or a question."></textarea>
+      </div>
+      <div class="submit">
+        <span class="note">// We don't share, sell, or pipeline. We respond personally.</span>
+        <button type="submit" class="btn btn--primary" id="submit-btn">Send <span class="arr">→</span></button>
+      </div>
+      <div class="form__success" id="form-success">
+        <h3>Got it.</h3>
+        <p>We'll respond within one business day. — D.C.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<div id="footer-mount"></div>
+
+<script src="assets/shared.js"></script>
+<script src="assets/chrome.js"></script>
+<script>
+document.getElementById("nav-mount").outerHTML = window.cygnikNav("contact");
+document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
+
+document.getElementById("submit-btn").addEventListener("click", function(e) {
+  e.preventDefault();
+  const form = document.getElementById("contact-form");
+  const name = document.getElementById("f-name").value.trim();
+  const email = document.getElementById("f-email").value.trim();
+  if (!name || !email) { return; }
+  // Hide form fields, show success
+  Array.from(form.children).forEach(c => { if (c.id !== "form-success") c.style.display = "none"; });
+  document.getElementById("form-success").classList.add("is-on");
+});
+</script>
+</body>
+</html>

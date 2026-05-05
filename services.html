@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Services — Cygnik Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="assets/site.css" />
+<style>
+  .page-hero { padding-top: 168px; padding-bottom: 80px; position: relative; overflow: hidden; }
+  .page-hero .mesh { opacity: 0.6; }
+  .page-hero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(48px, 6.4vw, 96px); line-height: 0.96; letter-spacing: -0.025em; }
+  .page-hero h1 .it { font-style: italic; color: var(--accent); }
+
+  .svc-list {
+    display: grid; gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .svc-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1.2fr 200px;
+    gap: 32px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+    transition: padding-left .25s;
+  }
+  .svc-row:hover { padding-left: 16px; }
+  .svc-row:hover .arr { color: var(--accent); transform: translateX(6px); }
+  .svc-row .num { font-family: var(--mono); font-size: 12px; color: var(--fg-3); letter-spacing: 0.12em; padding-top: 8px; }
+  .svc-row .name { font-family: var(--serif); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.0; letter-spacing: -0.02em; }
+  .svc-row .name a { background-image: linear-gradient(currentColor, currentColor); background-size: 0 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .3s; }
+  .svc-row:hover .name a { background-size: 100% 1px; }
+  .svc-row .desc { color: var(--fg-2); font-size: 16px; line-height: 1.55; max-width: 48ch; }
+  .svc-row .meta { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .svc-row .meta .arr { font-family: var(--mono); font-size: 18px; color: var(--fg-3); transition: color .2s, transform .2s; }
+  .svc-row .meta .stat { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .svc-row .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+
+  @media (max-width: 900px) {
+    .page-hero__inner { grid-template-columns: 1fr; }
+    .svc-row { grid-template-columns: 1fr; gap: 16px; padding: 32px 0; }
+    .svc-row .meta { align-items: flex-start; flex-direction: row; justify-content: space-between; width: 100%; }
+  }
+
+  .stack {
+    display: grid; gap: 24px;
+    margin-top: 48px;
+  }
+  .stack-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+  }
+  .stack-row .lbl { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase; }
+  .stack-row .val { font-size: 16px; line-height: 1.5; color: var(--fg-2); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="index.html">
+      <span class="nav__mark">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <path d="M21 8 L21 18 Q21 22 17 22 L9 22 Q5 22 5 18 L5 8 Q5 4 9 4 L17 4 Q21 4 21 8 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M16 9 L11 13 L16 17" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Cygnik <span style="opacity:.5">/</span> <span style="color:var(--accent)">AI</span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="services.html" class="is-active">Services</a>
+      <a href="verticals.html">Verticals</a>
+      <a href="approach.html">Approach</a>
+      <a href="msp.html">MSP</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a class="nav__cta" href="contact.html">Book intro <span class="arr">→</span></a>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="mesh"></div>
+  <div class="gridbg"></div>
+  <div class="shell page-hero__inner">
+    <div>
+      <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>/ Services</div>
+      <h1>Four ways<br/>to <span class="it">engage.</span></h1>
+    </div>
+    <div>
+      <p class="lede">From a single readiness assessment to a fully managed agent stack — sized for SMB. Each line stands alone, or composes into an end-to-end engagement.</p>
+      <div style="display: flex; gap: 24px; margin-top: 32px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3);">
+        <span><strong style="color:var(--fg);">2 wk</strong> &nbsp; min engagement</span>
+        <span><strong style="color:var(--fg);">90 day</strong> &nbsp; typical roadmap</span>
+        <span><strong style="color:var(--fg);">Fixed fee</strong></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section section--tight">
+  <div class="shell">
+    <div class="svc-list">
+
+      <a class="svc-row" href="services-strategy.html">
+        <div class="num">S-01</div>
+        <div>
+          <div class="name"><a>AI Strategy<br/>&amp; Readiness</a></div>
+          <div class="tags" style="margin-top:24px;">
+            <span class="chip">Assessment</span>
+            <span class="chip">90-day roadmap</span>
+            <span class="chip">ROI model</span>
+            <span class="chip">Risk register</span>
+          </div>
+        </div>
+        <div class="desc">A 2–3 week diagnostic that maps every workflow touching unstructured input. We score them on cost, frequency, and risk; model ROI for the top 3; and deliver a 90-day roadmap that tells you exactly where AI pays — and where it doesn't.</div>
+        <div class="meta">
+          <span class="stat">Fixed fee</span>
+          <span class="arr">→</span>
+        </div>
+      </a>
+
+      <a class="svc-row" href="services-automation.html">
+        <div class="num">S-02</div>
+        <div>
+          <div class="name"><a>Workflow Automation<br/>&amp; Agent Deployment</a></div>
+          <div class="tags" style="margin-top:24px;">
+            <span class="chip">Email triage</span>
+            <span class="chip">Doc extraction</span>
+            <span class="chip">Approvals</span>
+            <span class="chip">Human-in-loop</span>
+          </div>
+        </div>
+        <div class="desc">We design, build, and ship the agent — typically 4–8 weeks per workflow. Email processing, document handling, data extraction, approvals, reporting. Human-in-loop where it matters; fully autonomous where it's safe. Each agent ships with a named owner and an off-switch.</div>
+        <div class="meta">
+          <span class="stat">Per workflow</span>
+          <span class="arr">→</span>
+        </div>
+      </a>
+
+      <a class="svc-row" href="services-integration.html">
+        <div class="num">S-03</div>
+        <div>
+          <div class="name"><a>AI Integration</a></div>
+          <div class="tags" style="margin-top:24px;">
+            <span class="chip">CRM / ERP</span>
+            <span class="chip">Email systems</span>
+            <span class="chip">Accounting</span>
+            <span class="chip">Custom APIs</span>
+          </div>
+        </div>
+        <div class="desc">Most SMBs don't need new software — they need their existing tools to think. We connect LLMs to your CRM, ERP, accounting suite, email, and custom apps. We don't replace systems; we make them intelligent.</div>
+        <div class="meta">
+          <span class="stat">Project-based</span>
+          <span class="arr">→</span>
+        </div>
+      </a>
+
+      <a class="svc-row" href="services-retainer.html">
+        <div class="num">S-04</div>
+        <div>
+          <div class="name"><a>Ongoing<br/>AI Retainer</a></div>
+          <div class="tags" style="margin-top:24px;">
+            <span class="chip chip--accent">Monthly</span>
+            <span class="chip">Monitoring</span>
+            <span class="chip">Optimization</span>
+            <span class="chip">Governance</span>
+          </div>
+        </div>
+        <div class="desc">AI needs maintenance like any system — models drift, prompts decay, edge cases surface. The retainer covers monitoring, prompt optimization, performance reporting, governance audits, and incident response. We run it so you don't have to.</div>
+        <div class="meta">
+          <span class="stat">From $2.5k/mo</span>
+          <span class="arr">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- Engagement shapes -->
+<section class="section" style="background: var(--bg-2);">
+  <div class="shell">
+    <div class="section-head">
+      <div class="meta">
+        <div class="num">/ Engagement shapes</div>
+        <div class="eyebrow"><span class="dot"></span>How they compose</div>
+      </div>
+      <h2 class="h2">Most clients start with one. Many compose all four.</h2>
+    </div>
+    <div class="stack">
+      <div class="stack-row">
+        <div class="lbl">Diagnostic only</div>
+        <div class="val">S-01 alone. ~3 weeks. You walk away with a roadmap and decide where to take it next — even if the answer is "not yet" or "not us."</div>
+      </div>
+      <div class="stack-row">
+        <div class="lbl">Pilot</div>
+        <div class="val">S-01 → S-02 on one workflow. 8–12 weeks total. The fastest way to put a working agent into production with measurable ROI.</div>
+      </div>
+      <div class="stack-row">
+        <div class="lbl">Full deployment</div>
+        <div class="val">S-01 → S-02 + S-03 across 2–4 workflows. ~6 months. The configuration that produces a system, not a feature.</div>
+      </div>
+      <div class="stack-row">
+        <div class="lbl">Run mode</div>
+        <div class="val">S-04 ongoing, layered onto any of the above. Monthly retainer keeps everything monitored, optimized, and governed without adding overhead to your team.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Closer -->
+<section class="section">
+  <div class="shell" style="text-align:center;">
+    <h2 class="display" style="font-size: clamp(40px, 6vw, 88px); margin-bottom: 32px;">Where does <em style="font-style: italic; color: var(--accent);">your</em> work pile up?</h2>
+    <a href="contact.html" class="btn btn--primary">Book a 30-min intro <span class="arr">→</span></a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div class="footer__col"><p class="footer__manifesto">AI is a <span class="it">productivity tool</span>, not magic. We help you treat it that way.</p></div>
+      <div class="footer__col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services-strategy.html">AI Strategy &amp; Readiness</a></li>
+          <li><a href="services-automation.html">Workflow Automation</a></li>
+          <li><a href="services-integration.html">AI Integration</a></li>
+          <li><a href="services-retainer.html">Ongoing Retainer</a></li>
+          <li><a href="msp.html">MSP / IT</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Practice</h4>
+        <ul>
+          <li><a href="approach.html">Approach</a></li>
+          <li><a href="verticals.html">Verticals</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Cygnik</h4>
+        <ul>
+          <li>Toronto, ON</li>
+          <li>Washington, DC</li>
+          <li><a href="mailto:hello@cygnik.com">hello@cygnik.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Cygnik Tech Inc.</span>
+      <span class="city"><span class="pulse"></span>Online · TO ↔ DC</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/shared.js"></script>
+</body>
+</html>

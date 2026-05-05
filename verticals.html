@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Verticals — Cygnik Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="assets/site.css" />
+<style>
+  .page-hero { padding-top: 168px; padding-bottom: 80px; position: relative; overflow: hidden; }
+  .page-hero .mesh { opacity: 0.55; }
+  .page-hero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(48px, 6.4vw, 96px); line-height: 0.96; letter-spacing: -0.025em; }
+  .page-hero h1 .it { font-style: italic; color: var(--accent); }
+
+  .vert-section {
+    border-top: 1px solid var(--line);
+    padding: 64px 0;
+    display: grid;
+    grid-template-columns: 240px 1fr 2fr;
+    gap: 48px;
+    align-items: start;
+    transition: background .2s;
+  }
+  .vert-section:hover { background: rgba(91,200,214,0.02); }
+  .vert-section .meta {
+    display: flex; flex-direction: column; gap: 8px;
+    position: sticky; top: 88px;
+  }
+  .vert-section .num { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; }
+  .vert-section h2 { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); line-height: 1; letter-spacing: -0.02em; }
+  .vert-section .sub { color: var(--fg-2); font-size: 16px; line-height: 1.55; max-width: 40ch; }
+  .vert-section ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+  .vert-section li {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .vert-section li .nm { font-family: var(--serif); font-size: 18px; }
+  .vert-section li .desc { font-size: 14px; line-height: 1.5; color: var(--fg-2); }
+
+  @media (max-width: 900px) {
+    .vert-section { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+    .vert-section .meta { position: static; }
+    .vert-section li { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  .horizontal-block {
+    margin-top: 80px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 64px 0;
+  }
+  .h-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .h-cell {
+    padding: 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .h-cell:nth-child(3n) { border-right: 0; }
+  .h-cell .nm { font-family: var(--serif); font-size: 22px; margin-bottom: 8px; }
+  .h-cell .lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .h-cell ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; font-family: var(--mono); font-size: 12px; color: var(--fg-2); }
+  .h-cell li::before { content: "→ "; color: var(--accent); }
+  @media (max-width: 720px) { .h-grid { grid-template-columns: 1fr; } .h-cell:nth-child(n) { border-right: 0; } }
+</style>
+</head>
+<body>
+<div id="nav-mount"></div>
+
+<header class="page-hero">
+  <div class="mesh"></div>
+  <div class="gridbg"></div>
+  <div class="shell page-hero__inner">
+    <div>
+      <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>/ Verticals</div>
+      <h1>Different industries.<br/>Same <span class="it">observation.</span></h1>
+    </div>
+    <div>
+      <p class="lede">The cost is in the unstructured work — the email triage, the document review, the back-and-forth that happens before a deal, claim, or case gets resolved. Here's where we've seen agents pay back in each industry. And five horizontals that cut across all of them.</p>
+    </div>
+  </div>
+</header>
+
+<section class="section section--tight">
+  <div class="shell">
+    <!-- VERTICALS -->
+    <div class="vert-section">
+      <div class="meta">
+        <div class="num">V-01</div>
+        <h2>Legal</h2>
+        <p class="sub">Practices spend 40%+ of associate time on unstructured input. The agent surface here is wide.</p>
+      </div>
+      <div></div>
+      <ul>
+        <li><span class="nm">Contract review</span><span class="desc">Redline against playbook, flag deviations, draft markup with citations to clause.</span></li>
+        <li><span class="nm">Matter intake</span><span class="desc">New-matter forms drafted from inbound email + conflicts check; confirmation back to client in minutes.</span></li>
+        <li><span class="nm">Doc summarization</span><span class="desc">Discovery batches, depositions, exhibits — summarized with page-level citations for verification.</span></li>
+        <li><span class="nm">Billing narratives</span><span class="desc">Draft narrative descriptions from time entries; reviewed by the attorney before invoice.</span></li>
+      </ul>
+    </div>
+
+    <div class="vert-section">
+      <div class="meta">
+        <div class="num">V-02</div>
+        <h2>Accounting<br/>&amp; Finance</h2>
+        <p class="sub">Deterministic where possible, AI where the input is messy. Always with the audit trail intact.</p>
+      </div>
+      <div></div>
+      <ul>
+        <li><span class="nm">Invoice processing</span><span class="desc">PO matching, GL coding, exception flagging — deposited into your accounting system, reviewable.</span></li>
+        <li><span class="nm">Reconciliation prep</span><span class="desc">First-pass reconciliation surfaces only the discrepancies for human review. No more line-by-line.</span></li>
+        <li><span class="nm">Client comms</span><span class="desc">Drafted responses to common client questions, grounded in their actual file.</span></li>
+        <li><span class="nm">Tax prep triage</span><span class="desc">Inbound document classification, missing-item chasing, organizer pre-fill.</span></li>
+      </ul>
+    </div>
+
+    <div class="vert-section">
+      <div class="meta">
+        <div class="num">V-03</div>
+        <h2>Healthcare</h2>
+        <p class="sub">Privacy and compliance shape the architecture. Always HITL on clinical output. Nothing leaves the perimeter unreviewed.</p>
+      </div>
+      <div></div>
+      <ul>
+        <li><span class="nm">Patient intake</span><span class="desc">Forms transcribed, history summarized, charts pre-populated for the provider.</span></li>
+        <li><span class="nm">Referral processing</span><span class="desc">Inbound referral docs parsed, scheduled, and acknowledged automatically.</span></li>
+        <li><span class="nm">Clinical notes</span><span class="desc">Note drafting from dictation or visit transcript. Provider edits and signs.</span></li>
+        <li><span class="nm">Scheduling</span><span class="desc">Inbox-driven scheduling and reschedule handling. Reduces no-shows materially.</span></li>
+      </ul>
+    </div>
+
+    <div class="vert-section">
+      <div class="meta">
+        <div class="num">V-04</div>
+        <h2>Insurance</h2>
+        <p class="sub">Triage, extraction, and decisioning support — never decisioning. The carrier still owns the call.</p>
+      </div>
+      <div></div>
+      <ul>
+        <li><span class="nm">Claims triage</span><span class="desc">Severity, coverage, fraud signals — initial assessment to route to the right adjuster.</span></li>
+        <li><span class="nm">Policy Q&amp;A</span><span class="desc">Insureds and brokers get accurate, citation-backed answers from the actual policy doc.</span></li>
+        <li><span class="nm">Underwriting</span><span class="desc">Data extraction from inbound submissions; structured input ready for the underwriter.</span></li>
+        <li><span class="nm">Renewals</span><span class="desc">Renewal package preparation, exception flagging, broker comms.</span></li>
+      </ul>
+    </div>
+
+    <div class="vert-section">
+      <div class="meta">
+        <div class="num">V-05</div>
+        <h2>Logistics<br/>&amp; Trucking</h2>
+        <p class="sub">High volume, narrow language, well-defined inputs. The category that pencils out fastest.</p>
+      </div>
+      <div></div>
+      <ul>
+        <li><span class="nm">Load tenders</span><span class="desc">Inbound tender emails parsed, validated, accepted/rejected against rules — confirmation in seconds.</span></li>
+        <li><span class="nm">Customs docs</span><span class="desc">Cross-border paperwork pre-filled from PO + commercial invoice. Broker review only on exceptions.</span></li>
+        <li><span class="nm">Carrier comms</span><span class="desc">Status update requests, ETA confirmations, exception handling — drafted, sent, logged.</span></li>
+        <li><span class="nm">POD reconciliation</span><span class="desc">Proof-of-delivery matching against shipment records. Auto-close clean ones, flag the rest.</span></li>
+      </ul>
+    </div>
+
+    <div class="vert-section">
+      <div class="meta">
+        <div class="num">V-06</div>
+        <h2>Professional<br/>Services</h2>
+        <p class="sub">Knowledge work in, knowledge work out. The category where leverage compounds fastest.</p>
+      </div>
+      <div></div>
+      <ul>
+        <li><span class="nm">Research synthesis</span><span class="desc">Multi-source research summarized with citations, formatted to your house style.</span></li>
+        <li><span class="nm">Proposal drafting</span><span class="desc">First-pass proposals drafted from win-themes + past work + RFP. Partner edits.</span></li>
+        <li><span class="nm">Client reporting</span><span class="desc">Recurring client reports auto-drafted from project data; consultant adds judgment.</span></li>
+        <li><span class="nm">RFP responses</span><span class="desc">Question parsing, draft response from past responses + current capability matrix.</span></li>
+      </ul>
+    </div>
+
+    <div class="vert-section">
+      <div class="meta">
+        <div class="num">V-07</div>
+        <h2>Retail<br/>&amp; E-commerce</h2>
+        <p class="sub">Customer-facing where it pays, back-office where it scales.</p>
+      </div>
+      <div></div>
+      <ul>
+        <li><span class="nm">Supplier comms</span><span class="desc">Inbound supplier emails — POs, ASNs, exceptions — parsed and routed to the right buyer.</span></li>
+        <li><span class="nm">Inventory exceptions</span><span class="desc">Out-of-pattern movements flagged; explanations drafted from related touchpoints.</span></li>
+        <li><span class="nm">Customer queries</span><span class="desc">Order status, returns, common Qs — drafted, optionally auto-sent. Always logged.</span></li>
+        <li><span class="nm">Listing copy</span><span class="desc">Product description drafting from spec sheets, brand-aligned, marketplace-formatted.</span></li>
+      </ul>
+    </div>
+
+    <!-- HORIZONTALS -->
+    <div class="horizontal-block">
+      <div class="section-head" style="margin-bottom: 32px;">
+        <div class="meta">
+          <div class="num">/ Horizontals</div>
+          <div class="eyebrow"><span class="dot"></span>Cuts across every vertical</div>
+        </div>
+        <h2 class="h2">Six functions that look the same in every business.</h2>
+      </div>
+      <div class="h-grid">
+        <div class="h-cell">
+          <div class="lbl">H-01 / Operations</div>
+          <div class="nm">Operations</div>
+          <ul>
+            <li>Email triage</li>
+            <li>Approval routing</li>
+            <li>Exception handling</li>
+            <li>Recurring reporting</li>
+          </ul>
+        </div>
+        <div class="h-cell">
+          <div class="lbl">H-02 / Marketing</div>
+          <div class="nm">Marketing</div>
+          <ul>
+            <li>Content drafting</li>
+            <li>Campaign analysis</li>
+            <li>Lead qualification</li>
+            <li>SEO research</li>
+          </ul>
+        </div>
+        <div class="h-cell">
+          <div class="lbl">H-03 / Research</div>
+          <div class="nm">Research</div>
+          <ul>
+            <li>Competitive intel</li>
+            <li>Document synthesis</li>
+            <li>Market scanning</li>
+            <li>Brief drafting</li>
+          </ul>
+        </div>
+        <div class="h-cell">
+          <div class="lbl">H-04 / Finance</div>
+          <div class="nm">Finance</div>
+          <ul>
+            <li>Cost analysis</li>
+            <li>Forecasting input</li>
+            <li>Vendor invoicing</li>
+            <li>Variance commentary</li>
+          </ul>
+        </div>
+        <div class="h-cell">
+          <div class="lbl">H-05 / HR</div>
+          <div class="nm">HR</div>
+          <ul>
+            <li>JD drafting</li>
+            <li>Resume screening</li>
+            <li>Onboarding docs</li>
+            <li>Policy Q&amp;A</li>
+          </ul>
+        </div>
+        <div class="h-cell">
+          <div class="lbl">H-06 / Customer Service</div>
+          <div class="nm">Customer Service</div>
+          <ul>
+            <li>Query routing</li>
+            <li>Response drafting</li>
+            <li>Escalation detection</li>
+            <li>Knowledge retrieval</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 80px; text-align: center;">
+      <h2 class="display" style="font-size: clamp(36px, 5vw, 72px); margin-bottom: 24px;">Don't see <em style="font-style: italic; color: var(--accent);">your</em> industry?</h2>
+      <p class="lede" style="margin: 0 auto 32px;">The list is illustrative, not exclusive. If your business runs on email, documents, or unstructured input — we can help.</p>
+      <a href="contact.html" class="btn btn--primary">Tell us about your business <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-mount"></div>
+
+<script src="assets/shared.js"></script>
+<script src="assets/chrome.js"></script>
+<script>
+document.getElementById("nav-mount").outerHTML = window.cygnikNav("verticals");
+document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
+</script>
+</body>
+</html>

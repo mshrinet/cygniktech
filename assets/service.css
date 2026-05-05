@@ -1,0 +1,181 @@
+/* Service detail pages — shared CSS */
+.page-hero { padding-top: 168px; padding-bottom: 80px; position: relative; overflow: hidden; }
+.page-hero .mesh { opacity: 0.55; }
+.page-hero__inner { position: relative; z-index: 2; }
+.page-hero .breadcrumb {
+  display: flex; gap: 12px; margin-bottom: 32px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--fg-3);
+}
+.page-hero .breadcrumb a { color: var(--fg-3); }
+.page-hero .breadcrumb a:hover { color: var(--accent); }
+.page-hero .breadcrumb .sep { color: var(--fg-4); }
+
+.svc-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: end;
+}
+.svc-hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(48px, 6.4vw, 96px);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  max-width: 14ch;
+}
+.svc-hero h1 .it { font-style: italic; color: var(--accent); }
+.svc-hero .right { display: flex; flex-direction: column; gap: 24px; }
+.svc-hero .lede { max-width: 50ch; }
+
+.svc-meta-strip {
+  margin-top: 64px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.svc-meta-strip > div {
+  padding: 24px 0 24px 24px;
+  border-right: 1px solid var(--line);
+}
+.svc-meta-strip > div:first-child { padding-left: 0; }
+.svc-meta-strip > div:last-child { border-right: 0; }
+.svc-meta-strip .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--fg-3); text-transform: uppercase; margin-bottom: 8px; }
+.svc-meta-strip .val { font-family: var(--serif); font-size: 28px; line-height: 1; }
+
+/* What you get */
+.deliv {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin-top: 48px;
+}
+.deliv__item {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 32px;
+  display: flex; flex-direction: column; gap: 16px;
+  min-height: 220px;
+}
+.deliv__item .num { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; }
+.deliv__item .ttl { font-family: var(--serif); font-size: 24px; letter-spacing: -0.015em; }
+.deliv__item p { font-size: 14px; line-height: 1.55; color: var(--fg-2); }
+
+/* Phase timeline */
+.phases { margin-top: 48px; }
+.phase-row {
+  display: grid;
+  grid-template-columns: 60px 100px 1fr;
+  gap: 32px;
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+.phase-row:last-child { border-bottom: 1px solid var(--line); }
+.phase-row .step {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1;
+}
+.phase-row .week {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase;
+  padding-top: 8px;
+}
+.phase-row .body h4 { font-family: var(--serif); font-size: 24px; margin-bottom: 8px; letter-spacing: -0.01em; }
+.phase-row .body p { font-size: 15px; color: var(--fg-2); line-height: 1.55; max-width: 60ch; }
+.phase-row .body .out { margin-top: 12px; font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.06em; }
+
+/* Two col blocks */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.two-col h3 { font-family: var(--serif); font-size: clamp(28px, 3vw, 40px); line-height: 1.05; letter-spacing: -0.015em; margin-bottom: 24px; }
+.two-col p { font-size: 16px; line-height: 1.6; color: var(--fg-2); margin-bottom: 16px; }
+
+/* Pricing card */
+.pricing-card {
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  border-radius: 4px;
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.pricing-card .price {
+  font-family: var(--serif);
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.pricing-card .price small { font-family: var(--mono); font-size: 12px; color: var(--fg-3); display: block; margin-top: 12px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 400; }
+
+/* CTA */
+.svc-closer {
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  border-radius: 4px;
+  padding: 64px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.svc-closer .mesh { opacity: 0.5; }
+.svc-closer .inner { position: relative; z-index: 1; }
+.svc-closer h3 { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); line-height: 1.0; letter-spacing: -0.02em; }
+.svc-closer .actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; position: relative; z-index: 1; }
+
+/* Pagination — next service */
+.svc-next {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.svc-next a {
+  display: flex; flex-direction: column; gap: 4px;
+  transition: color .2s;
+}
+.svc-next a:hover { color: var(--accent); }
+.svc-next .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--fg-3); text-transform: uppercase; }
+.svc-next .name { font-family: var(--serif); font-size: 28px; letter-spacing: -0.015em; }
+.svc-next .next { text-align: right; }
+
+@media (max-width: 900px) {
+  .svc-hero { grid-template-columns: 1fr; }
+  .svc-meta-strip { grid-template-columns: 1fr 1fr; }
+  .svc-meta-strip > div { border-right: 0; padding-left: 0; }
+  .deliv { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; gap: 32px; }
+  .pricing-card { grid-template-columns: 1fr; padding: 32px; }
+  .svc-closer { grid-template-columns: 1fr; padding: 32px; }
+  .svc-closer .actions { justify-content: flex-start; }
+  .phase-row { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* Diagrammatic — system map */
+.sys-map {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg-2);
+  padding: 48px;
+  min-height: 380px;
+  overflow: hidden;
+}
+.sys-map svg { width: 100%; height: auto; max-height: 380px; }
+.sys-map .legend {
+  position: absolute; top: 16px; right: 16px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+  color: var(--fg-3); text-transform: uppercase;
+}
