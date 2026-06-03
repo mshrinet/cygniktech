@@ -60,9 +60,186 @@
   }
   .stack-row .lbl { font-family: var(--mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase; }
   .stack-row .val { font-size: 16px; line-height: 1.5; color: var(--fg-2); }
-  @media (max-width: 720px) {
-    .stack-row { grid-template-columns: 1fr; gap: 8px; }
-    .stack-row .lbl { padding-bottom: 0; }
+
+  /* ===== Interactive service feature (tell + show) ===== */
+  .svc-feature {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.82fr) 1.18fr;
+    gap: 56px;
+    align-items: center;
+    padding: 64px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .svc-feature__lede { display: block; color: inherit; text-decoration: none; }
+  .svc-feature__num { font-family: var(--mono); font-size: 12px; color: var(--fg-3); letter-spacing: 0.12em; }
+  .svc-feature__name { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 50px); line-height: 1.0; letter-spacing: -0.02em; margin: 14px 0 20px; }
+  .svc-feature__name .it { font-style: italic; color: var(--accent); }
+  .svc-feature__lede:hover .svc-feature__name { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 6px; text-decoration-thickness: 1px; }
+  .svc-feature__desc { color: var(--fg-2); font-size: 16px; line-height: 1.58; max-width: 44ch; }
+  .svc-feature__chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; }
+  .svc-feature__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .svc-feature__stat { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .svc-feature__cta { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg); display: inline-flex; align-items: center; gap: 10px; }
+  .svc-feature__cta .arr { transition: transform .25s; color: var(--accent); }
+  .svc-feature__lede:hover .svc-feature__cta .arr { transform: translateX(6px); }
+
+  /* The agent-run console */
+  .agent {
+    position: relative;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--bg-3);
+    overflow: hidden;
+    font-family: var(--mono);
+    cursor: pointer;
+    box-shadow: 0 40px 80px -56px rgba(0,0,0,0.9);
+    transition: border-color .3s;
+  }
+  .agent.is-running, .agent.is-done { border-color: var(--accent-mid); }
+  .agent.is-off { cursor: default; }
+  .agent__head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(var(--bg-2), var(--bg-3));
+  }
+  .agent__id { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-3); }
+  .agent__led { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-4); transition: background .3s; flex: none; }
+  .agent.is-on .agent__led { background: var(--accent); animation: agentLed 2s infinite; }
+  @keyframes agentLed { 0%{box-shadow:0 0 0 0 var(--accent-mid);} 70%{box-shadow:0 0 0 7px rgba(0,0,0,0);} 100%{box-shadow:0 0 0 0 rgba(0,0,0,0);} }
+  .agent__name { color: var(--fg); }
+  .agent__ctrl { display: flex; align-items: center; gap: 16px; }
+  .agent__hint { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-4); transition: opacity .3s; white-space: nowrap; }
+  .agent.is-running .agent__hint, .agent.is-done .agent__hint { opacity: 0; }
+  .agent__hint .tri { color: var(--accent); }
+  .agent__switch { display: inline-flex; align-items: center; gap: 8px; }
+  .agent__switch > span { font-size: 10px; letter-spacing: 0.12em; color: var(--fg-3); }
+  .agent__toggle { width: 34px; height: 18px; border-radius: 999px; background: var(--accent-soft); border: 1px solid var(--accent-mid); position: relative; transition: background .25s, border-color .25s; flex: none; }
+  .agent__toggle::after { content:""; position:absolute; top:1px; left:1px; width:14px; height:14px; border-radius:50%; background: var(--accent); transition: transform .25s, background .25s; }
+  .agent.is-off .agent__toggle { background: rgba(242,239,232,0.06); border-color: var(--line-strong); }
+  .agent.is-off .agent__toggle::after { transform: translateX(16px); background: var(--fg-4); }
+
+  .agent__body { position: relative; padding: 24px 22px 10px; }
+  .agent.is-off .agent__body { opacity: 0.4; }
+  .agent__scan { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; pointer-events: none; }
+  .agent.is-running .agent__scan { animation: agentScan 1.15s linear infinite; }
+  @keyframes agentScan { 0%{top:0; opacity:0;} 12%{opacity:.7;} 88%{opacity:.7;} 100%{top:100%; opacity:0;} }
+  .agent__offline { position: absolute; inset: 0; display: none; place-items: center; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-3); z-index: 3; }
+  .agent.is-off .agent__offline { display: grid; }
+
+  .agent-step { position: relative; display: grid; grid-template-columns: 24px 1fr; gap: 16px; padding-bottom: 18px; }
+  .agent-step:last-child { padding-bottom: 2px; }
+  .agent-step__rail { position: relative; display: flex; justify-content: center; }
+  .agent-step__node { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--bg-2); display: grid; place-items: center; font-size: 9px; color: var(--fg-4); transition: all .35s; z-index: 1; }
+  .agent-step__line { position: absolute; top: 22px; bottom: -18px; width: 1px; background: var(--line); left: 50%; transform: translateX(-50%); }
+  .agent-step:last-child .agent-step__line { display: none; }
+  .agent-step__head { display: flex; align-items: center; gap: 10px; min-height: 22px; }
+  .agent-step__title { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-4); transition: color .3s; }
+  .agent-step__t { margin-left: auto; font-size: 10px; color: var(--fg-4); opacity: 0; transition: opacity .3s; }
+  .agent-step__detail { display: none; margin-top: 8px; font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+  .agent-step.on .agent-step__node { border-color: var(--accent) !important; color: var(--bg) !important; background: var(--accent) !important; box-shadow: 0 0 0 4px var(--accent-soft) !important; }
+  .agent-step.on .agent-step__title { color: var(--fg) !important; }
+  .agent-step.on .agent-step__t { opacity: 1 !important; }
+  .agent-step.on .agent-step__detail { display: block !important; }
+  .agent-step.on .agent-step__line { background: linear-gradient(var(--accent), var(--line)) !important; }
+
+  .agent-mail { color: var(--fg-3); }
+  .agent-mail b { color: var(--fg-2); font-weight: 400; }
+
+  .agent-kv { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 20px; }
+  .agent-kv > div { display: flex; justify-content: space-between; gap: 10px; font-size: 11.5px; border-bottom: 1px dashed var(--line); padding-bottom: 6px; opacity: 0; transform: translateY(5px); transition: opacity .35s, transform .35s; }
+  .agent-step.on .agent-kv > div { opacity: 1 !important; transform: none !important; }
+  .agent-step.on .agent-kv > div:nth-child(1) { transition-delay: .05s; }
+  .agent-step.on .agent-kv > div:nth-child(2) { transition-delay: .18s; }
+  .agent-step.on .agent-kv > div:nth-child(3) { transition-delay: .31s; }
+  .agent-step.on .agent-kv > div:nth-child(4) { transition-delay: .44s; }
+  .agent-kv .k { color: var(--fg-4); letter-spacing: .04em; }
+  .agent-kv .v { color: var(--accent); }
+
+  .agent-meter__row { display: flex; justify-content: space-between; font-size: 11px; color: var(--fg-3); margin-bottom: 7px; }
+  .agent-meter__row b { color: var(--fg); font-weight: 400; }
+  .agent-meter__bar { height: 5px; border-radius: 3px; background: rgba(242,239,232,0.08); overflow: hidden; }
+  .agent-meter__fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #8fe0ea); transition: width 1.1s cubic-bezier(.2,.7,.2,1); }
+  .agent-step.on .agent-meter__fill { width: 94% !important; }
+
+  .agent-route { display: flex; gap: 8px; }
+  .agent-route__pill { flex: 1; border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px; font-size: 11px; color: var(--fg-3); display: flex; align-items: center; gap: 8px; transition: all .35s; }
+  .agent-route__pill .ic { width: 6px; height: 6px; border-radius: 50%; background: var(--fg-4); flex: none; transition: background .3s; }
+  .agent-step.on .agent-route__pill.pick { border-color: var(--accent) !important; color: var(--fg) !important; background: var(--accent-soft) !important; }
+  .agent-step.on .agent-route__pill.pick .ic { background: var(--accent) !important; }
+  .agent-step.on .agent-route__pill.skip { opacity: .38 !important; }
+
+  .agent__foot { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .agent__stat { padding: 15px 18px; border-right: 1px solid var(--line); }
+  .agent__stat:last-child { border-right: 0; }
+  .agent__stat b { display: block; color: var(--fg); font-size: 19px; font-weight: 400; margin-bottom: 3px; }
+  .agent.is-done .agent__stat b { color: var(--accent); }
+  .agent__stat span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-4); }
+
+  /* ---- shared note text ---- */
+  .agent-note { color: var(--fg-3); }
+  .agent-note b { color: var(--fg-2); font-weight: 400; }
+  .agent-note .hl { color: var(--accent); }
+  .agent-mail .lbl { color: var(--accent); }
+
+  /* ---- S-01 scoring matrix ---- */
+  .agent-score { display: grid; gap: 12px; }
+  .agent-score__row { display: grid; grid-template-columns: 116px 1fr; gap: 14px; align-items: center; }
+  .agent-score__name { font-size: 11.5px; color: var(--fg-2); }
+  .agent-score__bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .agent-score__k { font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 4px; display: block; }
+  .agent-score__track { height: 4px; border-radius: 3px; background: rgba(242,239,232,0.08); overflow: hidden; }
+  .agent-score__fill { display: block; height: 100%; width: 0; background: var(--accent); transition: width .9s cubic-bezier(.2,.7,.2,1); }
+  .agent-step.on .agent-score__fill { width: var(--v, 50%) !important; }
+
+  /* ---- S-01 ranked priorities ---- */
+  .agent-rank { display: grid; gap: 8px; }
+  .agent-rank__row { display: flex; align-items: baseline; gap: 11px; font-size: 12px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
+  .agent-rank__n { font-size: 9px; color: var(--bg); background: var(--accent); width: 16px; height: 16px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; align-self: center; }
+  .agent-rank__name { color: var(--fg-2); }
+  .agent-rank__roi { margin-left: auto; color: var(--accent); }
+
+  /* ---- S-01 90-day roadmap ---- */
+  .agent-road { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .agent-road__seg { border: 1px solid var(--line); border-radius: 4px; padding: 11px; }
+  .agent-road__seg .ph { font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-4); }
+  .agent-road__seg .lb { font-size: 12px; color: var(--fg-2); margin-top: 5px; }
+  .agent-road__bar { height: 3px; border-radius: 2px; background: rgba(242,239,232,0.08); margin-top: 11px; overflow: hidden; }
+  .agent-road__bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .8s ease; }
+  .agent-step.on .agent-road__bar i { width: 100% !important; }
+  .agent-road__seg:nth-child(2) .agent-road__bar i { transition-delay: .2s; }
+  .agent-road__seg:nth-child(3) .agent-road__bar i { transition-delay: .4s; }
+
+  /* ---- S-03 systems + wiring ---- */
+  .agent-sys { display: flex; flex-wrap: wrap; gap: 6px; }
+  .agent-wire { display: grid; gap: 10px; }
+  .agent-wire__row { display: grid; grid-template-columns: 112px 1fr 14px; gap: 12px; align-items: center; font-size: 11.5px; }
+  .agent-wire__sys { color: var(--fg-2); }
+  .agent-wire__track { height: 1px; background: var(--line); position: relative; overflow: hidden; }
+  .agent-wire__track i { position: absolute; left: 0; top: 0; height: 100%; width: 0; background: linear-gradient(90deg, transparent, var(--accent)); transition: width .7s ease; }
+  .agent-step.on .agent-wire__track i { width: 100% !important; }
+  .agent-wire__dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--line-strong); justify-self: end; transition: all .4s; }
+  .agent-step.on .agent-wire__dot { border-color: var(--accent) !important; background: var(--accent-soft) !important; box-shadow: 0 0 0 3px var(--accent-soft) !important; }
+  .agent-wire__row:nth-child(2) .agent-wire__track i { transition-delay: .12s; }
+  .agent-wire__row:nth-child(3) .agent-wire__track i { transition-delay: .24s; }
+  .agent-wire__row:nth-child(4) .agent-wire__track i { transition-delay: .36s; }
+  .agent-wire__row:nth-child(5) .agent-wire__track i { transition-delay: .48s; }
+
+  /* ---- S-04 monitoring ---- */
+  .agent-spark { display: flex; align-items: flex-end; gap: 3px; height: 48px; }
+  .agent-spark span { flex: 1; background: var(--accent-soft); border-top: 2px solid var(--accent); border-radius: 1px 1px 0 0; }
+  .agent-spark span.dip { border-top-color: #d9a05b; background: rgba(217,160,91,0.14); }
+  .agent-alert { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; font-size: 11.5px; color: var(--fg-2); }
+  .agent-alert .ic { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--fg-4); }
+  .agent-alert b { font-weight: 400; color: var(--fg); }
+  .agent-alert.warn { border-color: rgba(217,160,91,0.42); background: rgba(217,160,91,0.07); }
+  .agent-alert.warn .ic { background: #d9a05b; animation: agentLed 1.6s infinite; }
+  .agent-alert.ok { border-color: var(--accent-mid); background: var(--accent-soft); }
+  .agent-alert.ok .ic { background: var(--accent); }
+
+  @media (max-width: 960px) {
+    .svc-feature { grid-template-columns: 1fr; gap: 32px; padding: 40px 0; }
   }
 </style>
 </head>
@@ -114,77 +291,452 @@
   <div class="shell">
     <div class="svc-list">
 
-      <a class="svc-row" href="services-strategy.html">
-        <div class="num">S-01</div>
-        <div>
-          <div class="name"><a>AI Strategy<br/>&amp; Readiness</a></div>
-          <div class="tags" style="margin-top:24px;">
+      <div class="svc-feature" id="feat-s01">
+        <a class="svc-feature__lede" href="services-strategy.html">
+          <div class="svc-feature__num">S-01</div>
+          <h3 class="svc-feature__name">AI Strategy <span class="it">&amp; Readiness</span></h3>
+          <p class="svc-feature__desc">A 2–3 week diagnostic that maps every workflow touching unstructured input. We score them on cost, frequency, and risk; model ROI for the top 3; and deliver a 90-day roadmap that tells you exactly where AI pays — and where it doesn't.</p>
+          <div class="svc-feature__chips">
             <span class="chip">Assessment</span>
             <span class="chip">90-day roadmap</span>
             <span class="chip">ROI model</span>
             <span class="chip">Risk register</span>
           </div>
-        </div>
-        <div class="desc">A 2–3 week diagnostic that maps every workflow touching unstructured input. We score them on cost, frequency, and risk; model ROI for the top 3; and deliver a 90-day roadmap that tells you exactly where AI pays — and where it doesn't.</div>
-        <div class="meta">
-          <span class="stat">Fixed fee</span>
-          <span class="arr">→</span>
-        </div>
-      </a>
+          <div class="svc-feature__foot">
+            <span class="svc-feature__stat">Fixed fee</span>
+            <span class="svc-feature__cta">Explore S-01 <span class="arr">→</span></span>
+          </div>
+        </a>
 
-      <a class="svc-row" href="services-automation.html">
-        <div class="num">S-02</div>
-        <div>
-          <div class="name"><a>Workflow Automation<br/>&amp; Agent Deployment</a></div>
-          <div class="tags" style="margin-top:24px;">
+        <div class="agent is-on" id="agent-s01" data-gap="820" role="button" tabindex="0" aria-label="Run the readiness audit demo">
+          <div class="agent__head">
+            <div class="agent__id"><span class="agent__led"></span><span>Audit</span><span class="agent__name">readiness-audit.v1</span></div>
+            <div class="agent__ctrl">
+              <span class="agent__hint"><span class="tri">▶</span>&nbsp; Hover to run</span>
+              <span class="agent__switch"><span data-switch-label>On</span><span class="agent__toggle" data-switch role="switch" aria-checked="true" tabindex="0" aria-label="Audit power"></span></span>
+            </div>
+          </div>
+          <div class="agent__body">
+            <div class="agent__scan"></div>
+            <div class="agent__offline">Audit offline — switch on to run</div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">01</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Intake</span><span class="agent-step__t">scan</span></div>
+                <div class="agent-step__detail"><span class="agent-note"><b>37 workflows</b> mapped across 6 teams — every place email, PDFs and forms enter the business.</span></div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">02</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Score · cost / freq / risk</span><span class="agent-step__t">rank</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-score">
+                    <div class="agent-score__row">
+                      <span class="agent-score__name">Quote intake</span>
+                      <div class="agent-score__bars">
+                        <div><span class="agent-score__k">Cost</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:82%"></span></div></div>
+                        <div><span class="agent-score__k">Freq</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:90%"></span></div></div>
+                        <div><span class="agent-score__k">Risk</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:30%"></span></div></div>
+                      </div>
+                    </div>
+                    <div class="agent-score__row">
+                      <span class="agent-score__name">Support triage</span>
+                      <div class="agent-score__bars">
+                        <div><span class="agent-score__k">Cost</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:70%"></span></div></div>
+                        <div><span class="agent-score__k">Freq</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:88%"></span></div></div>
+                        <div><span class="agent-score__k">Risk</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:40%"></span></div></div>
+                      </div>
+                    </div>
+                    <div class="agent-score__row">
+                      <span class="agent-score__name">Invoice match</span>
+                      <div class="agent-score__bars">
+                        <div><span class="agent-score__k">Cost</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:64%"></span></div></div>
+                        <div><span class="agent-score__k">Freq</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:74%"></span></div></div>
+                        <div><span class="agent-score__k">Risk</span><div class="agent-score__track"><span class="agent-score__fill" style="--v:22%"></span></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">03</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Prioritize · top 3</span><span class="agent-step__t">ROI</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-rank">
+                    <div class="agent-rank__row"><span class="agent-rank__n">1</span><span class="agent-rank__name">Quote intake</span><span class="agent-rank__roi">4.2× ROI</span></div>
+                    <div class="agent-rank__row"><span class="agent-rank__n">2</span><span class="agent-rank__name">Support triage</span><span class="agent-rank__roi">3.1× ROI</span></div>
+                    <div class="agent-rank__row"><span class="agent-rank__n">3</span><span class="agent-rank__name">Invoice match</span><span class="agent-rank__roi">2.6× ROI</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">04</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Model ROI</span><span class="agent-step__t">forecast</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-kv">
+                    <div><span class="k">Est. payback</span><span class="v">11 weeks</span></div>
+                    <div><span class="k">Annual lift</span><span class="v">$84k</span></div>
+                    <div><span class="k">Hours / mo back</span><span class="v">120</span></div>
+                    <div><span class="k">Confidence</span><span class="v">High</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">05</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">90-day roadmap</span><span class="agent-step__t">plan</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-road">
+                    <div class="agent-road__seg"><div class="ph">Day 0–30</div><div class="lb">Pilot · quote intake</div><div class="agent-road__bar"><i></i></div></div>
+                    <div class="agent-road__seg"><div class="ph">Day 30–60</div><div class="lb">Build · +2 workflows</div><div class="agent-road__bar"><i></i></div></div>
+                    <div class="agent-road__seg"><div class="ph">Day 60–90</div><div class="lb">Scale · integrate + govern</div><div class="agent-road__bar"><i></i></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">06</div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Verdict delivered</span><span class="agent-step__t">done</span></div>
+                <div class="agent-step__detail"><span class="agent-note">A clear map of <span class="hl">where AI pays</span> — and an honest list of where it doesn't. Yours to keep, even if you stop here.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent__foot">
+            <div class="agent__stat"><b data-count="37">0</b><span>Workflows scanned</span></div>
+            <div class="agent__stat"><b data-count="3">0</b><span>Use cases modeled</span></div>
+            <div class="agent__stat"><b data-count="90">0</b><span>Day roadmap</span></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="svc-feature" id="feat-s02">
+        <a class="svc-feature__lede" href="services-automation.html">
+          <div class="svc-feature__num">S-02</div>
+          <h3 class="svc-feature__name">Workflow Automation <span class="it">&amp; Agent Deployment</span></h3>
+          <p class="svc-feature__desc">We design, build, and ship the agent — typically 4–8 weeks per workflow. Email, documents, extraction, approvals, reporting. Human-in-loop where it matters; autonomous where it's safe. Every agent ships with a named owner and an off-switch.</p>
+          <div class="svc-feature__chips">
             <span class="chip">Email triage</span>
             <span class="chip">Doc extraction</span>
             <span class="chip">Approvals</span>
             <span class="chip">Human-in-loop</span>
           </div>
-        </div>
-        <div class="desc">We design, build, and ship the agent — typically 4–8 weeks per workflow. Email processing, document handling, data extraction, approvals, reporting. Human-in-loop where it matters; fully autonomous where it's safe. Each agent ships with a named owner and an off-switch.</div>
-        <div class="meta">
-          <span class="stat">Per workflow</span>
-          <span class="arr">→</span>
-        </div>
-      </a>
+          <div class="svc-feature__foot">
+            <span class="svc-feature__stat">Per workflow</span>
+            <span class="svc-feature__cta">Explore S-02 <span class="arr">→</span></span>
+          </div>
+        </a>
 
-      <a class="svc-row" href="services-integration.html">
-        <div class="num">S-03</div>
-        <div>
-          <div class="name"><a>AI Integration</a></div>
-          <div class="tags" style="margin-top:24px;">
+        <div class="agent is-on" id="agent-s02" role="button" tabindex="0" aria-label="Run the agent demo">
+          <div class="agent__head">
+            <div class="agent__id"><span class="agent__led"></span><span>Agent</span><span class="agent__name">order-intake.v2</span></div>
+            <div class="agent__ctrl">
+              <span class="agent__hint"><span class="tri">▶</span>&nbsp; Hover to run</span>
+              <span class="agent__switch"><span data-switch-label>On</span><span class="agent__toggle" data-switch role="switch" aria-checked="true" tabindex="0" aria-label="Agent power"></span></span>
+            </div>
+          </div>
+          <div class="agent__body">
+            <div class="agent__scan"></div>
+            <div class="agent__offline">Agent offline — switch on to run</div>
+
+            <div class="agent-step" data-step="0">
+              <div class="agent-step__rail"><div class="agent-step__node">01</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Inbound</span><span class="agent-step__t">09:14:02</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-mail"><b>sarah.lin@northvalley-mfg.com</b><br/>Need pricing on 240 units, urgent</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step" data-step="1">
+              <div class="agent-step__rail"><div class="agent-step__node">02</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Read &amp; parse</span><span class="agent-step__t">+1.2s</span></div>
+                <div class="agent-step__detail"><span class="agent-mail">Intent classified — <b>quote request</b>. Routing to extraction.</span></div>
+              </div>
+            </div>
+
+            <div class="agent-step" data-step="2">
+              <div class="agent-step__rail"><div class="agent-step__node">03</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Extract fields</span><span class="agent-step__t">+2.8s</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-kv">
+                    <div><span class="k">Quantity</span><span class="v">240</span></div>
+                    <div><span class="k">Spec</span><span class="v">6mm powder-coat</span></div>
+                    <div><span class="k">Due</span><span class="v">Mar 22</span></div>
+                    <div><span class="k">Matched PO</span><span class="v">PO-4412</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step" data-step="3">
+              <div class="agent-step__rail"><div class="agent-step__node">04</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Policy check</span><span class="agent-step__t">+4.1s</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-meter">
+                    <div class="agent-meter__row"><span>Draft confidence</span><b>94%</b></div>
+                    <div class="agent-meter__bar"><div class="agent-meter__fill"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step" data-step="4">
+              <div class="agent-step__rail"><div class="agent-step__node">05</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Route</span><span class="agent-step__t">+4.4s</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-route">
+                    <div class="agent-route__pill pick"><span class="ic"></span>Human-in-loop · Sarah</div>
+                    <div class="agent-route__pill skip"><span class="ic"></span>Auto-send</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step" data-step="5">
+              <div class="agent-step__rail"><div class="agent-step__node">06</div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Draft queued for review</span><span class="agent-step__t">+7.0s</span></div>
+                <div class="agent-step__detail"><span class="agent-mail">Re: Pricing on 240 units — <b>confirmed</b>. Held for one-click human approval.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent__foot">
+            <div class="agent__stat"><b data-count="120" data-suffix="">0</b><span>Emails / day</span></div>
+            <div class="agent__stat"><b data-count="7" data-suffix="s">0s</b><span>Avg handle</span></div>
+            <div class="agent__stat"><b data-count="94" data-suffix="%">0%</b><span>Auto-cleared</span></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="svc-feature" id="feat-s03">
+        <a class="svc-feature__lede" href="services-integration.html">
+          <div class="svc-feature__num">S-03</div>
+          <h3 class="svc-feature__name">AI <span class="it">Integration</span></h3>
+          <p class="svc-feature__desc">Most SMBs don't need new software — they need their existing tools to think. We connect LLMs to your CRM, ERP, accounting suite, email, and custom apps. We don't replace systems; we make them intelligent.</p>
+          <div class="svc-feature__chips">
             <span class="chip">CRM / ERP</span>
             <span class="chip">Email systems</span>
             <span class="chip">Accounting</span>
             <span class="chip">Custom APIs</span>
           </div>
-        </div>
-        <div class="desc">Most SMBs don't need new software — they need their existing tools to think. We connect LLMs to your CRM, ERP, accounting suite, email, and custom apps. We don't replace systems; we make them intelligent.</div>
-        <div class="meta">
-          <span class="stat">Project-based</span>
-          <span class="arr">→</span>
-        </div>
-      </a>
+          <div class="svc-feature__foot">
+            <span class="svc-feature__stat">Project-based</span>
+            <span class="svc-feature__cta">Explore S-03 <span class="arr">→</span></span>
+          </div>
+        </a>
 
-      <a class="svc-row" href="services-retainer.html">
-        <div class="num">S-04</div>
-        <div>
-          <div class="name"><a>Ongoing<br/>AI Retainer</a></div>
-          <div class="tags" style="margin-top:24px;">
+        <div class="agent is-on" id="agent-s03" data-gap="820" role="button" tabindex="0" aria-label="Run the integration demo">
+          <div class="agent__head">
+            <div class="agent__id"><span class="agent__led"></span><span>Mesh</span><span class="agent__name">integration-mesh</span></div>
+            <div class="agent__ctrl">
+              <span class="agent__hint"><span class="tri">▶</span>&nbsp; Hover to run</span>
+              <span class="agent__switch"><span data-switch-label>On</span><span class="agent__toggle" data-switch role="switch" aria-checked="true" tabindex="0" aria-label="Mesh power"></span></span>
+            </div>
+          </div>
+          <div class="agent__body">
+            <div class="agent__scan"></div>
+            <div class="agent__offline">Mesh offline — switch on to run</div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">01</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Inventory</span><span class="agent-step__t">detect</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-sys">
+                    <span class="chip">CRM</span>
+                    <span class="chip">ERP</span>
+                    <span class="chip">Accounting</span>
+                    <span class="chip">Email</span>
+                    <span class="chip">Custom API</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">02</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Connect to model</span><span class="agent-step__t">link</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-wire">
+                    <div class="agent-wire__row"><span class="agent-wire__sys">CRM</span><div class="agent-wire__track"><i></i></div><span class="agent-wire__dot"></span></div>
+                    <div class="agent-wire__row"><span class="agent-wire__sys">ERP</span><div class="agent-wire__track"><i></i></div><span class="agent-wire__dot"></span></div>
+                    <div class="agent-wire__row"><span class="agent-wire__sys">Accounting</span><div class="agent-wire__track"><i></i></div><span class="agent-wire__dot"></span></div>
+                    <div class="agent-wire__row"><span class="agent-wire__sys">Email</span><div class="agent-wire__track"><i></i></div><span class="agent-wire__dot"></span></div>
+                    <div class="agent-wire__row"><span class="agent-wire__sys">Custom API</span><div class="agent-wire__track"><i></i></div><span class="agent-wire__dot"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">03</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Shared context</span><span class="agent-step__t">read</span></div>
+                <div class="agent-step__detail"><span class="agent-note">Model reads across <b>5 sources</b> at once — <span class="hl">nothing migrated</span>, nothing replaced.</span></div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">04</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Resolve query</span><span class="agent-step__t">join</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-note"><span class="agent-mail"><span class="lbl">Q</span> &nbsp;What's our margin on PO-4412?<br/><span class="lbl">A</span> &nbsp;<b>28%</b> — ERP cost × CRM price, cross-checked to the invoice in accounting.</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">05</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Write back</span><span class="agent-step__t">sync</span></div>
+                <div class="agent-step__detail"><span class="agent-note">Answer logged to the CRM note and flagged in accounting — <b>bidirectional</b>, audit-trailed.</span></div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">06</div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Live</span><span class="agent-step__t">done</span></div>
+                <div class="agent-step__detail"><span class="agent-note">Five systems, <span class="hl">one intelligence layer</span>. Your stack stays — it just got smart.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent__foot">
+            <div class="agent__stat"><b data-count="5">0</b><span>Systems linked</span></div>
+            <div class="agent__stat"><b data-count="0">0</b><span>Systems replaced</span></div>
+            <div class="agent__stat"><b data-count="1">0</b><span>Intelligence layer</span></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="svc-feature" id="feat-s04">
+        <a class="svc-feature__lede" href="services-retainer.html">
+          <div class="svc-feature__num">S-04</div>
+          <h3 class="svc-feature__name">Ongoing <span class="it">AI Retainer</span></h3>
+          <p class="svc-feature__desc">AI needs maintenance like any system — models drift, prompts decay, edge cases surface. The retainer covers monitoring, prompt optimization, performance reporting, governance audits, and incident response. We run it so you don't have to.</p>
+          <div class="svc-feature__chips">
             <span class="chip chip--accent">Monthly</span>
             <span class="chip">Monitoring</span>
             <span class="chip">Optimization</span>
             <span class="chip">Governance</span>
           </div>
+          <div class="svc-feature__foot">
+            <span class="svc-feature__stat">From $2.5k/mo</span>
+            <span class="svc-feature__cta">Explore S-04 <span class="arr">→</span></span>
+          </div>
+        </a>
+
+        <div class="agent is-on" id="agent-s04" data-gap="860" role="button" tabindex="0" aria-label="Run the monitoring demo">
+          <div class="agent__head">
+            <div class="agent__id"><span class="agent__led"></span><span>Ops</span><span class="agent__name">ops-monitor</span></div>
+            <div class="agent__ctrl">
+              <span class="agent__hint"><span class="tri">▶</span>&nbsp; Hover to run</span>
+              <span class="agent__switch"><span data-switch-label>On</span><span class="agent__toggle" data-switch role="switch" aria-checked="true" tabindex="0" aria-label="Monitor power"></span></span>
+            </div>
+          </div>
+          <div class="agent__body">
+            <div class="agent__scan"></div>
+            <div class="agent__offline">Monitor offline — switch on to run</div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">01</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Uptime</span><span class="agent-step__t">live</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-spark">
+                    <span style="height:62%"></span><span style="height:74%"></span><span style="height:58%"></span><span style="height:82%"></span><span style="height:70%"></span><span style="height:88%"></span><span style="height:64%"></span><span style="height:90%"></span><span style="height:76%"></span><span style="height:84%"></span><span style="height:80%"></span><span style="height:92%"></span>
+                  </div>
+                  <div class="agent-note" style="margin-top:10px;">All agents healthy · <b>99.9% uptime</b> this period.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">02</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Drift detected</span><span class="agent-step__t">alert</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-alert warn"><span class="ic"></span><span>Quote-intake confidence down <b>7 pts</b> — vendor changed their PO format.</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">03</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Optimize</span><span class="agent-step__t">fix</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-alert ok"><span class="ic"></span><span>Prompt retuned → <b>v2.3</b> shipped. Confidence restored to 96%.</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">04</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Governance audit</span><span class="agent-step__t">pass</span></div>
+                <div class="agent-step__detail"><span class="agent-note">Monthly audit passed — <b>PII redaction</b> verified, access logs clean, off-switch tested.</span></div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">05</div><div class="agent-step__line"></div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Report</span><span class="agent-step__t">+30d</span></div>
+                <div class="agent-step__detail">
+                  <div class="agent-kv">
+                    <div><span class="k">Throughput</span><span class="v">+18%</span></div>
+                    <div><span class="k">Error rate</span><span class="v">−22%</span></div>
+                    <div><span class="k">Tickets resolved</span><span class="v">1,940</span></div>
+                    <div><span class="k">Incidents</span><span class="v">0</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-step">
+              <div class="agent-step__rail"><div class="agent-step__node">06</div></div>
+              <div>
+                <div class="agent-step__head"><span class="agent-step__title">Status</span><span class="agent-step__t">green</span></div>
+                <div class="agent-step__detail"><span class="agent-note"><span class="hl">Monitored · Optimized · Governed.</span> We run it so your team doesn't have to.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent__foot">
+            <div class="agent__stat"><b data-count="99.9" data-suffix="%">0%</b><span>Uptime</span></div>
+            <div class="agent__stat"><b data-count="12">0</b><span>Tunes / mo</span></div>
+            <div class="agent__stat"><b data-count="0">0</b><span>Incidents</span></div>
+          </div>
         </div>
-        <div class="desc">AI needs maintenance like any system — models drift, prompts decay, edge cases surface. The retainer covers monitoring, prompt optimization, performance reporting, governance audits, and incident response. We run it so you don't have to.</div>
-        <div class="meta">
-          <span class="stat">From $2.5k/mo</span>
-          <span class="arr">→</span>
-        </div>
-      </a>
+      </div>
+
 
     </div>
   </div>
@@ -267,5 +819,91 @@
   </div>
 </footer>
 <script src="assets/shared.js"></script>
+<script>
+/* ===== Agent-run demos (S-01…S-04) ===== */
+(function () {
+  function initAgent(agent) {
+    var steps = [].slice.call(agent.querySelectorAll(".agent-step"));
+    var stats = [].slice.call(agent.querySelectorAll(".agent__stat b"));
+    var toggle = agent.querySelector("[data-switch]");
+    var switchLabel = agent.querySelector("[data-switch-label]");
+    var timers = [], intervals = [];
+    var running = false, done = false, off = false;
+
+    var GAP = parseInt(agent.dataset.gap, 10) || 800;
+    var delays = steps.map(function (s, i) {
+      return s.dataset.d != null ? parseInt(s.dataset.d, 10) : (150 + i * GAP);
+    });
+    var maxD = delays.length ? Math.max.apply(null, delays) : 0;
+    var FINISH = maxD + (parseInt(agent.dataset.tail, 10) || 700);
+
+    function clearTimers() {
+      timers.forEach(clearTimeout); timers = [];
+      intervals.forEach(clearInterval); intervals = [];
+    }
+    function reset() {
+      clearTimers();
+      running = false; done = false;
+      agent.classList.remove("is-running", "is-done");
+      steps.forEach(function (s) { s.classList.remove("on"); });
+      stats.forEach(function (b) { b.textContent = "0" + (b.dataset.suffix || ""); });
+    }
+    function countUp(b) {
+      var raw = b.dataset.count || "0";
+      var target = parseFloat(raw) || 0;
+      var suffix = b.dataset.suffix || "";
+      var dec = raw.indexOf(".") > -1 ? 1 : 0;
+      var n = 26, i = 0;
+      var iv = setInterval(function () {
+        i++;
+        var p = i / n, e = 1 - Math.pow(1 - p, 3);
+        b.textContent = (target * e).toFixed(dec) + suffix;
+        if (i >= n) { b.textContent = target.toFixed(dec) + suffix; clearInterval(iv); }
+      }, 32);
+      intervals.push(iv);
+    }
+    function run() {
+      if (off || running || done) return;
+      running = true;
+      agent.classList.add("is-running");
+      steps.forEach(function (s, i) {
+        timers.push(setTimeout(function () { s.classList.add("on"); }, delays[i]));
+      });
+      timers.push(setTimeout(function () {
+        running = false; done = true;
+        agent.classList.remove("is-running");
+        agent.classList.add("is-done");
+        stats.forEach(countUp);
+      }, FINISH));
+    }
+    function setPower(on) {
+      off = !on;
+      agent.classList.toggle("is-off", off);
+      agent.classList.toggle("is-on", on);
+      if (toggle) toggle.setAttribute("aria-checked", String(on));
+      if (switchLabel) switchLabel.textContent = on ? "On" : "Off";
+      if (off) reset();
+    }
+
+    agent.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") run(); });
+    agent.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") reset(); });
+    agent.addEventListener("click", function (e) {
+      if (e.target.closest("[data-switch]")) return;
+      if (off) return;
+      if (done) { reset(); run(); } else { run(); }
+    });
+    agent.addEventListener("keydown", function (e) {
+      if (e.target.closest("[data-switch]")) return;
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (done) { reset(); } run(); }
+    });
+    if (toggle) {
+      var flip = function (e) { e.preventDefault(); e.stopPropagation(); setPower(off); };
+      toggle.addEventListener("click", flip);
+      toggle.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") flip(e); });
+    }
+  }
+  [].slice.call(document.querySelectorAll(".agent")).forEach(initAgent);
+})();
+</script>
 </body>
 </html>

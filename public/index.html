@@ -71,58 +71,49 @@
   }
   .hero__meta strong { color: var(--fg); font-weight: 500; }
 
-  /* Globe */
+  /* Globe — real 3D (globe.gl / three.js) */
   .hero__globe {
     position: relative;
     aspect-ratio: 1;
     width: 100%;
-    max-width: 540px;
+    max-width: 560px;
     margin-left: auto;
   }
-  .globe-wrap {
+  #globeViz {
+    position: absolute; inset: 0;
+    cursor: grab;
+  }
+  #globeViz:active { cursor: grabbing; }
+  #globeViz canvas {
+    display: block; outline: none;
+    /* fade the square canvas edges into the hero so there is no "black box" seam */
+    -webkit-mask: radial-gradient(circle at 50% 52%, #000 56%, transparent 73%);
+    mask: radial-gradient(circle at 50% 52%, #000 56%, transparent 73%);
+  }
+  .globe-loading {
     position: absolute; inset: 0;
     display: grid; place-items: center;
+    font-family: var(--mono);
+    font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    transition: opacity 0.6s ease;
   }
-  .globe-svg {
-    width: 100%; height: 100%;
-    animation: globeRotate 80s linear infinite;
-    transform-origin: center;
-  }
-  @keyframes globeRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  .globe-overlay {
-    position: absolute; inset: 0;
-    pointer-events: none;
-  }
-  .globe-overlay .ping {
-    position: absolute;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 var(--accent-mid);
-    animation: ping 2.6s ease-out infinite;
-  }
-  @keyframes ping {
-    0% { box-shadow: 0 0 0 0 var(--accent-mid); transform: scale(1); }
-    70% { box-shadow: 0 0 0 18px rgba(0,0,0,0); transform: scale(1.2); }
-    100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); transform: scale(1); }
-  }
-  .globe-overlay .ping.t { top: 30%; left: 22%; }
-  .globe-overlay .ping.w { top: 56%; left: 28%; animation-delay: -1.3s; }
-  .globe-overlay .label {
-    position: absolute;
+  /* tracking city labels drawn by globe.gl htmlElements */
+  .globe-tag {
     font-family: var(--mono);
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--fg-3);
-    border-left: 1px solid var(--line-strong);
-    padding-left: 10px;
+    color: var(--fg-2);
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translate(12px, -50%);
+    border-left: 1px solid var(--accent-mid);
+    padding-left: 9px;
+    text-shadow: 0 0 12px var(--bg), 0 0 4px var(--bg);
   }
-  .globe-overlay .label.t { top: 28%; left: 26%; }
-  .globe-overlay .label.w { top: 54%; left: 32%; }
+  .globe-tag b { color: var(--accent); font-weight: 500; }
 
   /* Hero bottom strip */
   .hero__strip {
@@ -551,11 +542,6 @@
   .products__row .name { font-family: var(--serif); font-size: 22px; line-height: 1.1; }
   .products__row .stat { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; text-align: right; }
   @media (max-width: 900px) { .products { padding: 32px; } .products__grid { grid-template-columns: 1fr; gap: 32px; } }
-  @media (max-width: 600px) {
-    .products { padding: 24px; }
-    .products__row { grid-template-columns: 40px 1fr; gap: 12px; }
-    .products__row .stat { display: none; }
-  }
 
   /* === Manifesto pull === */
   .manifesto-pull {
@@ -641,48 +627,8 @@
       </div>
     </div>
     <div class="hero__globe">
-      <div class="globe-wrap">
-        <svg class="globe-svg" viewBox="-110 -110 220 220" fill="none">
-          <!-- outer ring -->
-          <circle cx="0" cy="0" r="100" stroke="var(--line-strong)" stroke-width="0.4"/>
-          <circle cx="0" cy="0" r="100" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="3 6"/>
-          <circle cx="0" cy="0" r="80" stroke="var(--line)" stroke-width="0.4"/>
-          <circle cx="0" cy="0" r="60" stroke="var(--line)" stroke-width="0.4"/>
-          <circle cx="0" cy="0" r="40" stroke="var(--line)" stroke-width="0.4"/>
-          <circle cx="0" cy="0" r="20" stroke="var(--line)" stroke-width="0.4"/>
-          <!-- meridians -->
-          <ellipse cx="0" cy="0" rx="100" ry="30" stroke="var(--line)" stroke-width="0.4"/>
-          <ellipse cx="0" cy="0" rx="100" ry="60" stroke="var(--line)" stroke-width="0.4"/>
-          <ellipse cx="0" cy="0" rx="100" ry="90" stroke="var(--line)" stroke-width="0.4"/>
-          <ellipse cx="0" cy="0" rx="30" ry="100" stroke="var(--line)" stroke-width="0.4"/>
-          <ellipse cx="0" cy="0" rx="60" ry="100" stroke="var(--line)" stroke-width="0.4"/>
-          <ellipse cx="0" cy="0" rx="90" ry="100" stroke="var(--line)" stroke-width="0.4"/>
-          <!-- continents (low-res blobs, illustrative) -->
-          <g fill="var(--accent)" opacity="0.18">
-            <path d="M-60,-40 Q-40,-50 -20,-44 L-10,-30 L-25,-15 L-50,-12 L-66,-25 Z"/>
-            <path d="M5,-35 Q30,-46 55,-30 L65,-10 L40,5 L10,-5 Z"/>
-            <path d="M-30,15 Q-10,8 15,18 L20,40 L0,52 L-25,42 Z"/>
-            <path d="M40,20 Q60,12 78,30 L70,52 L48,46 Z"/>
-            <path d="M-78,5 Q-65,-2 -55,12 L-60,28 L-78,22 Z"/>
-          </g>
-          <!-- routes -->
-          <g stroke="var(--accent)" stroke-width="0.6" fill="none" opacity="0.7">
-            <path d="M-60,-25 Q-30,-60 30,-15" stroke-dasharray="2 3"/>
-            <path d="M-55,-20 Q0,-90 60,5" stroke-dasharray="2 3"/>
-          </g>
-          <!-- nodes -->
-          <circle cx="-55" cy="-22" r="2.5" fill="var(--accent)"/>
-          <circle cx="-55" cy="-22" r="6" fill="none" stroke="var(--accent)" stroke-width="0.5"/>
-          <circle cx="35" cy="-12" r="2.5" fill="var(--accent)"/>
-          <circle cx="35" cy="-12" r="6" fill="none" stroke="var(--accent)" stroke-width="0.5"/>
-        </svg>
-        <div class="globe-overlay">
-          <div class="ping t"></div>
-          <div class="label t">Toronto / 43.65°N</div>
-          <div class="ping w"></div>
-          <div class="label w">Washington / 38.91°N</div>
-        </div>
-      </div>
+      <div id="globeViz"></div>
+      <div class="globe-loading">Initializing network</div>
     </div>
   </div>
 
@@ -969,7 +915,7 @@ Sarah
 <!-- ===== MANIFESTO PULL ===== -->
 <section class="section section--tight" style="background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
   <div class="shell">
-    <div class="manifesto-grid">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
       <div class="manifesto-pull">
         <div class="eyebrow" style="margin-bottom: 24px;"><span class="dot"></span>Our approach</div>
         <p class="quote">We're not here to <span class="it">sell you AI.</span> We're here to tell you where it pays — <span class="it">and where it doesn't.</span></p>
@@ -1221,6 +1167,126 @@ function CygnikTweaks() {
 const tweaksRoot = document.createElement("div");
 document.body.appendChild(tweaksRoot);
 ReactDOM.createRoot(tweaksRoot).render(<CygnikTweaks/>);
+</script>
+
+<!-- ===== 3D Globe (globe.gl / three.js) ===== -->
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/globe.gl@2.34.4/dist/globe.gl.min.js" crossorigin="anonymous"></script>
+<script>
+(function () {
+  if (typeof Globe === "undefined") return;
+  var el = document.getElementById("globeViz");
+  if (!el) return;
+
+  // Pull live brand colors from CSS so the globe tracks the active accent.
+  var css = getComputedStyle(document.documentElement);
+  var ACCENT = (css.getPropertyValue("--accent") || "#5BC8D6").trim();
+  var BG     = (css.getPropertyValue("--bg") || "#0A0E14").trim();
+
+  function rgba(hex, a) {
+    var h = hex.replace("#", "");
+    if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+    var n = parseInt(h, 16);
+    return "rgba(" + ((n>>16)&255) + "," + ((n>>8)&255) + "," + (n&255) + "," + a + ")";
+  }
+
+  var TORONTO    = { lat: 43.65, lng: -79.38, label: "TORONTO / 43.65°N" };
+  var WASHINGTON = { lat: 38.91, lng: -77.04, label: "WASHINGTON / 38.91°N" };
+  var cities = [TORONTO, WASHINGTON];
+
+  // A few quiet global routes to suggest reach, plus the live TO↔DC link.
+  var arcs = [
+    { startLat: 43.65, startLng: -79.38, endLat: 38.91, endLng: -77.04, primary: true },
+    { startLat: 43.65, startLng: -79.38, endLat: 51.50, endLng:  -0.12 },
+    { startLat: 38.91, startLng: -77.04, endLat: 37.77, endLng:-122.42 },
+    { startLat: 43.65, startLng: -79.38, endLat: 19.43, endLng: -99.13 },
+    { startLat: 38.91, startLng: -77.04, endLat: 1.352, endLng: 103.82 }
+  ];
+
+  var w = el.clientWidth || 540;
+  var world = Globe()(el)
+    .width(w)
+    .height(w)
+    .backgroundColor(BG)
+    .showAtmosphere(true)
+    .atmosphereColor(ACCENT)
+    .atmosphereAltitude(0.26)
+    .polygonCapColor(function () { return rgba(ACCENT, 0.16); })
+    .polygonSideColor(function () { return rgba(ACCENT, 0.06); })
+    .polygonStrokeColor(function () { return rgba(ACCENT, 0.85); })
+    .polygonAltitude(0.01)
+    .arcsData(arcs)
+    .arcColor(function (d) {
+      return d.primary
+        ? [rgba(ACCENT, 0.05), rgba(ACCENT, 0.95)]
+        : [rgba(ACCENT, 0.02), rgba(ACCENT, 0.35)];
+    })
+    .arcStroke(function (d) { return d.primary ? 0.55 : 0.3; })
+    .arcAltitude(function (d) { return d.primary ? 0.28 : 0.42; })
+    .arcDashLength(0.45)
+    .arcDashGap(0.25)
+    .arcDashInitialGap(function () { return Math.random(); })
+    .arcDashAnimateTime(function (d) { return d.primary ? 2600 : 4200; })
+    .ringsData(cities)
+    .ringColor(function () { return function (t) { return rgba(ACCENT, 1 - t); }; })
+    .ringMaxRadius(4.5)
+    .ringPropagationSpeed(2.2)
+    .ringRepeatPeriod(1400)
+    .pointsData(cities)
+    .pointColor(function () { return ACCENT; })
+    .pointAltitude(0.012)
+    .pointRadius(0.42)
+    .htmlElementsData(cities)
+    .htmlAltitude(0.06)
+    .htmlElement(function (d) {
+      var div = document.createElement("div");
+      div.className = "globe-tag";
+      var parts = d.label.split(" / ");
+      var b = document.createElement("b");
+      b.textContent = parts[0];
+      div.appendChild(b);
+      div.appendChild(document.createTextNode(" / " + parts[1]));
+      return div;
+    });
+
+  // Dark, faintly-lit sphere — no "black box", just a deep teal globe body.
+  var mat = world.globeMaterial();
+  mat.color.set("#0d1e28");
+  mat.emissive.set(ACCENT);
+  mat.emissiveIntensity = 0.12;
+  mat.shininess = 0.6;
+
+  // Framing: North America forward, gentle auto-rotation, no zoom.
+  world.pointOfView({ lat: 32, lng: -72, altitude: 2.1 }, 0);
+  var ctrl = world.controls();
+  ctrl.autoRotate = true;
+  ctrl.autoRotateSpeed = 0.45;
+  ctrl.enableZoom = false;
+  ctrl.enablePan = false;
+
+  // Load real country shapes for the continents.
+  fetch("https://unpkg.com/world-atlas@2.0.2/countries-110m.json")
+    .then(function (r) { return r.json(); })
+    .then(function (topo) {
+      var feats = topojson.feature(topo, topo.objects.countries).features
+        .filter(function (f) { return f.properties.name !== "Antarctica"; });
+      world.polygonsData(feats);
+      var loader = el.parentNode.querySelector(".globe-loading");
+      if (loader) { loader.style.opacity = "0"; setTimeout(function () { loader.remove(); }, 700); }
+    })
+    .catch(function () {
+      var loader = el.parentNode.querySelector(".globe-loading");
+      if (loader) loader.remove();
+    });
+
+  // Keep it square + responsive to the hero column.
+  function resize() {
+    var s = el.clientWidth;
+    if (s) { world.width(s).height(s); }
+  }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(el);
+  window.addEventListener("resize", resize);
+})();
 </script>
 </body>
 </html>

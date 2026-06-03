@@ -163,17 +163,6 @@
   .phase-row { grid-template-columns: 1fr; gap: 12px; }
 }
 
-@media (max-width: 600px) {
-  .svc-meta-strip { grid-template-columns: 1fr; }
-  .svc-meta-strip > div { border-bottom: 1px solid var(--line); padding: 16px 0; }
-  .svc-meta-strip > div:last-child { border-bottom: 0; }
-  .sys-map { padding: 24px; min-height: 260px; }
-  .svc-next .name { font-size: 22px; }
-  .pricing-card { padding: 24px; }
-  .svc-closer { padding: 24px; }
-  .svc-hero .right > div { flex-wrap: wrap; }
-}
-
 /* Diagrammatic — system map */
 .sys-map {
   position: relative;
@@ -189,4 +178,15 @@
   position: absolute; top: 16px; right: 16px;
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
   color: var(--fg-3); text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .svc-meta-strip { grid-template-columns: 1fr; }
+  .svc-meta-strip > div { border-bottom: 1px solid var(--line); padding: 16px 0; }
+  .svc-meta-strip > div:last-child { border-bottom: 0; }
+  .sys-map { padding: 24px; min-height: 260px; }
+  .svc-next .name { font-size: 22px; }
+  .pricing-card { padding: 24px; }
+  .svc-closer { padding: 24px; }
+  .svc-hero .right > div { flex-wrap: wrap; }
 }

@@ -37,7 +37,6 @@
     const navInner = nav && nav.querySelector('.nav__inner');
     if (!navInner || navInner.querySelector('.nav__hamburger')) return;
 
-    // Three spans for the animated icon bars
     const btn = makeEl('button', {
       class: 'nav__hamburger',
       'aria-label': 'Open menu',
@@ -49,7 +48,6 @@
     ]);
     navInner.appendChild(btn);
 
-    // Full-screen overlay menu
     const menu = makeEl('div', {
       class: 'nav__mobile-menu',
       role: 'navigation',
@@ -93,7 +91,6 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
   }
 
-  // DOMContentLoaded fires after all synchronous scripts — including chrome.js nav injection
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initHamburger);
   } else {

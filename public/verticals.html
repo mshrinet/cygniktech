@@ -73,6 +73,192 @@
   .h-cell ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; font-family: var(--mono); font-size: 12px; color: var(--fg-2); }
   .h-cell li::before { content: "→ "; color: var(--accent); }
   @media (max-width: 720px) { .h-grid { grid-template-columns: 1fr; } .h-cell:nth-child(n) { border-right: 0; } }
+
+  /* ===== Intake-queue visual (tell + show) ===== */
+  .vert-section > .show { align-self: stretch; }
+  .queue {
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--bg-3);
+    font-family: var(--mono);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 30px 60px -48px rgba(0,0,0,0.9);
+    transition: border-color .3s;
+  }
+  .queue.run, .queue.done { border-color: var(--accent-mid); }
+  .queue.is-off { cursor: default; }
+  .queue__head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 14px; border-bottom: 1px solid var(--line);
+    font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-3);
+    background: linear-gradient(var(--bg-2), var(--bg-3));
+  }
+  .queue__id { display: flex; align-items: center; gap: 8px; }
+  .queue__led { width: 6px; height: 6px; border-radius: 50%; background: var(--fg-4); flex: none; }
+  .queue.is-on .queue__led { background: var(--accent); animation: agentLed 2s infinite; }
+  .queue__name { color: var(--fg); }
+  .queue__hint { color: var(--fg-4); white-space: nowrap; transition: opacity .3s; }
+  .queue__hint .tri { color: var(--accent); }
+  .queue.run .queue__hint, .queue.done .queue__hint { opacity: 0; }
+  .queue__body { position: relative; padding: 15px; }
+  .queue.is-off .queue__body { opacity: 0.4; }
+  .queue__offline { position: absolute; inset: 0; display: none; place-items: center; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-3); z-index: 2; }
+  .queue.is-off .queue__offline { display: grid; }
+
+  .queue__gauge { margin-bottom: 14px; }
+  .queue__grow { display: flex; justify-content: space-between; align-items: baseline; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 7px; }
+  .queue__grow .big { font-size: 13px; letter-spacing: 0; text-transform: none; color: var(--fg-3); }
+  .queue__grow .big b { color: var(--fg); font-weight: 400; }
+  .queue__grow .big .to { color: var(--accent); }
+  .queue__gtrack { height: 6px; border-radius: 3px; background: rgba(242,239,232,0.08); overflow: hidden; }
+  .queue__gtrack i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--accent), #8fe0ea); transition: width 1.5s cubic-bezier(.2,.7,.2,1); }
+  .queue.run .queue__gtrack i, .queue.done .queue__gtrack i { width: var(--end, 10%) !important; }
+
+  .queue .queue__items { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .queue .qitem {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 5px 9px;
+    font-size: 11.5px; padding: 8px 11px;
+    border: 1px solid var(--line); border-radius: 4px;
+    transition: border-color .3s, background .3s;
+  }
+  .qtag { font-size: 8px; letter-spacing: 0.08em; color: var(--fg-4); border: 1px solid var(--line-strong); border-radius: 3px; padding: 2px 5px; white-space: nowrap; }
+  .qlabel { flex: 1; min-width: 0; color: var(--fg-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .qroute { flex-basis: 100%; font-size: 10px; line-height: 1.3; color: var(--accent); opacity: 0; transform: translateX(6px); transition: opacity .35s, transform .35s; white-space: nowrap; }
+  .qroute::before { content: "→ "; }
+  .queue .qitem.cleared { border-color: var(--accent-mid); background: var(--accent-soft); }
+  .qitem.cleared .qtag { color: var(--accent); border-color: var(--accent-mid); }
+  .qitem.cleared .qlabel { color: var(--fg-3); }
+  .qitem.cleared .qroute { opacity: 1 !important; transform: none !important; }
+
+  .queue__foot { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); margin-top: 14px; }
+  .queue__stat { padding: 12px 14px; }
+  .queue__stat:first-child { border-right: 1px solid var(--line); }
+  .queue__stat b { display: block; color: var(--fg); font-size: 17px; font-weight: 400; margin-bottom: 2px; }
+  .queue.done .queue__stat b { color: var(--accent); }
+  .queue__stat span { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-4); }
+
+  @media (max-width: 900px) {
+    .vert-section > .show { order: 3; }
+  }
+
+  /* ===== Shared .viz shell (each vertical, unique body) ===== */
+  .viz { border: 1px solid var(--line-strong); border-radius: 6px; background: var(--bg-3); font-family: var(--mono); overflow: hidden; cursor: pointer; box-shadow: 0 30px 60px -48px rgba(0,0,0,0.9); transition: border-color .3s; }
+  .viz.run, .viz.done { border-color: var(--accent-mid); }
+  .viz__head { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-3); background: linear-gradient(var(--bg-2), var(--bg-3)); }
+  .viz__id { display: flex; align-items: center; gap: 8px; }
+  .viz__led { width: 6px; height: 6px; border-radius: 50%; background: var(--fg-4); flex: none; }
+  .viz.is-on .viz__led { background: var(--accent); animation: vizLed 2s infinite; }
+  @keyframes vizLed { 0% { box-shadow: 0 0 0 0 var(--accent-mid); } 70% { box-shadow: 0 0 0 6px rgba(0,0,0,0); } 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); } }
+  .viz__name { color: var(--fg); }
+  .viz__hint { color: var(--fg-4); white-space: nowrap; transition: opacity .3s; }
+  .viz__hint .tri { color: var(--accent); }
+  .viz.run .viz__hint, .viz.done .viz__hint { opacity: 0; }
+  .viz__body { position: relative; padding: 15px; }
+  .viz__foot { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+  .viz__stat { padding: 12px 14px; }
+  .viz__stat:first-child { border-right: 1px solid var(--line); }
+  .viz__stat b { display: block; color: var(--fg); font-size: 17px; font-weight: 400; margin-bottom: 2px; }
+  .viz.done .viz__stat b { color: var(--accent); }
+  .viz__stat span { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-4); }
+
+  /* ---- V-02 Accounting · reconciliation ledger ---- */
+  .led { display: grid; gap: 8px; }
+  .led__row { display: grid; grid-template-columns: 1fr 22px 1fr; gap: 10px; align-items: center; font-size: 11px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 4px; transition: border-color .3s, background .3s; }
+  .led__src { color: var(--fg-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .led__rec { color: var(--fg-4); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .3s; }
+  .led__op { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line-strong); display: grid; place-items: center; font-size: 11px; color: var(--fg-4); transition: all .3s; }
+  .led__op::after { content: "\2248"; }
+  .viz .led__row.act { border-color: var(--accent-mid) !important; background: var(--accent-soft) !important; }
+  .viz .led__row.act .led__rec { color: var(--accent) !important; }
+  .viz .led__row.act .led__op { border-color: var(--accent) !important; background: var(--accent) !important; color: var(--bg) !important; }
+  .viz .led__row.act .led__op::after { content: "="; }
+  .viz .led__row.exc.act { border-color: rgba(217,160,91,0.42) !important; background: rgba(217,160,91,0.07) !important; }
+  .viz .led__row.exc.act .led__op { border-color: #d9a05b !important; background: transparent !important; color: #d9a05b !important; }
+  .viz .led__row.exc.act .led__op::after { content: "!"; }
+  .viz .led__row.exc.act .led__rec { color: #d9a05b !important; }
+  .led__tally { display: flex; gap: 18px; margin-top: 12px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-4); }
+  .led__tally b { color: var(--fg); }
+
+  /* ---- V-03 Healthcare · chart auto-fill + HITL gate ---- */
+  .chart { border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+  .chart__row { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--line); font-size: 11.5px; align-items: center; }
+  .chart__k { color: var(--fg-4); font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .chart__v { color: var(--fg); opacity: 0; transform: translateY(3px); transition: opacity .35s, transform .35s; }
+  .viz .chart__row.act .chart__v { opacity: 1 !important; transform: none !important; }
+  .chart__gate { display: flex; align-items: center; gap: 10px; padding: 11px 12px; background: var(--bg-2); font-size: 11px; color: var(--fg-4); transition: color .3s; }
+  .chart__gate .lk { width: 8px; height: 8px; border-radius: 2px; border: 1px solid var(--fg-4); flex: none; transition: all .3s; }
+  .viz .chart__gate.act { color: var(--fg-2) !important; }
+  .viz .chart__gate.act .lk { border-color: #d9a05b !important; background: rgba(217,160,91,0.25) !important; }
+  .chart__gate b { color: var(--fg); font-weight: 400; }
+
+  /* ---- V-04 Insurance · triage gauges + decision stamp ---- */
+  .gau { display: grid; gap: 13px; }
+  .gau__top { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--fg-3); margin-bottom: 6px; }
+  .gau__top b { color: var(--fg); font-weight: 400; }
+  .gau__track { height: 5px; border-radius: 3px; background: rgba(242,239,232,0.08); overflow: hidden; }
+  .gau__fill { display: block; height: 100%; width: 0; background: var(--accent); transition: width 1s cubic-bezier(.2,.7,.2,1); }
+  .gau__fill.warn { background: #d9a05b; }
+  .viz .gau__row.act .gau__fill { width: var(--v, 50%) !important; }
+  .gau__route { display: flex; align-items: center; gap: 9px; border: 1px solid var(--line); border-radius: 4px; padding: 10px 11px; font-size: 11px; color: var(--fg-3); transition: all .3s; }
+  .gau__route .ic { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-4); flex: none; transition: background .3s; }
+  .viz .gau__route.act { border-color: var(--accent-mid) !important; background: var(--accent-soft) !important; color: var(--fg) !important; }
+  .viz .gau__route.act .ic { background: var(--accent) !important; }
+  .gau__stamp { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-4); border: 1px dashed var(--line-strong); border-radius: 4px; padding: 9px 10px; text-align: center; opacity: 0; transition: opacity .4s; }
+  .viz .gau__stamp.act { opacity: 1 !important; }
+
+  /* ---- V-05 Logistics · load tender / dispatch route ---- */
+  .disp__lane { display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; color: var(--fg-2); }
+  .disp__lane .mi { color: var(--fg-4); font-size: 10px; }
+  .disp__route { position: relative; height: 2px; background: var(--line); margin: 18px 5px 20px; }
+  .disp__route .dot { position: absolute; top: 50%; width: 8px; height: 8px; border-radius: 50%; background: var(--bg-3); border: 1px solid var(--line-strong); transform: translate(-50%, -50%); transition: all .3s; }
+  .disp__route .dot.a { left: 0; border-color: var(--accent); background: var(--accent); }
+  .disp__route .dot.b { left: 100%; }
+  .disp__route i { position: absolute; left: 0; top: 0; height: 100%; width: 0; background: var(--accent); transition: width 1.2s ease; }
+  .disp__route .mk { position: absolute; top: 50%; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); transform: translate(-50%, -50%); box-shadow: 0 0 0 4px var(--accent-soft); transition: left 1.2s ease; opacity: 0; }
+  .viz .disp__route.act i { width: 100% !important; }
+  .viz .disp__route.act .mk { left: 100% !important; opacity: 1 !important; }
+  .viz .disp__route.act .dot.b { border-color: var(--accent) !important; background: var(--accent) !important; }
+  .disp__checks { display: grid; gap: 8px; }
+  .disp__check { display: flex; align-items: center; gap: 9px; font-size: 11px; color: var(--fg-4); transition: color .3s; }
+  .disp__check .bx { width: 15px; height: 15px; border: 1px solid var(--line-strong); border-radius: 3px; display: grid; place-items: center; color: transparent; font-size: 9px; transition: all .3s; }
+  .disp__check .bx::after { content: "\2713"; }
+  .viz .disp__check.act { color: var(--fg-2) !important; }
+  .viz .disp__check.act .bx { border-color: var(--accent) !important; background: var(--accent) !important; color: var(--bg) !important; }
+  .disp__ok { margin-top: 13px; border: 1px solid var(--line); border-radius: 4px; padding: 10px 11px; font-size: 11px; color: var(--fg-4); display: flex; align-items: center; gap: 9px; opacity: .55; transition: all .3s; }
+  .disp__ok .ic { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-4); flex: none; }
+  .disp__ok b { color: var(--fg); font-weight: 400; }
+  .viz .disp__ok.act { opacity: 1 !important; border-color: var(--accent-mid) !important; background: var(--accent-soft) !important; color: var(--fg-2) !important; }
+  .viz .disp__ok.act .ic { background: var(--accent) !important; }
+
+  /* ---- V-06 Professional Services · knowledge synthesis ---- */
+  .synth__src { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 13px; }
+  .synth__chip { font-size: 10px; letter-spacing: 0.04em; color: var(--fg-4); border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 10px; transition: all .3s; }
+  .viz .synth__chip.act { color: var(--accent) !important; border-color: var(--accent-mid) !important; background: var(--accent-soft) !important; }
+  .synth__doc { border: 1px solid var(--line); border-radius: 5px; padding: 13px; }
+  .synth__title { font-family: var(--serif); font-size: 16px; color: var(--fg); margin-bottom: 4px; opacity: 0; transform: translateY(4px); transition: opacity .4s, transform .4s; }
+  .synth__line { display: flex; align-items: center; gap: 9px; font-size: 11px; color: var(--fg-3); padding: 7px 0; border-top: 1px dashed var(--line); opacity: 0; transform: translateX(6px); transition: opacity .4s, transform .4s; }
+  .synth__line .nx { color: var(--accent); }
+  .viz .synth__doc.act .synth__title { opacity: 1 !important; transform: none !important; }
+  .viz .synth__doc.act .synth__line { opacity: 1 !important; transform: none !important; }
+  .viz .synth__doc.act .synth__line:nth-of-type(2) { transition-delay: .12s; }
+  .viz .synth__doc.act .synth__line:nth-of-type(3) { transition-delay: .24s; }
+  .viz .synth__doc.act .synth__line:nth-of-type(4) { transition-delay: .36s; }
+  .synth__edit { margin-top: 12px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-4); display: flex; align-items: center; gap: 8px; opacity: 0; transition: opacity .4s; }
+  .synth__edit .pen { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-4); flex: none; }
+  .viz .synth__edit.act { opacity: 1 !important; }
+  .viz .synth__edit.act .pen { background: var(--accent) !important; }
+
+  /* ---- V-07 Retail · message classification board ---- */
+  .cls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cls__tile { border: 1px solid var(--line); border-radius: 5px; padding: 12px; transition: border-color .3s, background .3s; }
+  .cls__tile .k { font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-4); }
+  .cls__tile .n { font-size: 21px; color: var(--fg); margin-top: 7px; transition: color .3s; }
+  .viz .cls__tile.act { border-color: var(--accent-mid) !important; background: var(--accent-soft) !important; }
+  .viz .cls__tile.act .n { color: var(--accent) !important; }
+  .cls__note { margin-top: 12px; font-size: 11px; color: var(--fg-3); opacity: 0; transition: opacity .4s; }
+  .cls__note .hl { color: var(--accent); }
+  .viz .cls__note.act { opacity: 1 !important; }
 </style>
 </head>
 <body>
@@ -101,7 +287,31 @@
         <h2>Legal</h2>
         <p class="sub">Practices spend 40%+ of associate time on unstructured input. The agent surface here is wide.</p>
       </div>
-      <div></div>
+      <div class="show">
+        <div class="queue is-on" id="q-legal" role="button" tabindex="0" aria-label="Run the Legal intake demo">
+          <div class="queue__head">
+            <span class="queue__id"><span class="queue__led"></span><span>Intake</span><span class="queue__name">legal</span></span>
+            <span class="queue__hint"><span class="tri">▶</span>&nbsp; Hover to clear</span>
+          </div>
+          <div class="queue__body">
+            <div class="queue__offline">Offline</div>
+            <div class="queue__gauge">
+              <div class="queue__grow"><span>Backlog</span><span class="big"><b data-from="312" data-count="19">312</b> in queue</span></div>
+              <div class="queue__gtrack" style="--end:6%"><i></i></div>
+            </div>
+            <ul class="queue__items">
+              <li class="qitem"><span class="qtag">PDF</span><span class="qlabel">MSA redline · 48 pp</span><span class="qroute">Contract review</span></li>
+              <li class="qitem"><span class="qtag">EMAIL</span><span class="qlabel">New matter — Henderson</span><span class="qroute">Matter intake</span></li>
+              <li class="qitem"><span class="qtag">DOC</span><span class="qlabel">Deposition transcript</span><span class="qroute">Doc summarization</span></li>
+              <li class="qitem"><span class="qtag">TIME</span><span class="qlabel">April time entries</span><span class="qroute">Billing narratives</span></li>
+            </ul>
+          </div>
+          <div class="queue__foot">
+            <div class="queue__stat"><b data-count="88" data-suffix="%">0%</b><span>Auto-cleared</span></div>
+            <div class="queue__stat"><b data-count="26" data-suffix="h">0h</b><span>Saved / wk</span></div>
+          </div>
+        </div>
+      </div>
       <ul>
         <li><span class="nm">Contract review</span><span class="desc">Redline against playbook, flag deviations, draft markup with citations to clause.</span></li>
         <li><span class="nm">Matter intake</span><span class="desc">New-matter forms drafted from inbound email + conflicts check; confirmation back to client in minutes.</span></li>
@@ -116,7 +326,27 @@
         <h2>Accounting<br/>&amp; Finance</h2>
         <p class="sub">Deterministic where possible, AI where the input is messy. Always with the audit trail intact.</p>
       </div>
-      <div></div>
+      <div class="show">
+        <div class="viz is-on" data-gap="640" role="button" tabindex="0" aria-label="Run the reconciliation demo">
+          <div class="viz__head">
+            <span class="viz__id"><span class="viz__led"></span><span>Reconcile</span><span class="viz__name">ledger.match</span></span>
+            <span class="viz__hint"><span class="tri">▶</span>&nbsp; Hover to match</span>
+          </div>
+          <div class="viz__body">
+            <div class="led">
+              <div class="led__row" data-seq="1"><span class="led__src">INV #2231 · $4,820</span><span class="led__op"></span><span class="led__rec">PO-4412</span></div>
+              <div class="led__row" data-seq="2"><span class="led__src">INV #2232 · $1,160</span><span class="led__op"></span><span class="led__rec">PO-4418</span></div>
+              <div class="led__row exc" data-seq="3"><span class="led__src">INV #2233 · $9,540</span><span class="led__op"></span><span class="led__rec">no PO · flagged</span></div>
+              <div class="led__row" data-seq="4"><span class="led__src">INV #2234 · $720</span><span class="led__op"></span><span class="led__rec">PO-4421</span></div>
+            </div>
+            <div class="led__tally"><span>Matched <b>3</b></span><span>Exceptions <b>1</b></span><span>GL-coded <b>auto</b></span></div>
+          </div>
+          <div class="viz__foot">
+            <div class="viz__stat"><b data-count="96" data-suffix="%">0%</b><span>Auto-matched</span></div>
+            <div class="viz__stat"><b data-count="18" data-suffix="h">0h</b><span>Saved / wk</span></div>
+          </div>
+        </div>
+      </div>
       <ul>
         <li><span class="nm">Invoice processing</span><span class="desc">PO matching, GL coding, exception flagging — deposited into your accounting system, reviewable.</span></li>
         <li><span class="nm">Reconciliation prep</span><span class="desc">First-pass reconciliation surfaces only the discrepancies for human review. No more line-by-line.</span></li>
@@ -131,7 +361,27 @@
         <h2>Healthcare</h2>
         <p class="sub">Privacy and compliance shape the architecture. Always HITL on clinical output. Nothing leaves the perimeter unreviewed.</p>
       </div>
-      <div></div>
+      <div class="show">
+        <div class="viz is-on" data-gap="560" role="button" tabindex="0" aria-label="Run the patient intake demo">
+          <div class="viz__head">
+            <span class="viz__id"><span class="viz__led"></span><span>Intake</span><span class="viz__name">chart.prefill</span></span>
+            <span class="viz__hint"><span class="tri">▶</span>&nbsp; Hover to fill</span>
+          </div>
+          <div class="viz__body">
+            <div class="chart">
+              <div class="chart__row" data-seq="1"><span class="chart__k">Patient</span><span class="chart__v">M. Okafor · 47</span></div>
+              <div class="chart__row" data-seq="2"><span class="chart__k">Referral</span><span class="chart__v">Cardiology · Dr. Reyes</span></div>
+              <div class="chart__row" data-seq="3"><span class="chart__k">History</span><span class="chart__v">HTN, T2DM — summarized</span></div>
+              <div class="chart__row" data-seq="4"><span class="chart__k">Meds</span><span class="chart__v">Metformin, Lisinopril</span></div>
+              <div class="chart__gate" data-seq="5"><span class="lk"></span><span>Pre-filled — <b>awaiting provider signature</b></span></div>
+            </div>
+          </div>
+          <div class="viz__foot">
+            <div class="viz__stat"><b data-count="100" data-suffix="%">0%</b><span>Chart pre-filled</span></div>
+            <div class="viz__stat"><b data-count="9" data-suffix="min">0min</b><span>Saved / visit</span></div>
+          </div>
+        </div>
+      </div>
       <ul>
         <li><span class="nm">Patient intake</span><span class="desc">Forms transcribed, history summarized, charts pre-populated for the provider.</span></li>
         <li><span class="nm">Referral processing</span><span class="desc">Inbound referral docs parsed, scheduled, and acknowledged automatically.</span></li>
@@ -146,7 +396,27 @@
         <h2>Insurance</h2>
         <p class="sub">Triage, extraction, and decisioning support — never decisioning. The carrier still owns the call.</p>
       </div>
-      <div></div>
+      <div class="show">
+        <div class="viz is-on" data-gap="620" role="button" tabindex="0" aria-label="Run the claims triage demo">
+          <div class="viz__head">
+            <span class="viz__id"><span class="viz__led"></span><span>Triage</span><span class="viz__name">claim.fnol-8821</span></span>
+            <span class="viz__hint"><span class="tri">▶</span>&nbsp; Hover to triage</span>
+          </div>
+          <div class="viz__body">
+            <div class="gau">
+              <div class="gau__row" data-seq="1"><div class="gau__top"><span>Severity</span><b>High</b></div><div class="gau__track"><span class="gau__fill" style="--v:78%"></span></div></div>
+              <div class="gau__row" data-seq="2"><div class="gau__top"><span>Coverage match</span><b>92%</b></div><div class="gau__track"><span class="gau__fill" style="--v:92%"></span></div></div>
+              <div class="gau__row" data-seq="3"><div class="gau__top"><span>Fraud signal</span><b>Low</b></div><div class="gau__track"><span class="gau__fill warn" style="--v:14%"></span></div></div>
+              <div class="gau__route" data-seq="4"><span class="ic"></span>Routed → senior adjuster, auto bodily-injury</div>
+              <div class="gau__stamp" data-seq="5">Recommendation only · the carrier owns the decision</div>
+            </div>
+          </div>
+          <div class="viz__foot">
+            <div class="viz__stat"><b data-count="6" data-suffix="s">0s</b><span>Triage time</span></div>
+            <div class="viz__stat"><b data-count="98" data-suffix="%">0%</b><span>Routed correctly</span></div>
+          </div>
+        </div>
+      </div>
       <ul>
         <li><span class="nm">Claims triage</span><span class="desc">Severity, coverage, fraud signals — initial assessment to route to the right adjuster.</span></li>
         <li><span class="nm">Policy Q&amp;A</span><span class="desc">Insureds and brokers get accurate, citation-backed answers from the actual policy doc.</span></li>
@@ -161,7 +431,28 @@
         <h2>Logistics<br/>&amp; Trucking</h2>
         <p class="sub">High volume, narrow language, well-defined inputs. The category that pencils out fastest.</p>
       </div>
-      <div></div>
+      <div class="show">
+        <div class="viz is-on" data-gap="600" role="button" tabindex="0" aria-label="Run the load tender demo">
+          <div class="viz__head">
+            <span class="viz__id"><span class="viz__led"></span><span>Dispatch</span><span class="viz__name">tender.t-9043</span></span>
+            <span class="viz__hint"><span class="tri">▶</span>&nbsp; Hover to dispatch</span>
+          </div>
+          <div class="viz__body">
+            <div class="disp__lane"><span>Brampton, ON → Detroit, MI</span><span class="mi">372 mi</span></div>
+            <div class="disp__route" data-seq="4"><span class="dot a"></span><span class="dot b"></span><i></i><span class="mk"></span></div>
+            <div class="disp__checks">
+              <div class="disp__check" data-seq="1"><span class="bx"></span>Rate confirmed vs lane average</div>
+              <div class="disp__check" data-seq="2"><span class="bx"></span>Equipment + appointment valid</div>
+              <div class="disp__check" data-seq="3"><span class="bx"></span>Carrier in network · insured</div>
+            </div>
+            <div class="disp__ok" data-seq="5"><span class="ic"></span><b>Accepted</b> — confirmation sent, load booked</div>
+          </div>
+          <div class="viz__foot">
+            <div class="viz__stat"><b data-count="4" data-suffix="s">0s</b><span>To accept</span></div>
+            <div class="viz__stat"><b data-count="240">0</b><span>Tenders / day</span></div>
+          </div>
+        </div>
+      </div>
       <ul>
         <li><span class="nm">Load tenders</span><span class="desc">Inbound tender emails parsed, validated, accepted/rejected against rules — confirmation in seconds.</span></li>
         <li><span class="nm">Customs docs</span><span class="desc">Cross-border paperwork pre-filled from PO + commercial invoice. Broker review only on exceptions.</span></li>
@@ -176,7 +467,33 @@
         <h2>Professional<br/>Services</h2>
         <p class="sub">Knowledge work in, knowledge work out. The category where leverage compounds fastest.</p>
       </div>
-      <div></div>
+      <div class="show">
+        <div class="viz is-on" data-gap="560" role="button" tabindex="0" aria-label="Run the proposal synthesis demo">
+          <div class="viz__head">
+            <span class="viz__id"><span class="viz__led"></span><span>Synthesize</span><span class="viz__name">proposal.draft</span></span>
+            <span class="viz__hint"><span class="tri">▶</span>&nbsp; Hover to draft</span>
+          </div>
+          <div class="viz__body">
+            <div class="synth__src">
+              <span class="synth__chip" data-seq="1">RFP</span>
+              <span class="synth__chip" data-seq="2">Past work</span>
+              <span class="synth__chip" data-seq="3">Win themes</span>
+              <span class="synth__chip" data-seq="4">Capability matrix</span>
+            </div>
+            <div class="synth__doc" data-seq="5">
+              <div class="synth__title">Draft · Acme transformation</div>
+              <div class="synth__line"><span class="nx">01</span> Approach &amp; methodology</div>
+              <div class="synth__line"><span class="nx">02</span> Team &amp; relevant past work</div>
+              <div class="synth__line"><span class="nx">03</span> Timeline &amp; pricing</div>
+            </div>
+            <div class="synth__edit" data-seq="6"><span class="pen"></span>First draft ready · partner edits &amp; signs</div>
+          </div>
+          <div class="viz__foot">
+            <div class="viz__stat"><b data-count="70" data-suffix="%">0%</b><span>First draft</span></div>
+            <div class="viz__stat"><b data-count="14" data-suffix="h">0h</b><span>Saved / wk</span></div>
+          </div>
+        </div>
+      </div>
       <ul>
         <li><span class="nm">Research synthesis</span><span class="desc">Multi-source research summarized with citations, formatted to your house style.</span></li>
         <li><span class="nm">Proposal drafting</span><span class="desc">First-pass proposals drafted from win-themes + past work + RFP. Partner edits.</span></li>
@@ -191,7 +508,27 @@
         <h2>Retail<br/>&amp; E-commerce</h2>
         <p class="sub">Customer-facing where it pays, back-office where it scales.</p>
       </div>
-      <div></div>
+      <div class="show">
+        <div class="viz is-on" data-gap="520" role="button" tabindex="0" aria-label="Run the message classification demo">
+          <div class="viz__head">
+            <span class="viz__id"><span class="viz__led"></span><span>Classify</span><span class="viz__name">inbox.route</span></span>
+            <span class="viz__hint"><span class="tri">▶</span>&nbsp; Hover to sort</span>
+          </div>
+          <div class="viz__body">
+            <div class="cls">
+              <div class="cls__tile" data-seq="1"><div class="k">Order status</div><div class="n"><span data-count="642" data-from="0">0</span></div></div>
+              <div class="cls__tile" data-seq="2"><div class="k">Returns</div><div class="n"><span data-count="264" data-from="0">0</span></div></div>
+              <div class="cls__tile" data-seq="3"><div class="k">Supplier POs</div><div class="n"><span data-count="228" data-from="0">0</span></div></div>
+              <div class="cls__tile" data-seq="4"><div class="k">Listing copy</div><div class="n"><span data-count="106" data-from="0">0</span></div></div>
+            </div>
+            <div class="cls__note" data-seq="5">→ Drafted &amp; <span class="hl">auto-sent where safe</span> · always logged</div>
+          </div>
+          <div class="viz__foot">
+            <div class="viz__stat"><b data-count="1240">0</b><span>Messages / day</span></div>
+            <div class="viz__stat"><b data-count="84" data-suffix="%">0%</b><span>Auto-resolved</span></div>
+          </div>
+        </div>
+      </div>
       <ul>
         <li><span class="nm">Supplier comms</span><span class="desc">Inbound supplier emails — POs, ASNs, exceptions — parsed and routed to the right buyer.</span></li>
         <li><span class="nm">Inventory exceptions</span><span class="desc">Out-of-pattern movements flagged; explanations drafted from related touchpoints.</span></li>
@@ -288,6 +625,123 @@
 <script>
 document.getElementById("nav-mount").outerHTML = window.cygnikNav("verticals");
 document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
+</script>
+<script>
+/* ===== Intake-queue demos ===== */
+(function () {
+  function fmt(n) { return Math.round(n).toLocaleString("en-US"); }
+  function initQueue(q) {
+    var items = [].slice.call(q.querySelectorAll(".qitem"));
+    var nums = [].slice.call(q.querySelectorAll("[data-count]"));
+    var toggle = q.querySelector("[data-switch]");
+    var timers = [], intervals = [];
+    var running = false, done = false, off = false;
+    var GAP = parseInt(q.dataset.gap, 10) || 430;
+
+    function clearTimers() {
+      timers.forEach(clearTimeout); timers = [];
+      intervals.forEach(clearInterval); intervals = [];
+    }
+    function startVal(b) { return b.dataset.from != null ? parseFloat(b.dataset.from) : 0; }
+    function reset() {
+      clearTimers(); running = false; done = false;
+      q.classList.remove("run", "done");
+      items.forEach(function (it) { it.classList.remove("cleared"); });
+      nums.forEach(function (b) { b.textContent = fmt(startVal(b)) + (b.dataset.suffix || ""); });
+    }
+    function countTo(b) {
+      var from = startVal(b), to = parseFloat(b.dataset.count) || 0, suffix = b.dataset.suffix || "";
+      var n = 30, i = 0;
+      var iv = setInterval(function () {
+        i++; var p = i / n, e = 1 - Math.pow(1 - p, 3);
+        b.textContent = fmt(from + (to - from) * e) + suffix;
+        if (i >= n) { b.textContent = fmt(to) + suffix; clearInterval(iv); }
+      }, 30);
+      intervals.push(iv);
+    }
+    function run() {
+      if (off || running || done) return;
+      running = true; q.classList.add("run");
+      nums.forEach(function (b) { timers.push(setTimeout(function () { countTo(b); }, 260)); });
+      items.forEach(function (it, i) {
+        timers.push(setTimeout(function () { it.classList.add("cleared"); }, 360 + i * GAP));
+      });
+      timers.push(setTimeout(function () {
+        running = false; done = true; q.classList.add("done");
+      }, 360 + items.length * GAP + 500));
+    }
+    function setPower(on) {
+      off = !on;
+      q.classList.toggle("is-off", off);
+      q.classList.toggle("is-on", on);
+      if (off) reset();
+    }
+
+    q.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") run(); });
+    q.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") reset(); });
+    q.addEventListener("click", function (e) {
+      if (e.target.closest("[data-switch]")) return;
+      if (off) return;
+      if (done) { reset(); run(); } else { run(); }
+    });
+    q.addEventListener("keydown", function (e) {
+      if (e.target.closest("[data-switch]")) return;
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (done) { reset(); } run(); }
+    });
+    if (toggle) {
+      var flip = function (e) { e.preventDefault(); e.stopPropagation(); setPower(off); };
+      toggle.addEventListener("click", flip);
+    }
+    reset();
+  }
+  [].slice.call(document.querySelectorAll(".queue")).forEach(initQueue);
+})();
+</script>
+<script>
+/* ===== Generic .viz reveal + count engine (unique vertical visuals) ===== */
+(function () {
+  function fmt(n) { return Math.round(n).toLocaleString("en-US"); }
+  function initDemo(el) {
+    var seq = [].slice.call(el.querySelectorAll("[data-seq]")).sort(function (a, b) { return (+a.dataset.seq) - (+b.dataset.seq); });
+    var nums = [].slice.call(el.querySelectorAll("[data-count]"));
+    var timers = [], intervals = [];
+    var running = false, done = false, off = false;
+    var GAP = parseInt(el.dataset.gap, 10) || 620;
+
+    function clearAll() { timers.forEach(clearTimeout); timers = []; intervals.forEach(clearInterval); intervals = []; }
+    function sv(b) { return b.dataset.from != null ? parseFloat(b.dataset.from) : 0; }
+    function reset() {
+      clearAll(); running = false; done = false;
+      el.classList.remove("run", "done");
+      seq.forEach(function (s) { s.classList.remove("act"); });
+      nums.forEach(function (b) { var dec = (b.dataset.count || "").indexOf(".") > -1; b.textContent = (dec ? sv(b).toFixed(1) : fmt(sv(b))) + (b.dataset.suffix || ""); });
+    }
+    function count(b) {
+      var f = sv(b), t = parseFloat(b.dataset.count) || 0, suf = b.dataset.suffix || "";
+      var dec = (b.dataset.count || "").indexOf(".") > -1, n = 28, i = 0;
+      var iv = setInterval(function () {
+        i++; var p = i / n, e = 1 - Math.pow(1 - p, 3), v = f + (t - f) * e;
+        b.textContent = (dec ? v.toFixed(1) : fmt(v)) + suf;
+        if (i >= n) { b.textContent = (dec ? t.toFixed(1) : fmt(t)) + suf; clearInterval(iv); }
+      }, 30);
+      intervals.push(iv);
+    }
+    function run() {
+      if (off || running || done) return;
+      running = true; el.classList.add("run");
+      nums.forEach(function (b) { timers.push(setTimeout(function () { count(b); }, 280)); });
+      seq.forEach(function (s, i) { timers.push(setTimeout(function () { s.classList.add("act"); }, 340 + i * GAP)); });
+      timers.push(setTimeout(function () { running = false; done = true; el.classList.add("done"); }, 380 + seq.length * GAP + 400));
+    }
+
+    el.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") run(); });
+    el.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") reset(); });
+    el.addEventListener("click", function () { if (off) return; if (done) { reset(); run(); } else { run(); } });
+    el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (done) { reset(); } run(); } });
+    reset();
+  }
+  [].slice.call(document.querySelectorAll(".viz")).forEach(initDemo);
+})();
 </script>
 </body>
 </html>

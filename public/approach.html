@@ -169,6 +169,98 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
+
+  /* ===== Principle motion-graphics ===== */
+  .pviz { margin-top: 40px; }
+  .pviz__cap { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 16px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .pviz__cap .kk { display: inline-flex; align-items: center; gap: 7px; }
+  .pviz__cap .sw { width: 16px; height: 2px; border-radius: 2px; background: var(--accent); }
+  .pviz__cap .sw.dim { background: var(--fg-4); }
+  .pviz svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .pgrid { stroke: var(--line); stroke-width: .6; }
+  .pflat { fill: none; stroke: var(--fg-4); stroke-width: 1.4; opacity: .5; stroke-dasharray: 3 4; }
+  .parea { opacity: .9; }
+  .pline { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
+  .ptracer { fill: none; stroke: #c4f0f6; stroke-width: 3.2; stroke-linecap: round; stroke-dasharray: 28 940; stroke-dashoffset: 968; animation: ptrace 3.4s linear infinite; }
+  @keyframes ptrace { from { stroke-dashoffset: 968; } to { stroke-dashoffset: 0; } }
+  .pscan { stroke: var(--accent); stroke-width: 1; opacity: .14; animation: pscan 3.4s linear infinite; }
+  @keyframes pscan { 0% { transform: translateX(0); } 100% { transform: translateX(600px); } }
+  .pglow { fill: var(--accent); opacity: .18; animation: ppulse 2.2s ease-in-out infinite; }
+  @keyframes ppulse { 0%,100% { opacity: .1; } 50% { opacity: .34; } }
+  .penddot { fill: var(--accent); }
+  .pannot { font-family: var(--mono); font-size: 10px; letter-spacing: .03em; }
+  .pannot.up { fill: var(--accent); }
+  .pannot.flat { fill: var(--fg-4); }
+  .paxis { font-family: var(--mono); font-size: 9px; fill: var(--fg-4); letter-spacing: .1em; }
+
+  /* 02 · access dot-matrix (spreading wave) */
+  .dotgrid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 7px; margin-top: 6px; }
+  .dotgrid span { aspect-ratio: 1; border-radius: 50%; background: var(--accent); opacity: .12; animation: dwave 3s ease-in-out infinite; }
+  @keyframes dwave { 0%, 100% { opacity: .1; transform: scale(.7); } 45% { opacity: .9; transform: scale(1); } }
+  .dmeta { display: flex; justify-content: space-between; margin-top: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-4); }
+  .dmeta b { color: var(--accent); font-weight: 400; }
+
+  /* 03 · readiness vs adoption rings */
+  .rings { display: flex; gap: 36px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+  .ring { position: relative; width: 128px; height: 128px; flex: none; }
+  .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring__track { fill: none; stroke: rgba(242,239,232,0.1); stroke-width: 7; }
+  .ring__val { fill: none; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 364; }
+  .ring__val.ready { stroke: var(--accent); stroke-dashoffset: 0; animation: readypulse 2.6s ease-in-out infinite; }
+  @keyframes readypulse { 0%, 100% { opacity: 1; } 50% { opacity: .6; } }
+  .ring__val.adopt { stroke: #d9a05b; stroke-dashoffset: 240; animation: adoptcreep 4.5s ease-in-out infinite; }
+  @keyframes adoptcreep { 0% { stroke-dashoffset: 250; } 50% { stroke-dashoffset: 220; } 100% { stroke-dashoffset: 250; } }
+  .ring__c { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+  .ring__c .n { font-family: var(--mono); font-size: 23px; color: var(--fg); }
+  .ring__c .k { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-4); margin-top: 3px; }
+  .rings__note { font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.4; color: var(--fg); max-width: 22ch; }
+
+  /* 04 · human-gated automation flow */
+  .flow { margin-top: 12px; }
+  .flow__rail { position: relative; height: 2px; background: var(--line); margin: 44px 12px 48px; }
+  .flow__seg { position: absolute; top: 0; left: 0; height: 100%; width: 50%; background: linear-gradient(90deg, transparent, var(--accent)); opacity: .45; }
+  .flow__pkt { position: absolute; top: 50%; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); transform: translate(-50%, -50%); animation: flowpkt 4.4s cubic-bezier(.4,0,.2,1) infinite; }
+  @keyframes flowpkt { 0% { left: 2%; opacity: 0; } 6% { opacity: 1; } 38% { left: 50%; } 56% { left: 50%; } 92% { left: 98%; opacity: 1; } 100% { left: 98%; opacity: 0; } }
+  .flow__node { position: absolute; top: 50%; transform: translate(-50%, -50%); }
+  .flow__node.start { left: 2%; } .flow__node.end { left: 98%; }
+  .flow__node .d { display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--bg-3); border: 1px solid var(--line-strong); }
+  .flow__node .lbl { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-4); }
+  .flow__gate { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(45deg); width: 26px; height: 26px; background: var(--accent-soft); border: 1.5px solid var(--accent); animation: gatepulse 2.2s ease-in-out infinite; }
+  @keyframes gatepulse { 0%, 100% { box-shadow: 0 0 0 0 var(--accent-mid); } 50% { box-shadow: 0 0 0 9px rgba(0,0,0,0); } }
+  .flow__gatelbl { position: absolute; left: 50%; top: calc(50% + 26px); transform: translateX(-50%); white-space: nowrap; font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: var(--accent); }
+  .flow__gatelbl b { color: var(--fg); }
+  .flow__meta { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-4); }
+  .flow__meta b { color: var(--fg-2); font-weight: 400; }
+
+  /* 05 · foundation → AI layered stack */
+  .stack { position: relative; display: grid; gap: 8px; margin-top: 6px; padding-left: 22px; }
+  .stackrail { position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
+  .stackrail i { position: absolute; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); transform: translate(-50%, -50%); animation: riseup 3.2s linear infinite; }
+  @keyframes riseup { 0% { top: 100%; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { top: 0%; opacity: 0; } }
+  .stackrail i:nth-child(2) { animation-delay: -1.07s; }
+  .stackrail i:nth-child(3) { animation-delay: -2.14s; }
+  .stack__layer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 5px; background: var(--bg-2); font-family: var(--mono); font-size: 12px; color: var(--fg-3); }
+  .stack__layer .k { display: flex; align-items: center; gap: 11px; }
+  .stack__layer .tag { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-4); white-space: nowrap; }
+  .stack__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-4); flex: none; }
+  .stack__layer.top { border-color: var(--accent-mid); background: var(--accent-soft); color: var(--fg); }
+  .stack__layer.top .tag { color: var(--accent); }
+  .stack__layer.top .stack__dot { background: var(--accent); animation: ppulse 2s ease-in-out infinite; }
+
+  /* 06 · ROI scatter */
+  .scatter { margin-top: 6px; }
+  .scatter svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .sc-axis { stroke: var(--line); stroke-width: 1; }
+  .sc-thresh { stroke: var(--fg-4); stroke-width: 1; stroke-dasharray: 3 4; opacity: .45; }
+  .sc-dot { animation: scpulse 2.8s ease-in-out infinite; }
+  .sc-dot.pay { fill: var(--accent); }
+  .sc-dot.skip { fill: #d9a05b; }
+  @keyframes scpulse { 0%, 100% { opacity: .48; } 50% { opacity: 1; } }
+  .sc-ring { fill: none; stroke: #d9a05b; stroke-width: 1; opacity: .4; animation: scpulse 2.8s ease-in-out infinite; }
+  .sc-lab { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; fill: var(--fg-4); }
+  .sc-tag { font-family: var(--mono); font-size: 10px; letter-spacing: .03em; }
+  .sc-tag.pay { fill: var(--accent); }
+  .sc-tag.skip { fill: #d9a05b; }
 </style>
 </head>
 <body>
@@ -190,6 +282,7 @@
     <div class="eyebrow" style="margin-bottom: 32px;"><span class="dot"></span>/ Approach</div>
     <h1>How we<br/>think about <span class="it">AI.</span></h1>
     <p class="lede" style="margin-top: 32px; max-width: 50ch;">Six positions that shape how we engage. Read it before you hire us — if you disagree with most of them, we're the wrong fit. That's a useful answer too.</p>
+    <p class="lede" style="margin-top: 14px; max-width: 50ch; font-style: italic; color: var(--fg-3);">Mark where you stand as you read. We'll total it up.</p>
   </div>
 </header>
 
@@ -204,6 +297,38 @@
         <p>Treat it like email or Excel. Email transformed how we communicate; Excel transformed how we calculate. Both took years to integrate properly. Neither one is mystical.</p>
         <p>The companies that got the most out of email weren't the ones with the most enthusiastic adoption. They were the ones that built protocols around it — what gets sent, who sends it, what counts as a response. AI is the same.</p>
         <p>If a vendor pitches you AI as a force multiplier without telling you what you have to do differently, walk away. The technology multiplies whatever process you give it — including the bad ones.</p>
+        <div class="pviz">
+          <div class="pviz__cap">
+            <span>Same model · output / hour</span>
+            <span class="kk"><span class="sw"></span>AI × strong process</span>
+            <span class="kk"><span class="sw dim"></span>AI × weak process</span>
+          </div>
+          <svg viewBox="0 0 600 240" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Output over time: AI on a strong process climbs; AI on a weak process stays flat.">
+            <defs>
+              <linearGradient id="pgrad01" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.30"/>
+                <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g class="pgrid">
+              <line x1="0" y1="50" x2="600" y2="50"/>
+              <line x1="0" y1="100" x2="600" y2="100"/>
+              <line x1="0" y1="150" x2="600" y2="150"/>
+              <line x1="0" y1="200" x2="600" y2="200"/>
+            </g>
+            <path class="parea" fill="url(#pgrad01)" d="M0,205 C120,200 220,165 340,120 C440,82 540,48 600,34 L600,240 L0,240 Z"/>
+            <path class="pflat" d="M0,167 L120,159 L240,170 L360,157 L480,165 L600,160"/>
+            <path id="pline01" class="pline" d="M0,205 C120,200 220,165 340,120 C440,82 540,48 600,34"/>
+            <path class="ptracer" d="M0,205 C120,200 220,165 340,120 C440,82 540,48 600,34"/>
+            <line class="pscan" x1="0" y1="20" x2="0" y2="220"/>
+            <circle class="pglow" cx="600" cy="34" r="9"/>
+            <circle class="penddot" cx="600" cy="34" r="3.5"/>
+            <text class="pannot up" x="392" y="74">multiplies a good one ↑</text>
+            <text class="pannot flat" x="250" y="150">multiplies a bad one →</text>
+            <text class="paxis" x="0" y="234">WEEK 0</text>
+            <text class="paxis" x="600" y="234" text-anchor="end">WEEK 12</text>
+          </svg>
+        </div>
       </div>
     </div>
 
@@ -215,6 +340,11 @@
         <p>For thirty years, only the enterprise could afford to extract insight from unstructured data. Email parsing, document analysis, sentiment, forecasting from messy inputs — all of it required teams of analysts and seven-figure systems.</p>
         <p>That bar collapsed. The same capability is now available to a 30-person business at a price that pays back in weeks. This is the most important thing happening for SMB right now, and most owners haven't internalized it.</p>
         <p>Our job is to help SMBs see what they can now do — and act on it before larger competitors do.</p>
+        <div class="pviz">
+          <div class="pviz__cap"><span>Who can extract insight from messy data</span></div>
+          <div class="dotgrid" data-dots="144"></div>
+          <div class="dmeta"><span>2005 · <b>enterprise only</b></span><span>cost of insight <b>&darr; ~1000&times;</b></span><span>2026 · <b>any SMB</b></span></div>
+        </div>
       </div>
     </div>
 
@@ -226,6 +356,20 @@
         <p>The model works. It almost always works. The deployment that fails six months in fails for the same reason every other tech project fails: nobody owned it, nobody changed how they worked around it, the runbook was never written, the edge case wasn't documented, the new hire wasn't trained.</p>
         <p>People + process + governance comes first. Models come second.</p>
         <div class="pull">"We came up through MSP. We've watched a hundred businesses succeed and fail at adopting tech. The technology is rarely the variable."</div>
+        <div class="pviz">
+          <div class="pviz__cap"><span>Model readiness vs org adoption · same project</span></div>
+          <div class="rings">
+            <div class="ring">
+              <svg viewBox="0 0 132 132"><circle class="ring__track" cx="66" cy="66" r="58"/><circle class="ring__val ready" cx="66" cy="66" r="58"/></svg>
+              <div class="ring__c"><div><div class="n">100%</div><div class="k">Model ready</div></div></div>
+            </div>
+            <div class="ring">
+              <svg viewBox="0 0 132 132"><circle class="ring__track" cx="66" cy="66" r="58"/><circle class="ring__val adopt" cx="66" cy="66" r="58"/></svg>
+              <div class="ring__c"><div><div class="n" style="color:#d9a05b">34%</div><div class="k">Org adopted</div></div></div>
+            </div>
+            <p class="rings__note">Ready in week one. The organization takes months — that gap is where deployments die.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -244,6 +388,20 @@
 <span class="em">audit</span>     : full · 90d retention · exportable
 <span class="em">off_switch</span>: cygnik.run/agents/oqv2 — kills inbound queue immediately
         </div>
+        <div class="pviz">
+          <div class="pviz__cap"><span>Nothing ships without a human on the line</span></div>
+          <div class="flow">
+            <div class="flow__rail">
+              <div class="flow__seg"></div>
+              <div class="flow__node start"><span class="d"></span><span class="lbl">Agent draft</span></div>
+              <div class="flow__gate"></div>
+              <div class="flow__gatelbl"><b>You</b> &middot; owner + review</div>
+              <div class="flow__node end"><span class="d"></span><span class="lbl">Sent &middot; logged</span></div>
+              <div class="flow__pkt"></div>
+            </div>
+            <div class="flow__meta"><span>confidence <b>0.92</b></span><span>audit <b>90d</b></span><span>off-switch <b>armed</b></span></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -255,6 +413,17 @@
         <p>Most AI consultants understand the technology. We do too — but we also understand the rest of it. How a 40-person business actually adopts a new tool. How an SOC change request gets approved. Where a backup tape sits. Why the bookkeeper still uses a 2009 spreadsheet that runs the whole company.</p>
         <p>That texture matters. AI doesn't replace the business — it sits inside it. Knowing how the business runs is the prerequisite, not the bonus.</p>
         <p>We still maintain IT for clients who want it. Not because it's our identity, but because the foundation has to be sound for the AI to run on top of it.</p>
+        <div class="pviz">
+          <div class="pviz__cap"><span>AI runs on the foundation — not instead of it</span></div>
+          <div class="stack">
+            <div class="stackrail"><i></i><i></i><i></i></div>
+            <div class="stack__layer top"><span class="k"><span class="stack__dot"></span>AI agents &amp; automation</span><span class="tag">Cygnik · today</span></div>
+            <div class="stack__layer"><span class="k"><span class="stack__dot"></span>Integrations · your data</span><span class="tag">the bridge</span></div>
+            <div class="stack__layer"><span class="k"><span class="stack__dot"></span>IT ops · monitoring · backups</span><span class="tag">MSP · carried over</span></div>
+            <div class="stack__layer"><span class="k"><span class="stack__dot"></span>Security · access · SOC</span><span class="tag">MSP · carried over</span></div>
+            <div class="stack__layer"><span class="k"><span class="stack__dot"></span>Network · infrastructure</span><span class="tag">the foundation</span></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -266,6 +435,39 @@
         <p>Most AI consultants oversell. The incentives are obvious — every hour billed is an hour of pipeline. We've structured our practice the opposite way: fixed-fee engagements, vendor-neutral recommendations, and a willingness to walk a client out the door with a "don't do this" and a refund of the unused retainer.</p>
         <p>Not as a marketing position. As an actual operating principle. We've turned down four engagements this quarter where the math didn't work, and recommended one client move their work in-house once the agent stabilized.</p>
         <p>If you're looking for a consultant who'll tell you AI solves everything you wave at it — we're not it. If you're looking for someone who'll tell you exactly where it pays and where it doesn't, you're in the right place.</p>
+        <div class="pviz">
+          <div class="pviz__cap">
+            <span>Every workflow, scored honestly</span>
+            <span class="kk"><span class="sw"></span>pays back</span>
+            <span class="kk"><span class="sw" style="background:#d9a05b"></span>we'll say skip</span>
+          </div>
+          <div class="scatter">
+            <svg viewBox="0 0 600 262" role="img" aria-label="ROI scatter: high-payoff low-effort workflows pay back; high-effort low-payoff ones are flagged to skip.">
+              <text class="sc-lab" x="6" y="16">PAYOFF &uarr;</text>
+              <line class="sc-axis" x1="30" y1="14" x2="30" y2="232"/>
+              <line class="sc-axis" x1="30" y1="232" x2="594" y2="232"/>
+              <line class="sc-thresh" x1="44" y1="66" x2="540" y2="232"/>
+              <circle class="sc-dot pay" cx="96" cy="70" r="5" style="animation-delay:-0.4s"/>
+              <circle class="sc-dot pay" cx="130" cy="54" r="5" style="animation-delay:-1.5s"/>
+              <circle class="sc-dot pay" cx="158" cy="104" r="5" style="animation-delay:-1.1s"/>
+              <circle class="sc-dot pay" cx="216" cy="80" r="5" style="animation-delay:-0.8s"/>
+              <circle class="sc-dot pay" cx="190" cy="150" r="5" style="animation-delay:-1.9s"/>
+              <circle class="sc-dot pay" cx="300" cy="120" r="5" style="animation-delay:-0.6s"/>
+              <circle class="sc-dot pay" cx="262" cy="176" r="5" style="animation-delay:-2.3s"/>
+              <circle class="sc-ring" cx="434" cy="204" r="9" style="animation-delay:-0.9s"/>
+              <circle class="sc-dot skip" cx="434" cy="204" r="5" style="animation-delay:-0.9s"/>
+              <circle class="sc-ring" cx="496" cy="180" r="9" style="animation-delay:-1.7s"/>
+              <circle class="sc-dot skip" cx="496" cy="180" r="5" style="animation-delay:-1.7s"/>
+              <circle class="sc-ring" cx="542" cy="210" r="9" style="animation-delay:-0.3s"/>
+              <circle class="sc-dot skip" cx="542" cy="210" r="5" style="animation-delay:-0.3s"/>
+              <circle class="sc-ring" cx="458" cy="160" r="9" style="animation-delay:-2.1s"/>
+              <circle class="sc-dot skip" cx="458" cy="160" r="5" style="animation-delay:-2.1s"/>
+              <text class="sc-tag pay" x="118" y="38">pays back</text>
+              <text class="sc-tag skip" x="470" y="150" text-anchor="middle">we walk away</text>
+              <text class="sc-lab" x="594" y="250" text-anchor="end">EFFORT &rarr;</text>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -321,5 +523,21 @@
 document.getElementById("nav-mount").outerHTML = window.cygnikNav("approach");
 document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
 </script>
+<script>
+/* Approach · build the access dot-matrix (negative delays = wave already in motion) */
+(function () {
+  document.querySelectorAll(".dotgrid").forEach(function (grid) {
+    var total = parseInt(grid.dataset.dots, 10) || 144;
+    var cols = 24;
+    for (var i = 0; i < total; i++) {
+      var col = i % cols, row = Math.floor(i / cols);
+      var s = document.createElement("span");
+      s.style.animationDelay = (-(col * 0.09 + row * 0.05)).toFixed(2) + "s";
+      grid.appendChild(s);
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

@@ -38,6 +38,52 @@
     .msp-hero__inner { grid-template-columns: 1fr; }
     .msp-pillars { grid-template-columns: 1fr; }
   }
+
+  /* ===== Live Operations console (NOC) ===== */
+  .noc { border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; background: var(--bg-3); box-shadow: 0 50px 100px -60px rgba(0,0,0,0.9); }
+  .noc__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 15px 22px; border-bottom: 1px solid var(--line); background: linear-gradient(var(--bg-2), var(--bg-3)); font-family: var(--mono); flex-wrap: wrap; }
+  .noc__id { display: flex; align-items: center; gap: 11px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg); }
+  .noc__id .live { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: nlive 2s infinite; }
+  @keyframes nlive { 0% { box-shadow: 0 0 0 0 var(--accent-mid); } 70% { box-shadow: 0 0 0 8px rgba(0,0,0,0); } 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); } }
+  .noc__status { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .noc__meta { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-4); }
+  .noc__grid { display: grid; grid-template-columns: 1.32fr 1fr; }
+  .noc__map { position: relative; border-right: 1px solid var(--line); padding: 8px; }
+  .noc__map svg { width: 100%; height: auto; display: block; }
+  .noc__feed { display: flex; flex-direction: column; min-width: 0; }
+  .noc__feedhead { display: flex; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-4); }
+  .noc__feedhead .blip { color: var(--accent); }
+  .noc__log { flex: 1; padding: 6px 0; overflow: hidden; }
+  .noc__row { display: grid; grid-template-columns: 58px 9px 1fr; gap: 11px; align-items: baseline; padding: 7px 18px; font-family: var(--mono); font-size: 11.5px; color: var(--fg-2); }
+  .noc__row .t { color: var(--fg-4); font-size: 10.5px; }
+  .noc__row .d { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); align-self: center; }
+  .noc__row.warn .d { background: #d9a05b; }
+  .noc__row .x b { color: var(--fg); font-weight: 400; }
+  .noc__metrics { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); }
+  .noc__metric { padding: 15px 18px; border-right: 1px solid var(--line); }
+  .noc__metric:last-child { border-right: 0; }
+  .noc__metric b { display: block; font-family: var(--mono); font-size: 19px; color: var(--fg); font-weight: 400; margin-bottom: 3px; }
+  .noc__metric.accent b { color: var(--accent); }
+  .noc__metric span { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-4); }
+  /* topology */
+  .nlink { fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: .32; stroke-dasharray: 3 7; animation: nflow 1.3s linear infinite; }
+  .nlink.rev { animation-direction: reverse; opacity: .2; }
+  .nlink.thin { opacity: .16; }
+  @keyframes nflow { to { stroke-dashoffset: -20; } }
+  .noc__map .ring { fill: none; stroke: var(--accent); stroke-width: 1; opacity: .5; transform-box: fill-box; transform-origin: center; animation: npulse 2.6s ease-out infinite; }
+  @keyframes npulse { 0% { transform: scale(.55); opacity: .55; } 100% { transform: scale(1.9); opacity: 0; } }
+  .noc__map .core { fill: var(--bg-2); stroke: var(--accent); stroke-width: 1.4; }
+  .nhub .core { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.8; }
+  .nhub .htext { font-family: var(--mono); font-size: 9px; fill: var(--accent); letter-spacing: 0.1em; }
+  .nlabel { font-family: var(--mono); font-size: 9px; fill: var(--fg-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .nok { font-family: var(--mono); font-size: 7.5px; fill: var(--accent); letter-spacing: 0.08em; }
+  @media (max-width: 820px) {
+    .noc__grid { grid-template-columns: 1fr; }
+    .noc__map { border-right: 0; border-bottom: 1px solid var(--line); }
+    .noc__metrics { grid-template-columns: repeat(2, 1fr); }
+    .noc__metric:nth-child(2) { border-right: 0; }
+    .noc__metric:nth-child(5) { grid-column: 1 / -1; border-right: 0; }
+  }
 </style>
 </head>
 <body>
@@ -58,6 +104,54 @@
     </div>
   </div>
 </header>
+
+<section class="section section--tight">
+  <div class="shell">
+    <div class="noc">
+      <div class="noc__head">
+        <span class="noc__id"><span class="live"></span>Cygnik · Operations</span>
+        <span class="noc__status">All systems operational</span>
+        <span class="noc__meta">TO ↔ DC · monitored 24/7</span>
+      </div>
+      <div class="noc__grid">
+        <div class="noc__map">
+          <svg viewBox="0 0 560 380" role="img" aria-label="Live network map: monitored systems connected to the Cygnik operations hub with traffic flowing.">
+            <g stroke-linecap="round">
+              <line class="nlink" x1="280" y1="190" x2="110" y2="80"/>
+              <line class="nlink rev" x1="280" y1="190" x2="452" y2="76"/>
+              <line class="nlink" x1="280" y1="190" x2="500" y2="200"/>
+              <line class="nlink rev" x1="280" y1="190" x2="430" y2="318"/>
+              <line class="nlink" x1="280" y1="190" x2="120" y2="318"/>
+              <line class="nlink rev" x1="280" y1="190" x2="60" y2="200"/>
+              <line class="nlink thin" x1="452" y1="76" x2="500" y2="200"/>
+              <line class="nlink thin rev" x1="120" y1="318" x2="60" y2="200"/>
+              <line class="nlink thin" x1="110" y1="80" x2="60" y2="200"/>
+              <line class="nlink thin rev" x1="430" y1="318" x2="500" y2="200"/>
+            </g>
+            <g class="nnode"><circle class="ring" cx="110" cy="80" r="6"/><circle class="core" cx="110" cy="80" r="5"/><text class="nlabel" x="110" y="60" text-anchor="middle">Security</text><text class="nok" x="110" y="106" text-anchor="middle">● OK</text></g>
+            <g class="nnode"><circle class="ring" cx="452" cy="76" r="6"/><circle class="core" cx="452" cy="76" r="5"/><text class="nlabel" x="452" y="56" text-anchor="middle">Servers</text><text class="nok" x="452" y="102" text-anchor="middle">● OK</text></g>
+            <g class="nnode"><circle class="ring" cx="500" cy="200" r="6"/><circle class="core" cx="500" cy="200" r="5"/><text class="nlabel" x="500" y="180" text-anchor="middle">Identity</text><text class="nok" x="500" y="226" text-anchor="middle">● OK</text></g>
+            <g class="nnode"><circle class="ring" cx="430" cy="318" r="6"/><circle class="core" cx="430" cy="318" r="5"/><text class="nlabel" x="430" y="346" text-anchor="middle">Cloud</text><text class="nok" x="430" y="358" text-anchor="middle">● OK</text></g>
+            <g class="nnode"><circle class="ring" cx="120" cy="318" r="6"/><circle class="core" cx="120" cy="318" r="5"/><text class="nlabel" x="120" y="346" text-anchor="middle">Endpoints</text><text class="nok" x="120" y="358" text-anchor="middle">● OK</text></g>
+            <g class="nnode"><circle class="ring" cx="60" cy="200" r="6"/><circle class="core" cx="60" cy="200" r="5"/><text class="nlabel" x="60" y="180" text-anchor="middle">Backup</text><text class="nok" x="60" y="226" text-anchor="middle">● OK</text></g>
+            <g class="nhub"><circle class="ring" cx="280" cy="190" r="11"/><circle class="core" cx="280" cy="190" r="11"/><text class="htext" x="280" y="193" text-anchor="middle">NOC</text></g>
+          </svg>
+        </div>
+        <div class="noc__feed">
+          <div class="noc__feedhead"><span>Live event stream</span><span class="blip">● live</span></div>
+          <div class="noc__log" id="noc-log"></div>
+        </div>
+      </div>
+      <div class="noc__metrics">
+        <div class="noc__metric"><b data-count="1240">0</b><span>Endpoints monitored</span></div>
+        <div class="noc__metric"><b data-count="318">0</b><span>Threats blocked · 24h</span></div>
+        <div class="noc__metric"><b data-count="96">0</b><span>Tickets resolved · 24h</span></div>
+        <div class="noc__metric accent"><b data-count="100" data-suffix="%">0%</b><span>Backups verified</span></div>
+        <div class="noc__metric accent"><b data-count="99.98" data-suffix="%">0%</b><span>Uptime · 90d</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section section--tight">
   <div class="shell">
@@ -108,6 +202,72 @@
 <script>
 document.getElementById("nav-mount").outerHTML = window.cygnikNav("msp");
 document.getElementById("footer-mount").outerHTML = window.cygnikFooter();
+</script>
+<script>
+/* MSP · live operations console */
+(function () {
+  // ---- metric counters ----
+  function fmt(n, dec) { return dec ? n.toFixed(dec) : Math.round(n).toLocaleString("en-US"); }
+  document.querySelectorAll(".noc__metric b[data-count]").forEach(function (b) {
+    var raw = b.dataset.count, target = parseFloat(raw) || 0, suf = b.dataset.suffix || "";
+    var dec = raw.indexOf(".") > -1 ? 2 : 0, i = 0, n = 30;
+    var iv = setInterval(function () {
+      i++; var p = i / n, e = 1 - Math.pow(1 - p, 3);
+      b.textContent = fmt(target * e, dec) + suf;
+      if (i >= n) { b.textContent = fmt(target, dec) + suf; clearInterval(iv); }
+    }, 32);
+  });
+
+  // ---- streaming event feed ----
+  var log = document.getElementById("noc-log");
+  if (!log) return;
+  var POOL = [
+    { x: "Patch deployed · <b>web-03</b>" },
+    { x: "Backup verified · <b>14 TB</b> restore OK" },
+    { x: "Threat blocked · phishing · quarantined", warn: true },
+    { x: "MFA enforced · <b>3</b> new devices" },
+    { x: "Cert renewed · <b>*.client.com</b>" },
+    { x: "Capacity added · <b>+200 GB</b> · db-01" },
+    { x: "Ticket resolved · <b>#4412</b> · 6m", warn: true },
+    { x: "Endpoint isolated · malware contained", warn: true },
+    { x: "Failover tested · <b>DR site</b> healthy" },
+    { x: "Vuln patched · CVE · severity high" },
+    { x: "M365 tenant · policy synced" },
+    { x: "Disk SMART · <b>all green</b>" },
+    { x: "Firewall rule · updated · audited" },
+    { x: "Identity review · <b>0</b> stale accounts" }
+  ];
+  var MAX = 7, pi = 0;
+  var clock = 9 * 3600 + 14 * 60 + 2; // 09:14:02
+  function stamp() {
+    clock += 17 + Math.floor(Math.random() * 40);
+    var h = Math.floor(clock / 3600) % 24, m = Math.floor((clock % 3600) / 60), s = clock % 60;
+    function p(v) { return (v < 10 ? "0" : "") + v; }
+    return p(h) + ":" + p(m) + ":" + p(s);
+  }
+  // Parse a constant template like "Patch deployed · <b>web-03</b>" into text + <b> nodes safely.
+  function renderTemplate(parent, tpl) {
+    var rx = /<b>([\s\S]*?)<\/b>/g, last = 0, m;
+    while ((m = rx.exec(tpl)) !== null) {
+      if (m.index > last) parent.appendChild(document.createTextNode(tpl.slice(last, m.index)));
+      var b = document.createElement("b"); b.textContent = m[1]; parent.appendChild(b);
+      last = m.index + m[0].length;
+    }
+    if (last < tpl.length) parent.appendChild(document.createTextNode(tpl.slice(last)));
+  }
+  function add() {
+    var e = POOL[pi % POOL.length]; pi++;
+    var row = document.createElement("div");
+    row.className = "noc__row" + (e.warn ? " warn" : "");
+    var t = document.createElement("span"); t.className = "t"; t.textContent = stamp(); row.appendChild(t);
+    var d = document.createElement("span"); d.className = "d"; row.appendChild(d);
+    var x = document.createElement("span"); x.className = "x"; renderTemplate(x, e.x); row.appendChild(x);
+    log.insertBefore(row, log.firstChild);
+    while (log.children.length > MAX) log.removeChild(log.lastChild);
+  }
+  for (var k = 0; k < MAX; k++) add();
+  setInterval(add, 1900);
+})();
 </script>
 </body>
 </html>
